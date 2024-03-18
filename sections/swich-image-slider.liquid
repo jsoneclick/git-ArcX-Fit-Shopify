@@ -1,0 +1,347 @@
+<style>
+    #shopify-section-{{ section.id }} {
+      text-align: center;
+      padding: 2rem;
+      background-color: {{section.settings.background_color}};
+      background: {{section.settings.background_gradient}};
+    }
+
+   #shopify-section-{{ section.id }} .header {
+      font-size: var(--text-h0);
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-image: url("{{ section.settings.switch-image | image_url }}");
+      background-clip: text;
+      background-size: cover;
+      color: transparent;
+    }
+
+   #shopify-section-{{ section.id }} .upper-prose {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+   #shopify-section-{{ section.id }} .bottom-prose {
+     position: relative;
+      display: flex;
+      align-items: center;
+     justify-content: center;
+     gap: 2rem;
+    }
+
+   #shopify-section-{{ section.id }} .switch-wrapper {
+     margin-right: 10px;
+     height: 100px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     transform: scale(.85);
+    }
+
+  #shopify-section-{{ section.id }}  .body-text {
+    flex: 1;
+    color: black;
+    height: 100px;
+    width: 55vw;
+    text-align: start;
+    }
+
+   #shopify-section-{{ section.id }} .slider-wrapper {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      position: relative;
+    }
+
+   #shopify-section-{{ section.id }} .slider-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+   #shopify-section-{{ section.id }} .btn-to-left,
+   #shopify-section-{{ section.id }} .btn-to-right {
+      width: 60px;
+      height: 60px;
+      background-color: #141414;
+      cursor: pointer;
+      border-radius: 50%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    }
+  #shopify-section-{{ section.id }} .btn-to-left svg {
+    transform: rotateZ(180deg);
+  }
+
+   #shopify-section-{{ section.id }} .slider-images-wrapper {
+      width: 90%;
+      overflow: hidden;
+      scroll-behavior: smooth;
+      white-space: nowrap;
+      transition: transform 0.5s ease;
+      box-sizing: border-box;
+       padding: 0;
+      margin: 0;
+    }
+
+   #shopify-section-{{ section.id }} .image-block {
+      display: inline-block;
+      width: 25%;
+      aspect-ratio: 1 / 2;
+      overflow: hidden;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     transition: 0.3s ease;
+     filter: grayscale(100%);
+     margin-left: -4px;
+    }
+
+   #shopify-section-{{ section.id }} .image-block img {
+      width: auto;
+      height: 80%;
+      object-fit: cover;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  #shopify-section-{{ section.id }} .custom-checkbox {
+            display: inline-block;
+            position: relative;
+            width: 130px;
+            /* height: 68px; */
+            background: #000000;
+            background-image: url("{{ section.settings.switch-image | image_url }}");
+            background-size: cover;
+            border-radius: 70px;
+            /* padding: 5px 15px !important; */
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            border: 3px solid #d9d9d9;
+            box-shadow: 0px 0px 0px 1px #000;
+        }
+
+
+       #shopify-section-{{ section.id }} .custom-checkbox .inner-circle {
+            /* position: absolute; */
+            width: 47px;
+            height: 47px;
+           margin: 8px;
+            background: #68687F;
+            border-radius: 50%;
+            box-shadow: 2px 5px 4px 0px rgba(0, 0, 0, 0.25) inset, -5px -1px 4px 0px rgba(0, 0, 0, 0.15) inset;
+            transition: 0.3s ease;
+            
+        }
+
+       #shopify-section-{{ section.id }} input[type="checkbox"] {
+            display: none;
+        }
+
+      #shopify-section-{{ section.id }}  input[type="checkbox"]:checked+.custom-checkbox {
+            
+      }
+
+      #shopify-section-{{ section.id }}  input[type="checkbox"]:checked+.custom-checkbox .inner-circle {
+            transform: translateX(60px);
+            background: #549DF8;
+      }
+ #shopify-section-{{ section.id }} .last-word {
+            color: {{section.settings.header_span_color}};
+        }
+  @media screen and (max-width:990px){
+    #shopify-section-{{ section.id }} .header {
+      font-size: var(--text-h1);
+    }
+    #shopify-section-{{ section.id }} .bottom-prose {
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
+    #shopify-section-{{ section.id }}  .body-text {
+    width: 100%;
+    text-align: start;
+    }
+    #shopify-section-{{ section.id }} {
+      padding: 1rem;
+    }
+     #shopify-section-{{ section.id }} .image-block {
+      width: 100%;
+    }
+    
+  }
+  </style>
+    <div class="upper-prose">
+      <div class="header"  id="myHeader">
+        {{ section.settings.header }}
+      </div>
+      <div class="bottom-prose">
+        <div class="switch-wrapper">
+          <label>
+                            <input type="checkbox" id="sport_checkbox">
+                            <span class="custom-checkbox">
+                                <span class="inner-circle"></span>
+                            </span>
+                        </label>
+        </div>
+        <div class="body-text">{{ section.settings.body_text }}</div>
+      </div>
+    </div>
+  <div class="slider-wrapper"><div class="slider-images-wrapper"  id="sliderImages">
+  {% for block in section.blocks %}
+    <div class="image-block">
+      <img src="{{ block.settings.image | image_url }}">
+    </div>
+    {% endfor %}
+    </div>
+    <div class="slider-buttons">
+      <div class="btn-to-left" onclick="slideImages('left')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="24" viewBox="0 0 29 24" fill="none">
+        <path d="M28.5607 13.0607C29.1464 12.4749 29.1464 11.5251 28.5607 10.9393L19.0147 1.3934C18.4289 0.80761 17.4792 0.80761 16.8934 1.3934C16.3076 1.97918 16.3076 2.92893 16.8934 3.51472L25.3787 12L16.8934 20.4853C16.3076 21.0711 16.3076 22.0208 16.8934 22.6066C17.4792 23.1924 18.4289 23.1924 19.0147 22.6066L28.5607 13.0607ZM0.5 13.5L27.5 13.5L27.5 10.5L0.5 10.5L0.5 13.5Z" fill="white"/>
+        </svg>
+      </div>
+      <div class="btn-to-right" onclick="slideImages('right')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="24" viewBox="0 0 29 24" fill="none">
+        <path d="M28.5607 13.0607C29.1464 12.4749 29.1464 11.5251 28.5607 10.9393L19.0147 1.3934C18.4289 0.80761 17.4792 0.80761 16.8934 1.3934C16.3076 1.97918 16.3076 2.92893 16.8934 3.51472L25.3787 12L16.8934 20.4853C16.3076 21.0711 16.3076 22.0208 16.8934 22.6066C17.4792 23.1924 18.4289 23.1924 19.0147 22.6066L28.5607 13.0607ZM0.5 13.5L27.5 13.5L27.5 10.5L0.5 10.5L0.5 13.5Z" fill="white"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <script>
+    const sliderImagesWrapper = document.getElementById('sliderImages');
+    const images = document.querySelectorAll('.image-block');
+    
+    const btnToLeft = document.querySelector('.btn-to-left');
+    const btnToRight = document.querySelector('.btn-to-right');
+    
+    const totalImages = sliderImagesWrapper.children.length;
+    const imageWidth = images[0].offsetWidth;
+    const maxPosition = (totalImages - 4) * imageWidth;
+    let currentPosition = 0;
+  sliderImagesWrapper.scrollLeft = currentPosition;
+
+    function checkArrows(){
+      if (sliderImagesWrapper.scrollLeft >= maxPosition - 100) {
+      btnToRight.style.opacity = '0';
+    } else if(sliderImagesWrapper.scrollLeft <= maxPosition) {
+      btnToRight.style.opacity = '1';
+    }
+    
+    if (sliderImagesWrapper.scrollLeft === 0) {
+      btnToLeft.style.opacity = '0';
+    } else if(sliderImagesWrapper.scrollLeft > 0) {
+      btnToLeft.style.opacity = '1';
+    }
+    }
+    
+    checkArrows();
+
+    
+    function slideImages(direction) {
+      checkArrows();
+      const step = imageWidth;
+  
+      if (direction === 'left' && currentPosition > 0) {
+        currentPosition -= step;
+        btnToRight.style.opacity = '1';
+      } else if (direction === 'right' && currentPosition < maxPosition) {
+        currentPosition += step;
+        btnToLeft.style.opacity = '1';
+      }
+
+      sliderImagesWrapper.scrollLeft = currentPosition;
+      
+      
+    }
+    
+       colorLastWords("{{section.settings.header}}", 'myHeader', 1);
+
+const sportCheckbox = document.getElementById("sport_checkbox");
+const sportImages = document.querySelectorAll(".image-block");
+
+sportCheckbox.addEventListener("change", function () {
+    if (sportCheckbox.checked) {
+        for (let i = 0; i < sportImages.length; i++) {
+            sportImages[i].style.filter = "grayscale(0%)"; // Use [i] to access individual elements
+        }
+    } else {
+        for (let i = 0; i < sportImages.length; i++) {
+            sportImages[i].style.filter = "grayscale(100%)"; // Use [i] to access individual elements
+        }
+    }
+});
+    checkArrows();
+  </script>
+  {% schema %}
+  {
+    "name": "Switch Image Slider",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "header_span_color",
+        "label": "Header Span Color",
+        "default": "#5252FF"
+      },
+      {
+        "type": "text",
+        "label": "Header",
+        "id": "header"
+      },
+      {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "body_text"
+      },
+       {
+            "type": "image_picker",
+            "id": "switch-image",
+            "label": "Switch Image"
+          }
+    ],
+    "blocks": [
+    {
+        "type": "tab",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+    }
+],
+    "presets": [
+      {
+        "name": "Switch Image Slider"
+      }
+    ]
+  }
+{% endschema %}

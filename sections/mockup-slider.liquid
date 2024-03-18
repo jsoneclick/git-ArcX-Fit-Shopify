@@ -1,0 +1,335 @@
+<style>
+    #shopify-section-{{ section.id }} {
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      background-color: {{section.settings.background_color}};
+      background: {{section.settings.background_gradient}};
+      color: #000;
+      gap: 7rem;
+    }
+  
+  #shopify-section-{{ section.id }} .mockup-slider-aside {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-block-end: 1.5rem;
+    max-width: 150px;
+    font-size: 20px;
+    line-height: normal;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .slider-button:hover .slider-number{
+    background: #0EC3FF80;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-number {
+    height: 3rem;
+    aspect-ratio: 1 / 1;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-end: 1rem;
+     transition: background .6s;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .slider-number.active {
+    background: #0EC3FF; /* Add your desired active background color here */
+    color: #fff; /* Set the text color when active */
+  }
+  
+  
+  #shopify-section-{{ section.id }} .mockup-images-wrapper {
+    width: 20vw;
+    aspect-ratio: 8 / 16;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-images-wrapper img {
+    position: absolute;
+    height: 100%;
+    width: auto;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-slide {
+    height: 95% !important;
+    opacity: 0;
+    transition: opacity .6s;
+  }
+  #shopify-section-{{ section.id }} .mockup-slide.active {
+    height: 95% !important;
+    opacity: 1 !important;
+  }
+ #shopify-section-{{ section.id }} .prose {
+    max-width: 35vw;
+   font-size: 18px;
+  }
+  
+  #shopify-section-{{ section.id }} .prose p {
+    margin-top: 35px;
+    font-style: normal;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-buttons-wrapper {
+    height: ;
+    margin-block-start: 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+     margin-top: 35px;
+  }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+    }
+  
+  #shopify-section-{{ section.id }} .mockup-buttons-wrapper a {
+    border: none !important;
+    -webkit-text-decoration: none !important;
+    text-decoration: none!important;
+    background: none;
+    padding: 0;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-buttons-wrapper img{
+    margin-block: 0;
+  }
+
+    @media screen and (max-width: 990px) {
+      #shopify-section-{{ section.id }} {
+        flex-direction: column-reverse;
+        align-items: center;
+         gap: 3rem;
+        padding: 2rem 1rem;
+      }
+      #shopify-section-{{ section.id }} .prose {
+        max-width: 80vw;
+        text-align: center;
+      }
+      #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 35vw;
+      }
+    }
+
+  @media screen and (max-width: 700px) {
+      #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 45vw;
+      }
+    }
+
+     @media screen and (max-width: 500px) {
+      #shopify-section-{{ section.id }} .mockup-slider-aside {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 0rem;
+        flex-direction: column;
+      }
+      #shopify-section-{{ section.id }} .slider-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        flex-direction: row;
+        gap: .75rem;
+      }
+       
+       #shopify-section-{{ section.id }} .slider-button {
+        max-width: 80px;
+        font-size: 16px;
+      }
+       
+       #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 80vw;
+      }
+    }
+  
+  </style>
+  <div class="mockup-slider-aside">
+    <div class="slider-buttons">
+      {% for block in section.blocks %}
+  <div class="slider-button" onclick="activateSliderNumber({{ forloop.index }})">
+        <div class="slider-number" id="slider-number-{{ forloop.index }}">{{ forloop.index }}</div>
+        {{ block.settings.button-text }}
+      </div>
+    {% endfor %}
+  </div>
+    <div class="mockup-images-wrapper">
+      {% for block in section.blocks %}
+      {% if block.settings.slide-image %}<img class="mockup-slide" id="slide-{{ forloop.index }}" src="{{ block.settings.slide-image | image_url }}" alt="slide">{% endif %}
+        {% endfor %}
+      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case">{% endif %}
+    </div>
+  </div>
+  <div class="prose">
+    <p class="h1" id="section-header">
+      {{ section.settings.header }}
+    </p>
+    {{ section.settings.prose-text }}
+    <div class="mockup-buttons-wrapper">
+    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}"></a>{% endif %}
+    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}"></a>{% endif %}
+    </div>
+  </div>
+<script>
+  let currentSlide = 1;
+  const totalSlides = {{ section.blocks.size }};
+  const intervalDuration = {{ section.settings.slider-speed }}* 1000; // Set the interval duration in milliseconds (e.g., 5000 for 5 seconds)
+  let autoSlideInterval;
+
+  function activateSliderNumber(number) {
+    document.querySelectorAll('.slider-number, .mockup-slide').forEach(function (el) {
+      el.classList.remove('active');
+    });
+
+    // Add 'active' class to the clicked slider number
+    var clickedNumber = document.getElementById('slider-number-' + number);
+    if (clickedNumber) {
+      clickedNumber.classList.add('active');
+    }
+
+    // Show the corresponding slide
+    var activeSlide = document.getElementById('slide-' + number);
+    if (activeSlide) {
+      activeSlide.classList.add('active');
+    }
+
+    // Clear existing interval
+    clearInterval(autoSlideInterval);
+
+    // Set a new interval after the click event
+    autoSlideInterval = setInterval(autoSlide, intervalDuration);
+  }
+
+  function autoSlide() {
+    activateSliderNumber(currentSlide);
+
+    // Move to the next slide
+    currentSlide = (currentSlide % totalSlides) + 1;
+  }
+
+  // Set interval for auto sliding
+  autoSlideInterval = setInterval(autoSlide, intervalDuration);
+
+  // Initial activation of the first slide
+  activateSliderNumber(1);
+
+  // Function to color the last word in the header
+  colorLastWords("{{section.settings.header}}", 'section-header', 2);
+</script>
+  {% schema %}
+  {
+    "name": "Mockup Slider",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "header_span_color",
+        "label": "Header Span Color",
+        "default": "#5252FF"
+      },
+      {
+        "type": "image_picker",
+        "id": "mockup-case",
+        "label": "Mockup Case Image"
+      },
+      {
+            "type": "range",
+            "label": "Slider Speed",
+            "id": "slider-speed",
+            "min": 1,
+            "max": 10,
+            "default": 4,
+            "step": 1
+          },
+      {
+        "type": "text",
+        "label": "Header",
+        "id": "header",
+        "default": "Different size for different uses"
+      },
+      {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "prose-text"
+      },
+      {
+        "type": "image_picker",
+        "id": "image-button-gp",
+        "label": "Image Google Play Button"
+      },
+      
+      {
+        "type": "url",
+        "id": "google-play-link",
+        "label": "Link for 1st Button"
+      },
+       {
+        "type": "image_picker",
+        "id": "image-button-as",
+        "label": "Image App Store Button"
+      },
+      {
+        "type": "url",
+        "id": "app-store-link",
+        "label": "Link for 2nd Button"
+      }
+    ],
+    "blocks": [
+    {
+        "type": "tab",
+        "name": "Mockup Slide",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Mockup Button Text",
+            "id": "button-text",
+            "default": "Button"
+          },
+          {
+          "type": "image_picker",
+          "id": "slide-image",
+          "label": "Mockupm Slide Image"
+        }
+        ]
+    }
+],
+    "presets": [
+      {
+        "name": "Mockup Slider"
+      }
+    ]
+  }
+{% endschema %}

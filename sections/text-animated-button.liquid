@@ -1,0 +1,243 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    background-color: {{section.settings.background_color}};
+    background: {{section.settings.background_gradient}};
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 4rem;
+    gap: 1.5rem;
+  }
+  .animated-button {
+    padding: 1.5rem 4.5rem;
+    background: linear-gradient(-264deg, #5252FF -5.79%, #0EC3FF 129.5%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4rem;
+    cursor: pointer;
+    box-shadow: 1px 1px 35px 1px rgba(38, 43, 45, 0.25);
+    z-index:1;
+    /* animation: fadeOut 8s infinite; */
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .blob-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 350px;
+    width: 350px;
+  }
+  .prose {
+    color: {{section.settings.prose_color}};
+  }
+
+.scrolling-words-container {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 600; 
+}
+
+.scrolling-words-box {
+  height: 3rem;
+  margin: auto;
+  overflow: hidden;
+}
+
+.scrolling-words-box ul {
+  padding: 0;
+  margin: 0;
+  animation: scrollUp 8s infinite;
+}
+
+.scrolling-words-box ul li {
+  display: flex;
+  align-items: center;
+  justify-content:  center;
+  height: 3rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Variables */
+:root {
+  --item-count: 5;
+}
+
+@keyframes scrollUp {
+  5%, 10% {
+    transform: translateY(0);
+  }
+  
+  30%, 35% {
+    transform: translateY(-20%);
+  }
+  
+  55%, 60% {
+    transform: translateY(-40%);
+  }
+  
+  80%, 95% {
+    transform: translateY(-20%);
+  }
+  95%, 100% {
+    transform: translateY(0%);
+  }
+}
+  @keyframes fadeOut {
+  5%, 10% {
+    background: linear-gradient(-264deg, #5252FF -5.79%, #0EC3FF 129.5%);
+  }
+  
+  30%, 35% {
+    background: linear-gradient(-264deg, #5252FF -5.79%, #0EC3FF 129.5%);
+  }
+  
+  55%, 60% {
+    background: none;
+    box-shadow: none;
+  }
+  
+  80%, 95% {
+    background: linear-gradient(-264deg, #5252FF -5.79%, #0EC3FF 129.5%);
+  }
+  95%, 100% {
+    background: linear-gradient(-264deg, #5252FF -5.79%, #0EC3FF 129.5%);
+  }
+}
+  
+  </style>
+  <div class="button-container">
+    <div class="blob-container">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+    <linearGradient id="customGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="-5.79%" style="stop-color: #5252FF" />
+      <stop offset="129.5%" style="stop-color: #0EC3FF" />
+    </linearGradient>
+  </defs>
+  <path transform="translate(100 100)" fill="url(#customGradient)">
+    <animate attributeName="d"
+      dur="8000ms"
+      repeatCount="indefinite"
+      values="M16.6,-17.6C25.2,-12.6,38.3,-10.8,43.5,-4.3C48.6,2.2,45.8,13.5,42.3,28.9C38.7,44.3,34.5,63.7,23.1,71.1C11.8,78.5,-6.7,73.8,-18.2,63.7C-29.7,53.6,-34.3,38,-33.2,25.9C-32.1,13.8,-25.5,5.3,-21.6,-1.5C-17.6,-8.3,-16.4,-13.2,-13.3,-19.2C-10.1,-25.1,-5.1,-32.1,-0.5,-31.5C4,-30.9,8.1,-22.6,16.6,-17.6Z;
+              M52.8,-55.1C65.4,-52.3,70.7,-32.8,74.2,-13.1C77.6,6.6,79.3,26.7,68.1,32.9C56.9,39.1,32.7,31.4,19,24.4C5.2,17.5,1.7,11.2,0,7.4C-1.6,3.5,-1.5,2.2,-8.1,0.1C-14.7,-1.9,-28.1,-4.6,-35.3,-13.7C-42.6,-22.7,-43.8,-38.1,-36.9,-42C-29.9,-45.9,-15,-38.2,2.5,-41.2C20,-44.3,40.1,-58,52.8,-55.1Z;
+              M9.3,-17.1C14.7,-6.6,23.4,-6.1,29.6,-0.8C35.8,4.5,39.5,14.7,38.2,26.8C36.9,38.9,30.6,52.8,23,49.8C15.4,46.8,6.5,26.8,-3.4,19C-13.3,11.2,-24.1,15.7,-32.5,13C-40.9,10.3,-46.9,0.5,-49.8,-13.2C-52.7,-27,-52.5,-44.6,-43.6,-54.5C-34.8,-64.4,-17.4,-66.6,-7.7,-57.4C2,-48.3,3.9,-27.7,9.3,-17.1Z;
+              M10.5,-16.6C14.5,-9.1,19.4,-6.7,26.5,0.3C33.6,7.2,42.9,18.7,42.6,29.6C42.2,40.5,32.3,50.8,20.7,53.6C9.2,56.3,-3.9,51.5,-22,49.6C-40.1,47.7,-63.1,48.7,-63.2,40.5C-63.2,32.2,-40.1,14.6,-32.3,-1.5C-24.5,-17.6,-31.9,-32.2,-29,-39.8C-26.2,-47.5,-13.1,-48.2,-4.9,-42.3C3.2,-36.5,6.5,-24,10.5,-16.6Z;
+              M16.6,-17.6C25.2,-12.6,38.3,-10.8,43.5,-4.3C48.6,2.2,45.8,13.5,42.3,28.9C38.7,44.3,34.5,63.7,23.1,71.1C11.8,78.5,-6.7,73.8,-18.2,63.7C-29.7,53.6,-34.3,38,-33.2,25.9C-32.1,13.8,-25.5,5.3,-21.6,-1.5C-17.6,-8.3,-16.4,-13.2,-13.3,-19.2C-10.1,-25.1,-5.1,-32.1,-0.5,-31.5C4,-30.9,8.1,-22.6,16.6,-17.6Z">
+    </animate>
+  </path>
+</svg>
+    </div>
+  <div class="animated-button">
+    <div class="scrolling-words-box">
+    <ul>
+      <li>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="36" viewBox="0 0 35 36" fill="none">
+          <path d="M33.5521 17.1402C34.2047 17.5277 34.2047 18.4723 33.5521 18.8598L10.2606 32.6914C9.59401 33.0872 8.75 32.6068 8.75 31.8316L8.75 4.16842C8.75 3.39315 9.59401 2.91275 10.2606 3.30861L33.5521 17.1402Z" fill="#FDFCFE"/>
+        </svg>
+      </li>
+      <li>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M13.3333 31.6666C15.1667 31.6666 16.6667 30.1666 16.6667 28.3333V11.6666C16.6667 9.83325 15.1667 8.33325 13.3333 8.33325C11.5 8.33325 10 9.83325 10 11.6666V28.3333C10 30.1666 11.5 31.6666 13.3333 31.6666ZM23.3333 11.6666V28.3333C23.3333 30.1666 24.8333 31.6666 26.6667 31.6666C28.5 31.6666 30 30.1666 30 28.3333V11.6666C30 9.83325 28.5 8.33325 26.6667 8.33325C24.8333 8.33325 23.3333 9.83325 23.3333 11.6666Z" fill="white"/>
+        </svg>
+      </li>
+      <li style="color: #fff">Klyaksa</li>
+      <li>Design</li>
+      <li>Code</li>
+    </ul>
+  </div>
+  </div>
+  </div>
+  <div class="prose">
+    {{ section.settings.body_text }}
+  </div>
+
+  
+{% schema %}
+  {
+    "name": "Animated Button Text",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "prose_color",
+        "label": "Text Color",
+        "default": "#030303"
+      },
+      {
+          "type": "richtext",
+          "id": "body_text",
+          "label": "Body Text",
+          "default": "<h1>Play, Pause & navigate music</h1>"
+        },
+      {
+            "type": "range",
+            "label": "Font Size (Line 1)",
+            "id": "font_size",
+            "min": 16,
+            "max": 96,
+            "default": 74,
+            "step": 1
+          },
+      {
+          "type": "richtext",
+          "id": "second_line",
+          "label": "Second Line",
+          "default": "<h1>Advanced technology meets award-winning design</h1>"
+        },
+      {
+            "type": "range",
+            "label": "Font Size (Line 2)",
+            "id": "font_size_2",
+            "min": 16,
+            "max": 96,
+            "default": 48,
+            "step": 1
+          },
+        {
+            "type": "range",
+            "label": "Animation Text Scroll Speed (Line 1)",
+            "id": "animation_speed",
+            "min": 1,
+            "max": 30,
+            "default": 6,
+            "step": 1
+          },
+      {
+            "type": "range",
+            "label": "Animation Text Scroll Speed (Line 2)",
+            "id": "animation_speed_2",
+            "min": 1,
+            "max": 30,
+            "default": 6,
+            "step": 1
+          }
+    ],
+    "presets": [
+      {
+        "name": "Animated Button Text"
+      }
+    ]
+  }
+{% endschema %}

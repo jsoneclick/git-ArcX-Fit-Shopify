@@ -1,0 +1,409 @@
+<style>
+    #shopify-section-{{ section.id }} {
+      padding: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      background-color: {{section.settings.background_color}};
+      background: {{section.settings.background_gradient}};
+      background-image: url('{{ section.settings.background-image | image_url }}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: #000;
+      gap: 7rem;
+    }
+  
+  #shopify-section-{{ section.id }} .mockup-slider-aside {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-block-end: 1.5rem;
+    max-width: 150px;
+    font-size: 20px;
+    line-height: normal;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .slider-button:hover .slider-number{
+    background: #0EC3FF80;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-number {
+    height: 3rem;
+    aspect-ratio: 1 / 1;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-end: 1rem;
+     transition: background .6s;
+    cursor: pointer;
+    
+  }
+
+  #shopify-section-{{ section.id }} .slider-number.active {
+    background: #0EC3FF; /* Add your desired active background color here */
+    color: #fff; /* Set the text color when active */
+  }
+  
+  
+  #shopify-section-{{ section.id }} .mockup-images-wrapper {
+    width: 20vw;
+    aspect-ratio: 8 / 16;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateZ(0.9deg);
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-images-wrapper img {
+    position: absolute;
+    height: 100%;
+    width: auto;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-slide {
+    height: 95% !important;
+  }
+  #shopify-section-{{ section.id }} .mockup-slide.active {
+    height: 95% !important;
+    opacity: 1 !important;
+  }
+ #shopify-section-{{ section.id }} .prose {
+    max-width: 35vw;
+   font-size: 18px;
+   color: {{section.settings.prose_color}};
+  }
+  
+  #shopify-section-{{ section.id }} .prose p {
+    margin-top: 35px;
+    font-style: normal;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-buttons-wrapper {
+    height: ;
+    margin-block-start: 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+     margin-top: 35px;
+  }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+    }
+  
+  #shopify-section-{{ section.id }} a {
+    border: none !important;
+    -webkit-text-decoration: none !important;
+    text-decoration: none!important;
+    background: none;
+    padding: 0;
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-buttons-wrapper img{
+    margin-block: 0;
+  }
+  
+  #shopify-section-{{ section.id }} .button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-block-start: var(--spacing-12);
+  }
+  
+  #shopify-section-{{ section.id }} .mockup-link-button {
+    padding-block-start: var(--spacing-3-5);
+    padding-block-end: var(--spacing-3-5);
+    padding-inline-start: var(--spacing-8);
+    padding-inline-end: var(--spacing-8);
+    background: {{section.settings.button_background}};
+    border: 2px solid {{section.settings.button_color}};
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--text-base);
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    color: {{section.settings.button_color}};
+  }
+  #shopify-section-{{ section.id }} .mockup-link-button svg {
+    margin-left: .5rem;
+    transition: transform .4s;
+    transform: translateX(0%) scale(.65);
+  }
+#shopify-section-{{ section.id }} .mockup-link-button:hover svg {
+    transform: translateX(30%) scale(.65);
+  }
+  .mockup-timer {
+    color: #F40;
+    text-align: center;
+    font-family: Gotham;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: 0.6px;
+    position: absolute;
+    top: -10%;
+    left: -30%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .timer-text {
+    position: absolute;
+  }
+
+  #penPath {
+      stroke-dasharray: 700;
+      stroke-dashoffset: 700;
+      animation: draw 2s ease-in-out infinite;
+    position: absolute;
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+  
+  
+    @media screen and (max-width: 990px) {
+      #shopify-section-{{ section.id }} {
+        flex-direction: column;
+        align-items: center;
+         gap: 1rem;
+        padding: 5rem 1rem;
+      }
+     #shopify-section-{{ section.id }} .button-wrapper {
+        justify-content: center;
+      }
+      #shopify-section-{{ section.id }} .prose {
+        max-width: 80vw;
+        text-align: center;
+      }
+      #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 35vw;
+      }
+    }
+
+  @media screen and (max-width: 700px) {
+      #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 45vw;
+      }
+    }
+
+     @media screen and (max-width: 500px) {
+      #shopify-section-{{ section.id }} .mockup-slider-aside {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1.5rem;
+        flex-direction: column-reverse;
+      }
+      #shopify-section-{{ section.id }} .slider-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        flex-direction: row;
+        gap: .75rem;
+      }
+       
+       #shopify-section-{{ section.id }} .slider-button {
+        max-width: 80px;
+        font-size: 16px;
+      }
+       
+       #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        width: 80vw;
+      }
+    }
+  </style>
+  <div class="mockup-slider-aside">
+    <div class="mockup-images-wrapper">
+      <div class="mockup-timer">
+        <div class="timer-text" id="timer">01:41.39</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="266" height="119" viewBox="0 0 266 119" fill="none">
+<path id="penPath" d="M199.456 11.7294C195.806 10.7632 193.75 9.88611 189.567 9.50716C147.723 5.7164 103.075 4.34808 62.197 15.5072C54.2935 17.6647 39.0182 23.7376 31.3081 27.5812C21.4242 32.5086 8.78695 39.202 3.93773 49.8775C-2.68699 64.4618 2.64677 82.2064 12.4192 94.0998C24.4173 108.702 42.8021 113.668 60.5674 116.211C99.5858 121.796 140.947 115.904 178.567 105.063C192.735 100.98 210.264 94.4243 223.456 87.5812C237.337 80.381 253.599 70.4728 261.901 56.5812C274.781 35.0291 242.749 20.9928 227.53 15.5812C196.26 4.46168 162.952 1.50705 130.012 1.02568C104.21 0.64862 80.766 4.50853 55.4563 7.06272" stroke="#FF4400" stroke-linecap="round"/>
+</svg>
+      </div>
+      {% if section.settings.mockup-image %}<img class="mockup-slide" src="{{ section.settings.mockup-image | image_url }}" alt="slide">{% endif %}
+      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case">{% endif %}
+    </div>
+  </div>
+  <div class="prose">
+    <p class="h1" id="section-headerr">
+      {{ section.settings.header }}
+    </p>
+    {{ section.settings.prose-text }}
+    <div class="mockup-buttons-wrapper">
+    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}"></a>{% endif %}
+    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}"></a>{% endif %}
+    </div>
+    <div class="button-wrapper">
+      <a href="{{ section.settings.cart-link }}"><div class="mockup-link-button">{{ section.settings.button-text }}<svg xmlns="http://www.w3.org/2000/svg" width="29" height="24" viewBox="0 0 29 24" fill="none">
+<path d="M28.0607 13.0607C28.6464 12.4749 28.6464 11.5251 28.0607 10.9393L18.5147 1.3934C17.9289 0.80761 16.9792 0.80761 16.3934 1.3934C15.8076 1.97918 15.8076 2.92893 16.3934 3.51472L24.8787 12L16.3934 20.4853C15.8076 21.0711 15.8076 22.0208 16.3934 22.6066C16.9792 23.1924 17.9289 23.1924 18.5147 22.6066L28.0607 13.0607ZM1.31134e-07 13.5L27 13.5L27 10.5L-1.31134e-07 10.5L1.31134e-07 13.5Z" fill="{{section.settings.button_color}}"/>
+</svg></div></a>
+    </div>
+  </div>
+<script>
+  colorLastWords("{{section.settings.header}}", 'section-headerr', 2);
+
+  function startTimer() {
+      let timerElement = document.getElementById('timer');
+      let initialTime = 2 * 60 * 100; // 2 minutes in hundredths of a second
+      let currentTime = initialTime;
+
+      function updateTimer() {
+        let minutes = Math.floor(currentTime / 6000);
+        let seconds = Math.floor((currentTime % 6000) / 100);
+        let hundredths = currentTime % 100;
+
+        // Formatting the time
+        let formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(hundredths).padStart(2, '0')}`;
+
+        // Update the timer text
+        timerElement.textContent = formattedTime;
+
+        // Decrement the time
+        currentTime--;
+
+        // Reset the timer if it reaches 0
+        if (currentTime < 0) {
+          currentTime = initialTime;
+        }
+      }
+
+      // Update the timer every 10 milliseconds (100 times per second)
+      setInterval(updateTimer, 10);
+    }
+
+    // Start the timer when the page loads
+    window.onload = startTimer;
+</script>
+  {% schema %}
+  {
+    "name": "Mockup Timer",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "image_picker",
+        "id": "background-image",
+        "label": "Background Image"
+      },
+      {
+        "type": "color",
+        "id": "header_span_color",
+        "label": "Header Span Color",
+        "default": "#5252FF"
+      },
+      {
+        "type": "image_picker",
+        "id": "mockup-case",
+        "label": "Mockup Case Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mockup-image",
+        "label": "Mockup Screen Image"
+      },
+      {
+        "type": "text",
+        "label": "Header",
+        "id": "header",
+        "default": "Different size for different uses"
+      },
+      {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "prose-text"
+      },
+      {
+        "type": "color",
+        "id": "prose_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button_background",
+        "label": "Button Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button_color",
+        "label": "Button Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "label": "Button Text",
+        "id": "button-text",
+        "default": "Go to shop"
+      },
+      {
+        "type": "url",
+        "id": "cart-link",
+        "label": "Button Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "image-button-gp",
+        "label": "Image Google Play Button"
+      },
+      {
+        "type": "url",
+        "id": "google-play-link",
+        "label": "Link for 1st Button"
+      },
+       {
+        "type": "image_picker",
+        "id": "image-button-as",
+        "label": "Image App Store Button"
+      },
+      {
+        "type": "url",
+        "id": "app-store-link",
+        "label": "Link for 2nd Button"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Mockup Timer"
+      }
+    ]
+  }
+{% endschema %}

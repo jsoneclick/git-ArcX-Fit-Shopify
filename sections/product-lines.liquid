@@ -1,0 +1,272 @@
+<style>
+   #shopify-section-{{ section.id }} {
+    padding: 2rem;
+    background-color: {{ section.settings.background_color }};
+    background: {{ section.settings.background_gradient }};
+    color: #000 !important;
+     display: flex;
+     justify-content: start;
+     align-items: center;
+     flex-direction: column;
+   }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }};
+    }
+  #shopify-section-{{ section.id }} .prose{
+    text-align: center;
+    max-width: 50vw;
+  }
+  #shopify-section-{{ section.id }} .prose .h1{
+    font-size: var(--text-h1);
+    font-weight: 900;
+  }
+  #shopify-section-{{ section.id }} .content-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-block-start: 5rem;
+    margin-block-end: 5rem;
+  }
+  #shopify-section-{{ section.id }} .lines-block{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .line-block{
+    position: absolute;
+    aspect-ratio: 1 / 1;
+    height: 275px;
+    text-align: center;
+    line-height: normal;
+
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.6px;
+  }
+  
+  #shopify-section-{{ section.id }} .line-block b{
+    color: #000;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+  }
+  
+  #shopify-section-{{ section.id }} .line-block::after, #shopify-section-{{ section.id }} .line-block::before {
+    content: "";
+    position: absolute;
+    background: #000;
+    transform: translate(-50%, -50%);
+  }
+  
+  #shopify-section-{{ section.id }} .line-block::after{
+    width: 1px;
+  }
+  
+  #shopify-section-{{ section.id }} .line-block::before{
+    height: 1px;
+  }
+  
+  #shopify-section-{{ section.id }} .line-block:nth-child(1){
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 3 / 1;
+    height: 100px;
+  }
+  
+  #shopify-section-{{ section.id }} .line-block:nth-child(2){
+    top: 40%;
+    left: -10%;
+    transform: translate(-50%, -50%);
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(3){
+    top: 85%;
+    left: -10%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1.5 / 1;
+    height: 150px;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(4){
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(5){
+    top: 70%;
+    left: 130%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 2 / 1;
+    height: 150px;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(6){
+    top: 20%;
+    left: 135%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1.75 / 1;
+    height: 200px;
+  }
+/* sub-elements */
+
+  
+  #shopify-section-{{ section.id }} .line-block:nth-child(2)::after{
+    height: 50%;
+    top:55%;
+    left:50%;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(2)::before{
+    width: 50%;
+    top:80%;
+    left:75%;
+  }
+
+  #shopify-section-{{ section.id }} .line-block:nth-child(3)::after{
+    height: 50%;
+    top:50%;
+    left:50%;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(3)::before{
+    width: 50%;
+    top:75%;
+    left:75%;
+  }
+
+  #shopify-section-{{ section.id }} .line-block:nth-child(4)::after{
+    height: 50%;
+    top:50%;
+    left:50%;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(4)::before{
+    width: 50%;
+    top:75%;
+    left:75%;
+  }
+  
+   #shopify-section-{{ section.id }} .line-block:nth-child(5)::after{
+    height: 50%;
+    top:55%;
+    left:50%;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(5)::before{
+    width: 50%;
+    top:80%;
+    left:25%;
+  }
+  
+   #shopify-section-{{ section.id }} .line-block:nth-child(6)::after{
+    height: 50%;
+    top:55%;
+    left:50%;
+  }
+  #shopify-section-{{ section.id }} .line-block:nth-child(6)::before{
+    width: 50%;
+    top:80%;
+    left:25%;
+  }
+</style>
+<div class="prose">
+  <div class="h1" id="lines-header">
+    {{ section.settings.header }}
+  </div>
+  
+    {{ section.settings.prose-text }}
+  
+</div>
+<div class="content-container">
+  <div class="main-image">
+    {% if section.settings.main-image %}
+      <img src="{{ section.settings.main-image | image_url}}" alt="case">
+      {% endif %}
+  </div>
+  <div class="lines-block">
+    {% for block in section.blocks %}
+    <div class="line-block">
+      <div class="text-block">
+        <b>{{ block.settings.line-header }}</b>
+      <br>
+        {{ block.settings.line-text }}
+      </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<script>
+  colorLastWords("{{ section.settings.header }}", 'lines-header', 3);
+</script>
+{% schema %}
+  {
+    "name": "Product Lines",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "header_span_color",
+        "label": "Header Span Color",
+        "default": "#5252FF"
+      },
+      {
+        "type": "image_picker",
+        "id": "main-image",
+        "label": "Main Image"
+      },
+      {
+        "type": "richtext",
+        "label": "Header",
+        "id": "header"
+      },
+      {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "prose-text"
+      },
+      {
+        "type": "color",
+        "id": "prose_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab",
+        "name": "Line",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Line Header",
+            "id": "line-header",
+            "default": "line header"
+          },
+          {
+            "type": "text",
+            "label": "Line Text",
+            "id": "line-text",
+            "default": "line text"
+          }
+        ]
+    }
+  ],
+    "presets": [
+      {
+        "name": "Product Lines"
+      }
+    ]
+  }
+{% endschema %}

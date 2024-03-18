@@ -1,0 +1,473 @@
+  <style>
+      .maskCards__wrapper {
+          height: {{ section.settings.height }}vh; 
+          position: relative;
+          overflow: hidden;
+          background: {{section.settings.backgroundColor}};
+      }
+      .mask__image {
+          width: calc(500px + 1vw);
+          aspect-ratio: 1 / 1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: .3s linear;
+          position: absolute;
+      }
+      /* .mask__image::after {
+          content: '';
+          height: 40vw;
+          aspect-ratio: 1 / 1;
+          border-radius: 50%;
+          background-color: #fff;
+          top: 0%;
+          left: 0%;
+          position: absolute;
+          z-index: -1;
+          transform: translate(-15%, -5%);
+          background: rgba(235, 222, 246, 0.55);
+          filter: blur(89.5px);
+      } */
+      .mask__image img {
+          width: 100%;
+          height: auto;
+      }
+        .mask-info-card {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 21px;
+            position: absolute;
+            opacity: 0;
+            transition: 1s ease;
+            text-align: left;
+            color: {{section.settings.mainTextColor}};
+            font-style: normal;
+            font-weight: 600;
+            line-height: 21.062px; /* 105.31% */
+            letter-spacing: -0.07px;
+        }
+          .mask-info-card svg {
+            transition: 2s;
+            position: absolute;
+            width: 0;
+          }
+    
+         @media screen and (max-width: 1200px){
+          .mask-info-card svg{
+            opacity: 0;
+            
+          }
+        }
+        .mask-info-card h2 {
+            color: {{section.settings.subTextColor}};
+            font-size: clamp(1.25rem, -0.1563rem + 4.5vw, 2.375rem);
+            font-style: normal;
+            font-weight: 700;
+            line-height: 21.062px; /* 38.295% */
+            letter-spacing: -0.07px;
+        }
+        .animated_content__wrapper {
+            height: 100%;
+            width: 100vw;
+            position: sticky;
+            top: 0;
+            left: 0;
+            /* z-index: 999; */
+            text-align: center;
+            padding: 48px 0 0 0;
+        }
+        .left_background-image{
+            position: absolute;
+            height: 100%;
+            aspect-ratio: 1 / 1.1;
+            left: -27vw;
+            top: 0%;
+            opacity: 0.5;
+        }
+        .right_background-image{
+            position: absolute;
+            height: 100%;
+            aspect-ratio: 1 / 1.1;
+            right: -27vw;
+            top: 0%;
+            /* z-index: -1; */
+            opacity: 0.5;
+        }
+     .left_background-image img, .right_background-image img{
+       height: 100%;
+       width: aito;
+     }
+        .animated_content__wrapper h4{
+            color: {{section.settings.subTextColor}};
+            text-align: center;
+            font-size: clamp(0.775rem, 0.5063rem + 1.2vw, 1.2rem);
+            font-style: normal;
+            font-weight: 100;
+            /* 155% */
+            letter-spacing: 0.6px;
+            margin-top: 36px;
+            padding: 0 30vw;
+        }
+        @media screen and (max-width: 1000px){
+            .animated_content__wrapper h4{
+                padding: 0 10vw;
+            }
+            .animated_content__wrapper h1{
+                padding:5vw 25vw 0 25vw;
+            }
+            .mask__image {
+                width: 80vw;
+            }
+
+        }
+        .animated_content__wrapper h1 {
+            color: {{section.settings.mainTextColor}};
+            text-align: center;
+            font-size: clamp(1.5625rem, 0.3906rem + 3.75vw, 3.5rem);
+            font-style: normal;
+            font-weight: 700;
+            /* letter-spacing: 0.6px; */
+        }
+
+        .bottom__links {
+            position: absolute;
+            bottom: 48px;
+            width: 100vw;
+            height: 20vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* z-index: 999; */
+        }
+        .bottom__links button {
+            padding: 12px 42px;
+            justify-content: center;
+            align-items: center;
+            background: #BDF69B;
+            margin: 0;
+            box-sizing: border-box;
+            border: none;
+            color: #992DEE;
+            text-align: center;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 36px; /* 200% */
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            position: absolute !important;
+            /* z-index: 999; */
+        }
+        .bottom__links button:hover {
+          border: 0 !important;
+          background: #992DEE !important;
+        }
+        .bottom__links .buy-buttons {
+          background: red !important;
+          position: absolute;
+          top: 0;
+          width: 350px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .bottom__links img {
+            width: auto;
+            height: 55px;
+            margin: 30px 10px;
+        }
+        .bottom__links p {
+            position: absolute;
+            bottom: 20px;
+            color: {{section.settings.subTextColor}};
+            font-size: clamp(0.875rem, 0.4063rem + 1.5vw, 1.25rem);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 21.062px; /* 105.31% */
+            letter-spacing: -0.07px;
+        }
+    </style>
+        <div class="maskCards__wrapper">
+          <div class="left_background-image">{{ section.settings.backgroundImg | image_url: width: 1500 | image_tag }}</div>
+          <div class="right_background-image">{{ section.settings.backgroundImg | image_url: width: 1500 | image_tag }}</div>
+            <div class="animated_content__wrapper">
+                <h1>{{ section.settings.headerText }}</h1>
+                <h4>{{ section.settings.bodyText }}</h4>
+                <div class="mask__image">{{ section.settings.mainSectionImage | image_url: width: 1500 | image_tag }}</div>
+                <span class="mask-info-card">
+                    <h2>Comfy</h2><br />
+                  <svg id="svg1" width="522" height="36" viewBox="0 0 522 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M503.333 17C503.333 18.4727 504.527 19.6666 506 19.6666C507.473 19.6666 508.667 18.4727 508.667 17C508.667 15.5272 507.473 14.3333 506 14.3333C504.527 14.3333 503.333 15.5272 503.333 17ZM4.37114e-08 17.5L506 17.5L506 16.5L-4.37114e-08 16.5L4.37114e-08 17.5Z" fill="white"/>
+                      <circle cx="504" cy="18" r="18" fill="white" fill-opacity="0.5"/>
+                      <circle cx="504" cy="18" r="10" fill="white"/>
+                      <circle cx="504" cy="18" r="10" fill="white"/>
+                  </svg>
+                  cushioned headphones
+                </span>
+                <span class="mask-info-card">
+                    <h2>Flexy</h2><br />
+                  <svg id="svg2" width="423" height="141" viewBox="0 0 423 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M423 0.999997H125.227H18V122" stroke="white"/>
+                    <circle cx="18" cy="123" r="18" fill="white" fill-opacity="0.5"/>
+                    <circle cx="18" cy="123" r="10" fill="white"/>
+                    <circle cx="18" cy="123" r="10" fill="white"/>
+                  </svg> 
+                      one-size-fits-all strap
+                </span>
+                <span class="mask-info-card">
+                    <h2>Indulgent</h2><br />
+                  <svg id="svg3" width="520" height="36" viewBox="0 0 520 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="18" cy="18" r="18" fill="white" fill-opacity="0.5"/>
+                    <circle cx="18" cy="18" r="10" fill="white"/>
+                    <circle cx="18" cy="18" r="10" fill="white"/>
+                    <path d="M15.3334 18.0111C15.3395 19.4839 16.5384 20.6728 18.0111 20.6666C19.4839 20.6605 20.6728 19.4616 20.6666 17.9889C20.6605 16.5161 19.4616 15.3272 17.9889 15.3334C16.5161 15.3395 15.3272 16.5384 15.3334 18.0111ZM18.0021 18.5L519.002 16.4081L518.998 15.4081L17.9979 17.5L18.0021 18.5Z" fill="white"/>
+                  </svg>
+                  ultra-soft feel
+                </span>
+                <span class="mask-info-card">
+                    <h2>Lightweight</h2><br />
+                  <svg id="svg4" width="577" height="184" viewBox="0 0 577 184" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M559 183V183.5H559.5V183H559ZM556.333 18C556.333 19.4728 557.527 20.6667 559 20.6667C560.473 20.6667 561.667 19.4728 561.667 18C561.667 16.5272 560.473 15.3333 559 15.3333C557.527 15.3333 556.333 16.5272 556.333 18ZM0 183.5H411V182.5H0V183.5ZM411 183.5H559V182.5H411V183.5ZM559.5 183V18H558.5V183H559.5Z" fill="white"/>
+                      <circle cx="559" cy="18" r="18" fill="white" fill-opacity="0.5"/>
+                      <circle cx="559" cy="18" r="10" fill="white"/>
+                      <circle cx="559" cy="18" r="10" fill="white"/>
+                  </svg>
+                  breathable fabric
+                </span>
+                <span class="mask-info-card">
+                    <h2>Zip, zilch</h2><br />
+                  <svg id="svg5" width="429" height="36" viewBox="0 0 429 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 18H411" stroke="white"/>
+                      <circle cx="411" cy="18" r="18" fill="white" fill-opacity="0.5"/>
+                      <circle cx="411" cy="18" r="10" fill="white"/>
+                      <circle cx="411" cy="18" r="10" fill="white"/>
+                  </svg>
+                  zero eye pressure
+                </span>
+              <div class="bottom__links">
+              {% if 'buy_buttons' %}
+          
+                <buy-buttons class="buy-buttons">
+                    {%- capture button_content -%}{{section.settings.buttonText}}{%- endcapture -%}  <!--   {{ 'product.general.add_to_cart_button' | t }} -->
+                    {%- render 'button', content: button_content, type: 'submit', size: 'xl', background: block.settings.atc_button_background, text_color: block.settings.atc_button_text_color -%}
+                </buy-buttons>
+          
+            {% endif %}
+                {% for block in section.blocks %}
+                        <img src="{{ block.settings.m_image | image_url }}" loading="lazy" />
+                  {% endfor %}
+                <p>{{ section.settings.subText }}</p>
+            </div>
+            </div>
+        </div>      
+    <script>
+      const cards = document.querySelectorAll(".mask-info-card");
+      const maskImage = document.querySelector(".mask__image");
+      const wrapper = document.querySelector('.maskCards__wrapper');
+      const movingChildWrapper = document.querySelector(".animated_mask__wrapper");
+      const scrollingBlock = document.querySelector(".longblockforscroll");
+      const svgElements = document.querySelectorAll('.maskCards__wrapper .mask-info-card svg');
+      let yPositionViewport = wrapper.getBoundingClientRect().top;
+      let yPosition = window.scrollY + yPositionViewport;
+
+      const svgPositions = [
+        {top: 20, left: 0},
+        {top:35, right: 0},
+        {top: 20, right: 0},
+        {top: -145, left: 0},
+        {top: 20, left: 0},
+      ];
+      
+      const startCardsPosition = [
+        { top: 15, left: 10 },
+        { top: 25, left: 80 },
+        { top: 65, left: 85 },
+        { top: 95, left: 10 },
+        { top: 70, left: 5 }
+      ];
+      const endCardsPosition = [
+        { top: 25, left: 20 },
+        { top: 25, left: 70 },
+        { top: 50, left: 75 },
+        { top: 60, left: 15 },
+        { top: 40, left: 15 }
+      ];
+      
+      let initialSvgWidth = [522, 423, 520, 577, 429];
+      const cardsMoveModificator = [-80, -81, -82, -84, -85];
+      
+      setInterval(()=>{
+        if (window.innerWidth < 1700) {
+          initialSvgWidth = [522 * 0.7, 423 * 0.7, 520 * 0.7, 577 * 0.7, 429 * 0.7];
+          svgElements[1].style.top = "15px";
+          svgElements[3].style.top = "-120px";
+        }else{
+          initialSvgWidth = [522, 423, 520, 577, 429];
+          svgElements[1].style.top = "35px";
+          svgElements[3].style.top = "-145px";
+        }
+      }, 1000);
+
+        svgElements[2].style.float = 'right';
+        cards[1].style.textAlign = 'right';
+        cards[2].style.textAlign = 'right';
+      
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].style.top = `${startCardsPosition[i].top}%`;
+            cards[i].style.left = `${startCardsPosition[i].left}%`;
+          
+            if(i >= 1 && i <= 2){
+              svgElements[i].style.top = `${svgPositions[i].top}px`;
+              svgElements[i].style.right = `${svgPositions[i].right}px`;
+            }
+            svgElements[i].style.top = `${svgPositions[i].top}px`;
+            svgElements[i].style.left = `${svgPositions[i].left}px`;
+        }
+
+        document.addEventListener('mousemove', function (e) {
+            let x = e.clientX;
+            let y = e.clientY;
+            maskImage.style.margin = `${-y / 30}px ${-x / 30}px`;
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].style.margin = `${-y / cardsMoveModificator[i]}px ${-x / cardsMoveModificator[i]}px`;
+            }
+        }); 
+      
+     wrapper.addEventListener('mouseover', function () {showCard(0);});
+      // function showCard(index) {
+      //     if (index < cards.length) {
+      //         cards[index].style.opacity = 1;
+      //         cards[index].style.top = `${endCardsPosition[index].top}%`;
+      //         cards[index].style.left = `${endCardsPosition[index].left}%`;
+      //         svgElements[index].style.width = `${initialSvgWidth[index]}px`;
+      //         setTimeout(() => {
+      //             showCard(index + 1);
+      //         }, 1000);
+      //     }
+      // }
+
+      let isCardsShown = false; // Flag to ensure the cards are shown only once
+
+function showCard(index) {
+    if (index < cards.length) {
+        cards[index].style.opacity = 1;
+        cards[index].style.top = `${endCardsPosition[index].top}%`;
+        cards[index].style.left = `${endCardsPosition[index].left}%`;
+        svgElements[index].style.width = `${initialSvgWidth[index]}px`;
+        setTimeout(() => {
+            showCard(index + 1);
+        }, 1000);
+    }
+}
+
+function handleScroll() {
+    // Adjust this value based on when you want the effect to trigger
+    const triggerPosition = yPosition; // For example, when the user scrolls down 300 pixels
+
+    if (window.scrollY > triggerPosition && !isCardsShown) {
+        // You may want to customize the index based on your requirements
+        showCard(0);
+        isCardsShown = true; // Set the flag to true to prevent multiple executions
+    }
+}
+
+// Attach the event listener to the scroll event
+window.addEventListener('scroll', handleScroll);
+
+      
+    </script>
+{% schema %}
+  {
+    "name": "Mask Section",
+    "settings": [
+    {
+      "type": "range",
+      "label": "Section Height",
+      "id": "height",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 100
+    },
+      {
+        "type": "text",
+        "label": "Header",
+        "id": "headerText",
+        "default": "Soft, Snug, Satisfying."
+      },
+      {
+        "type": "text",
+        "label": "Body Text",
+        "id": "bodyText",
+        "default": "It's what good dreams should feel like. Get ultra-soft fabric that feels light, airy, and dreamy. Designed to be worn all night long."
+      },
+      {
+        "type": "color",
+        "id": "mainTextColor",
+        "label": "Header color",
+        "default": "#4348C7"
+      },
+      {
+        "type": "color",
+        "id": "subTextColor",
+        "label": "Subtext color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "backgroundColor",
+        "label": "Background Color",
+        "default": "linear-gradient(#ffffff, #000000)"
+      },
+      {
+        "type": "image_picker",
+        "id": "mainSectionImage",
+        "label": "Main Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "backgroundImg",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "label": "Button Text",
+        "id": "buttonText",
+        "default": "Add to cart"
+      },
+      {
+        "type": "text",
+        "label": "Sub Text",
+        "id": "subText",
+        "default": "Drift off using your favorite streaming platform"
+      }
+      
+  ],
+    "blocks": [
+    {
+      "type": "tab",
+      "name": "Images",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "m_image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+    "presets": [
+      {
+        "name": "Animated Mask"
+      }
+    ]
+  }
+  
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

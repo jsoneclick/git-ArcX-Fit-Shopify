@@ -1,0 +1,335 @@
+<style>
+    #shopify-section-{{ section.id }} {
+      padding: 4rem;
+      display: flex;
+      justify-content: start;
+      align-items: start;
+      flex-direction: column;
+      background-color: {{section.settings.background_color}};
+      background: {{section.settings.background_gradient}};
+      color: #000;
+      gap: 0rem;
+    }
+  h1 {
+    font-size: var(--text-h1);
+  }
+  h2 {
+    font-size: var(--text-h2);
+  }
+  h3 {
+    font-size: var(--text-h3);
+  } 
+  h4 {
+    font-size: var(--text-h4);
+  }
+  h5 {
+    font-size: var(--text-h5);
+  }
+  h6 {
+    font-size: var(--text-h6);
+  }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+    }
+    #shopify-section-{{ section.id }} #joystick-header {
+      text-align: start;
+      width: 100%;
+      line-height: normal;
+    }
+  #shopify-section-{{ section.id }} .content-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .main-image-wrapper {
+    height: 500px;
+  }
+  #shopify-section-{{ section.id }} .main-image-wrapper img{
+    height: 100%;
+    width: auto;
+  }
+  #shopify-section-{{ section.id }} .joystick {
+    aspect-ratio: 1 / 1;
+    height: 400px;
+    position: relative;
+    cursor: none;
+  }
+  #shopify-section-{{ section.id }} .sides-span, #shopify-section-{{ section.id }} .svg-arrows {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg {
+    transform: translate(-50%, -50%);
+  }
+  
+  #shopify-section-{{ section.id }} .sides-span span, #shopify-section-{{ section.id }} .svg-arrows svg  {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: #030303;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; /* 26px */
+    letter-spacing: 0.6px;
+  } 
+  #shopify-section-{{ section.id }} .svg-arrows svg {
+    fill: black;
+    transition: .4s;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:nth-child(5) {
+    fill: black;
+    transition: none;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:hover {
+    fill: #0EC3FF;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(1)  {
+    margin-top: -15px;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(2)  {
+    margin-left: -15px;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(3)  {
+    margin-left: 15px;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(4)  {
+    margin-top: 15px;
+  }
+  
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(1) {
+    top: 5%;
+    left: 50%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(2) {
+    top: 50%;
+    left: 5%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(3) {
+    top: 50%;
+    left: 95%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(4) {
+    top: 95%;
+    left: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .svg-arrows svg:nth-child(1) {
+    top: 30%;
+    left: 50%;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:nth-child(2) {
+    top: 50%;
+    left: 30%;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:nth-child(3) {
+    top: 50%;
+    left: 70%;
+  }
+  #shopify-section-{{ section.id }} .svg-arrows svg:nth-child(4) {
+    top: 70%;
+    left: 50%;
+  }
+
+    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(1) > .sides-span span:nth-child(1){
+      font-size: 38px;
+      color: red;
+    }
+    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(2) > .sides-span span:nth-child(2){
+        font-size: 38px;
+        color: red;
+    }
+    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(3) > .sides-span span:nth-child(3){
+        font-size: 38px;
+        color: red;
+    }
+    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(4) > .sides-span span:nth-child(4){
+        font-size: 38px;
+        color: red;
+    }
+
+  #mouse-hover-circle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .j-prose {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    text-align: center;
+    color: #030303;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; /* 26px */
+    letter-spacing: 0.6px;
+  }
+
+  @media screen and (max-width:990px){
+    #shopify-section-{{ section.id }} {
+      padding: 2rem 1rem 5rem 1rem;
+    }
+    #shopify-section-{{ section.id }} .content-wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+    #shopify-section-{{ section.id }} #joystick-header {
+      text-align: center;
+      width: 100%;
+    }
+    
+    .header h1,  .header h2,.header h3,.header h4,.header h5,.header h6,{
+      text-align: center;
+    }
+    #shopify-section-{{ section.id }} .svg-arrows svg {
+    transform: translate(-50%, -50%) scale(.75);
+  }
+    #shopify-section-{{ section.id }} .svg-arrows svg:hover {
+    fill: #0EC3FF;
+    transform: translate(-50%, -50%) scale(.85);
+  }
+     #shopify-section-{{ section.id }} .main-image-wrapper {
+    height: 300px;
+  }
+  #shopify-section-{{ section.id }} .joystick {
+    aspect-ratio: 1 / 1;
+    height: 300px;
+    position: relative;
+    cursor: none;
+  }
+  }
+    
+  
+  </style>
+  <div id="joystick-header">
+    {{ section.settings.header }}
+  </div>
+  <div class="content-wrapper">
+    <div class="main-image-wrapper">
+      {% if section.settings.main-image %}<img src="{{ section.settings.main-image | image_url }}" alt="ring">{% endif %}
+    </div>
+  <div class="joystick">
+    <div class="joystick-area">
+      <div class="sides-span">
+        <span>Top</span>
+        <span>Left</span>
+        <span>Right</span>
+        <span>Bottom</span>
+      </div>
+      <div class="svg-arrows">
+            <svg xmlns="http://www.w3.org/2000/svg" width="141" height="141" viewBox="0 0 141 141" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M37.0434 63.1538C36.4511 62.4437 36.0046 61.6239 35.7293 60.7411C35.454 59.8584 35.3554 58.9301 35.439 58.0092C35.5227 57.0884 35.787 56.193 36.2168 55.3743C36.6467 54.5557 37.2337 53.8297 37.9442 53.238L66.0939 29.7823C66.8002 29.1644 67.6229 28.6941 68.5136 28.3988C69.4043 28.1036 70.3451 27.9895 71.2806 28.0633C72.2161 28.137 73.1274 28.3971 73.9608 28.8282C74.7943 29.2593 75.5332 29.8528 76.1339 30.5737C76.7346 31.2946 77.1851 32.1283 77.4589 33.0259C77.7327 33.9234 77.8241 34.8667 77.728 35.8001C77.6318 36.7336 77.3499 37.6383 76.8989 38.4612C76.4479 39.2841 75.8369 40.0085 75.1018 40.5918L46.9521 64.0545C45.5185 65.2486 43.6694 65.8244 41.8113 65.6555C39.9532 65.4866 38.2383 64.5867 37.0434 63.1538Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M104.151 63.1538C102.956 64.5867 101.241 65.4866 99.3834 65.6555C97.5253 65.8244 95.6762 65.2486 94.2426 64.0545L66.0929 40.5918C65.3578 40.0085 64.7468 39.2841 64.2958 38.4612C63.8448 37.6383 63.5629 36.7336 63.4667 35.8001C63.3706 34.8667 63.4621 33.9234 63.7358 33.0259C64.0096 32.1283 64.4601 31.2946 65.0608 30.5737C65.6616 29.8528 66.4004 29.2593 67.2339 28.8282C68.0674 28.3971 68.9786 28.137 69.9141 28.0633C70.8496 27.9895 71.7904 28.1036 72.6811 28.3988C73.5719 28.6941 74.3946 29.1644 75.1008 29.7823L103.25 53.238C103.961 53.8297 104.548 54.5557 104.978 55.3743C105.408 56.193 105.672 57.0884 105.756 58.0092C105.839 58.9301 105.741 59.8584 105.465 60.7411C105.19 61.6239 104.744 62.4437 104.151 63.1538Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M70.596 42.2245C72.4625 42.2245 74.2524 42.9659 75.5722 44.2857C76.892 45.6054 77.6334 47.3954 77.6334 49.2619V105.561C77.6334 107.428 76.892 109.218 75.5722 110.537C74.2524 111.857 72.4625 112.599 70.596 112.599C68.7296 112.599 66.9396 111.857 65.6198 110.537C64.3 109.218 63.5586 107.428 63.5586 105.561V49.2619C63.5586 47.3954 64.3 45.6054 65.6198 44.2857C66.9396 42.9659 68.7296 42.2245 70.596 42.2245Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="141" height="142" viewBox="0 0 141 142" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M63.1552 37.8004C62.4452 37.2081 61.6253 36.7616 60.7426 36.4863C59.8599 36.211 58.9316 36.1123 58.0107 36.196C57.0898 36.2797 56.1945 36.544 55.3758 36.9738C54.5571 37.4037 53.8312 37.9907 53.2395 38.7012L29.7838 66.8509C29.1659 67.5572 28.6955 68.3799 28.4003 69.2706C28.1051 70.1613 27.991 71.1021 28.0647 72.0376C28.1385 72.9731 28.3985 73.8844 28.8297 74.7178C29.2608 75.5513 29.8543 76.2902 30.5751 76.8909C31.296 77.4916 32.1298 77.9421 33.0273 78.2159C33.9249 78.4897 34.8681 78.5811 35.8016 78.485C36.735 78.3888 37.6398 78.1069 38.4627 77.6559C39.2856 77.2049 40.01 76.5939 40.5933 75.8588L64.056 47.7091C65.25 46.2755 65.8259 44.4264 65.6569 42.5683C65.488 40.7102 64.5882 38.9953 63.1552 37.8004Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M63.1552 104.909C64.5882 103.714 65.488 101.999 65.6569 100.141C65.8259 98.2833 65.25 96.4342 64.056 95.0006L40.5933 66.8509C40.01 66.1158 39.2856 65.5048 38.4627 65.0538C37.6398 64.6028 36.735 64.3209 35.8016 64.2247C34.8681 64.1286 33.9249 64.2201 33.0273 64.4938C32.1298 64.7676 31.296 65.2181 30.5751 65.8188C29.8543 66.4195 29.2608 67.1584 28.8297 67.9919C28.3985 68.8254 28.1385 69.7366 28.0647 70.6721C27.991 71.6076 28.1051 72.5484 28.4003 73.4391C28.6955 74.3298 29.1659 75.1525 29.7838 75.8588L53.2395 104.008C53.8312 104.719 54.5571 105.306 55.3758 105.736C56.1945 106.166 57.0898 106.43 58.0107 106.514C58.9316 106.597 59.8599 106.499 60.7426 106.223C61.6253 105.948 62.4452 105.502 63.1552 104.909Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M42.2266 71.3548C42.2266 73.2213 42.968 75.0113 44.2878 76.331C45.6075 77.6508 47.3975 78.3923 49.264 78.3923L105.563 78.3922C107.43 78.3922 109.22 77.6508 110.54 76.331C111.859 75.0113 112.601 73.2213 112.601 71.3548C112.601 69.4884 111.859 67.6984 110.54 66.3786C109.22 65.0589 107.43 64.3174 105.563 64.3174L49.264 64.3174C47.3975 64.3174 45.6075 65.0589 44.2878 66.3786C42.968 67.6984 42.2266 69.4884 42.2266 71.3548Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="142" height="142" viewBox="0 0 142 142" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M78.4385 37.8004C79.1486 37.2081 79.9684 36.7616 80.8511 36.4863C81.7339 36.211 82.6622 36.1123 83.5831 36.196C84.5039 36.2797 85.3993 36.544 86.218 36.9738C87.0366 37.4037 87.7626 37.9907 88.3543 38.7012L111.81 66.8509C112.428 67.5572 112.898 68.3799 113.193 69.2706C113.489 70.1613 113.603 71.1021 113.529 72.0376C113.455 72.9731 113.195 73.8844 112.764 74.7178C112.333 75.5513 111.739 76.2902 111.019 76.8909C110.298 77.4916 109.464 77.9421 108.566 78.2159C107.669 78.4897 106.726 78.5811 105.792 78.485C104.859 78.3888 103.954 78.1069 103.131 77.6559C102.308 77.2049 101.584 76.5939 101 75.8588L77.5377 47.7091C76.3437 46.2755 75.7679 44.4264 75.9368 42.5683C76.1057 40.7102 77.0056 38.9953 78.4385 37.8004Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M78.4385 104.909C77.0056 103.714 76.1057 101.999 75.9368 100.141C75.7679 98.2833 76.3437 96.4342 77.5377 95.0006L101 66.8509C101.584 66.1158 102.308 65.5048 103.131 65.0538C103.954 64.6028 104.859 64.3209 105.792 64.2247C106.726 64.1286 107.669 64.2201 108.566 64.4938C109.464 64.7676 110.298 65.2181 111.019 65.8188C111.739 66.4195 112.333 67.1584 112.764 67.9919C113.195 68.8254 113.455 69.7366 113.529 70.6721C113.603 71.6076 113.489 72.5484 113.193 73.4391C112.898 74.3298 112.428 75.1525 111.81 75.8588L88.3543 104.008C87.7626 104.719 87.0366 105.306 86.218 105.736C85.3993 106.166 84.5039 106.43 83.5831 106.514C82.6622 106.597 81.7339 106.499 80.8511 106.223C79.9684 105.948 79.1486 105.502 78.4385 104.909Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M99.3672 71.3548C99.3672 73.2213 98.6257 75.0113 97.306 76.331C95.9862 77.6508 94.1962 78.3923 92.3298 78.3923L36.0304 78.3922C34.164 78.3922 32.374 77.6508 31.0542 76.331C29.7344 75.0113 28.993 73.2213 28.993 71.3548C28.993 69.4884 29.7344 67.6984 31.0542 66.3786C32.374 65.0589 34.164 64.3174 36.0304 64.3174L92.3298 64.3174C94.1962 64.3174 95.9862 65.0589 97.306 66.3786C98.6257 67.6984 99.3672 69.4884 99.3672 71.3548Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="141" height="141" viewBox="0 0 141 141" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M37.0434 77.8462C36.4511 78.5562 36.0046 79.3761 35.7293 80.2588C35.454 81.1415 35.3554 82.0699 35.439 82.9907C35.5227 83.9116 35.787 84.8069 36.2168 85.6256C36.6467 86.4443 37.2337 87.1702 37.9442 87.7619L66.0939 111.218C66.8002 111.835 67.6229 112.306 68.5136 112.601C69.4043 112.896 70.3451 113.01 71.2806 112.937C72.2161 112.863 73.1274 112.603 73.9608 112.172C74.7943 111.741 75.5332 111.147 76.1339 110.426C76.7346 109.705 77.1851 108.872 77.4589 107.974C77.7327 107.077 77.8241 106.133 77.728 105.2C77.6318 104.266 77.3499 103.362 76.8989 102.539C76.4479 101.716 75.8369 100.991 75.1018 100.408L46.9521 76.9454C45.5185 75.7514 43.6694 75.1756 41.8113 75.3445C39.9532 75.5134 38.2383 76.4132 37.0434 77.8462Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M104.151 77.8462C102.956 76.4132 101.241 75.5134 99.3834 75.3445C97.5253 75.1756 95.6762 75.7514 94.2426 76.9454L66.0929 100.408C65.3578 100.991 64.7468 101.716 64.2958 102.539C63.8448 103.362 63.5629 104.266 63.4667 105.2C63.3706 106.133 63.4621 107.077 63.7358 107.974C64.0096 108.872 64.4601 109.705 65.0608 110.426C65.6616 111.147 66.4004 111.741 67.2339 112.172C68.0674 112.603 68.9786 112.863 69.9141 112.937C70.8496 113.01 71.7904 112.896 72.6811 112.601C73.5719 112.306 74.3946 111.835 75.1008 111.218L103.25 87.7619C103.961 87.1702 104.548 86.4443 104.978 85.6256C105.408 84.8069 105.672 83.9116 105.756 82.9907C105.839 82.0699 105.741 81.1415 105.465 80.2588C105.19 79.3761 104.744 78.5562 104.151 77.8462Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M70.596 98.7755C72.4625 98.7755 74.2524 98.034 75.5722 96.7143C76.892 95.3945 77.6334 93.6045 77.6334 91.7381V35.4387C77.6334 33.5723 76.892 31.7823 75.5722 30.4625C74.2524 29.1427 72.4625 28.4013 70.596 28.4013C68.7296 28.4013 66.9396 29.1427 65.6198 30.4625C64.3 31.7823 63.5586 33.5723 63.5586 35.4387V91.7381C63.5586 93.6045 64.3 95.3945 65.6198 96.7143C66.9396 98.034 68.7296 98.7755 70.596 98.7755Z"/>
+            </svg>
+            <svg id="mouse-hover-circle" xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 39 39" fill="none">
+              <circle cx="19.2952" cy="19.1742" r="18.2452" fill="#0EC3FF" stroke="black" stroke-width="1.30323"/>
+            </svg>
+      </div>
+                 <div class="j-prose">just a simple move by your finger</div>
+    </div>
+  </div>
+  </div>
+<script>
+ function handleMouseHover(event) {
+  var joystickArea = document.querySelector('.joystick-area');
+  var centerX = joystickArea.offsetWidth / 2;
+  var centerY = joystickArea.offsetWidth / 2;
+  var mouseX = (event.clientX - joystickArea.getBoundingClientRect().left - centerX) * 0.15; // Adjust the scaling factor as needed
+  var mouseY = (event.clientY - joystickArea.getBoundingClientRect().top - centerY) * 0.15; // Adjust the scaling factor as needed
+
+  // Update the position of the middle circle
+  var mouseHoverCircle = document.getElementById('mouse-hover-circle');
+  mouseHoverCircle.style.left = centerX + mouseX + 'px';
+  mouseHoverCircle.style.top = centerY + mouseY + 'px';
+}
+
+// Function to handle mouse out events
+function handleMouseOut() {
+  // Reset the position of the middle circle to the center
+  var mouseHoverCircle = document.getElementById('mouse-hover-circle');
+  mouseHoverCircle.style.left = '50%';
+  mouseHoverCircle.style.top = '50%';
+}
+
+// Add event listeners for mouse hover and mouse out on the joystick area
+var joystickArea = document.querySelector('.joystick-area');
+joystickArea.addEventListener('mousemove', handleMouseHover);
+joystickArea.addEventListener('mouseout', handleMouseOut);
+
+  
+  colorLastWords("{{ section.settings.header }}", 'joystick-header', 1);
+</script>
+  {% schema %}
+  {
+    "name": "Joystick",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "header_span_color",
+        "label": "Header Span Color",
+        "default": "#5252FF"
+      },
+      {
+        "type": "image_picker",
+        "id": "main-image",
+        "label": "Main Image"
+      },
+      {
+        "type": "richtext",
+        "label": "Header",
+        "id": "header"
+      },
+      {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "prose-text"
+      },
+      {
+        "type": "color",
+        "id": "prose_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Joystick"
+      }
+    ]
+  }
+{% endschema %}

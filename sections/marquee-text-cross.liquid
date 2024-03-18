@@ -1,0 +1,174 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    height: 45vh;
+    background-color: {{section.settings.background_color}};
+    background: {{section.settings.background_gradient}};
+    overflow: hidden;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .marquee-text-cross, #shopify-section-{{ section.id }} .marquee-text-cross-2 {
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid {{section.settings.line_border}};
+    border-bottom: 1px solid {{section.settings.line_border}};
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(9deg);
+    background: {{section.settings.line_bg}};
+    height: 115px;
+    align-items: center;
+   }
+  #shopify-section-{{ section.id }} .marquee-text-cross {
+    transform: translate(-50%, -50%) rotateZ(-9deg);
+   }
+  
+  #shopify-section-{{ section.id }} span {
+    padding: 0 0.5rem;
+    white-space: nowrap;
+    animation: move-rtl calc(31s - {{section.settings.animation_speed}}s) linear infinite;
+    margin: 0;
+    color: {{section.settings.line_color}};
+   }
+  #shopify-section-{{ section.id }} .marquee-text-cross span {
+    animation: move-rtl-b calc(31s - {{section.settings.animation_speed_2}}s) linear infinite;
+     font-size: {{section.settings.font_size_2}}px;
+   }
+  #shopify-section-{{ section.id }} .marquee-text-cross-2 span {
+    font-size: {{section.settings.font_size}}px;
+   }
+   @keyframes move-rtl {
+    0%{
+      transform: translateX(0);
+    }
+    100%{
+      transform: translateX(100%);
+    }
+   }
+   @keyframes move-rtl-b {
+    0%{
+      transform: translateX(0);
+    }
+    100%{
+      transform: translateX(-100%);
+    }
+   }
+  @media screen and (max-width:990px) {
+  #shopify-section-{{ section.id }} .marquee-text-cross-2 {
+    transform: translate(-50%, -50%) rotateZ(9deg) scale(0.5);
+   }
+  #shopify-section-{{ section.id }} .marquee-text-cross {
+    transform: translate(-50%, -50%) rotateZ(-9deg) scale(0.5);
+   }
+     #shopify-section-{{ section.id }} {
+    height: 35vh;
+  }
+  }
+  </style>
+<div class="marquee-text-cross">
+    <span>{{ section.settings.second_line }}</span>
+    <span>{{ section.settings.second_line }}</span>
+    <span>{{ section.settings.second_line }}</span>
+    <span>{{ section.settings.second_line }}</span>
+    <span>{{ section.settings.second_line }}</span>
+  </div>
+
+  <div class="marquee-text-cross-2">
+    <span>{{ section.settings.first_line }}</span>
+    <span>{{ section.settings.first_line }}</span>
+    <span>{{ section.settings.first_line }}</span>
+    <span>{{ section.settings.first_line }}</span>
+    <span>{{ section.settings.first_line }}</span>
+  </div>
+  
+{% schema %}
+  {
+    "name": "Marquee Text Cross",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+        "type": "color",
+        "id": "line_color",
+        "label": "Line Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "line_bg",
+        "label": "Line Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "line_border",
+        "label": "Line Border",
+        "default": "#000000"
+      },
+      {
+          "type": "richtext",
+          "id": "first_line",
+          "label": "First Line",
+          "default": "<h1>Advanced technology meets award-winning design</h1>"
+        },
+      {
+            "type": "range",
+            "label": "Font Size (Line 1)",
+            "id": "font_size",
+            "min": 16,
+            "max": 96,
+            "default": 74,
+            "step": 1
+          },
+      {
+          "type": "richtext",
+          "id": "second_line",
+          "label": "Second Line",
+          "default": "<h1>Advanced technology meets award-winning design</h1>"
+        },
+      {
+            "type": "range",
+            "label": "Font Size (Line 2)",
+            "id": "font_size_2",
+            "min": 16,
+            "max": 96,
+            "default": 48,
+            "step": 1
+          },
+        {
+            "type": "range",
+            "label": "Animation Text Scroll Speed (Line 1)",
+            "id": "animation_speed",
+            "min": 1,
+            "max": 30,
+            "default": 6,
+            "step": 1
+          },
+      {
+            "type": "range",
+            "label": "Animation Text Scroll Speed (Line 2)",
+            "id": "animation_speed_2",
+            "min": 1,
+            "max": 30,
+            "default": 6,
+            "step": 1
+          }
+    ],
+    "presets": [
+      {
+        "name": "Marquee Text Cross"
+      }
+    ]
+  }
+{% endschema %}

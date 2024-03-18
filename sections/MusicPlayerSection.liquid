@@ -1,0 +1,504 @@
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        .audioPlayerWrapper {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            background: {{ section.settings.backgroundColor }};
+            box-sizing: border-box;
+            overflow: hidden;
+            padding: 2rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .backgroundImage {
+            position: absolute;
+            height: 100%;
+            right: 2rem;
+            top: 2rem;
+            opacity: 0.2;
+        }
+        .backgroundImage img{
+          height: 100% !important;
+          width: auto !important;
+          
+        }
+        .product_image__aside, .product_content__aside {
+            height: 100%;
+            width: 50%;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .product_image__aside{
+            float: left;
+            padding-top: 20vh;
+            
+        }
+        .product_content__aside{
+            float: right;
+        }
+        .product_content__wrapper {
+            color: #fff;
+            width: 400px;
+        }
+        .product_content__wrapper h1 {
+            font-size: clamp(3rem, -1.75rem + 12vw, 5rem);
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+        .product_content__wrapper p {
+            font-size: clamp(0.6rem, 0.075rem + 2vw, 0.9rem);
+            margin: 0;
+            padding: 0;
+            font-weight: 400px;
+            
+        }
+        .player_audio_element {
+            height: auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding: 8px 16px;
+            border-radius: 16px;
+        }
+        .player_audio_element p {
+            float: left;
+            width: calc(100% - 70px);
+            font-weight: 200px;
+            font-size: clamp(0.75rem, 0.25rem + 1.6vw, 1.15rem);
+            margin: 0;
+            padding: 0;
+        }
+        .audioPlayerButton {
+            height: 48px;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(180deg, #FFF9BE 0%, #BD80ED 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            float: right;
+            cursor: pointer;
+            padding-left: 5px;
+            box-sizing: border-box;
+        }
+        .audioPlayerButton svg {
+            height: 40%;
+            width: 40%;
+            
+        }
+        .playerWrapper {
+            margin-top: 32px;
+        }
+
+        .lamp_image__wrapper {
+            width: 65%;
+            background: ;
+            position: relative;
+            animation: lampFloating 6s infinite;
+        }
+        .lamp_image__wrapper svg{
+            width: 100%;
+        }
+        .lamp_image__wrapper svg:nth-child(1), .lamp_image__wrapper svg:nth-child(2), .lamp_image__wrapper svg:nth-child(3), .lamp_image__wrapper svg:nth-child(5) {
+            position: absolute;
+            width: 117%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+        }
+        .lamp_image__wrapper svg:nth-child(1) {
+            top: 10%;
+            width: 108%;
+            z-index: 4;
+        }
+        .lamp_image__wrapper svg:nth-child(2) {
+            top: 22%;
+            width: 113%;
+          z-index: 4;
+        }
+        .lamp_image__wrapper svg:nth-child(3) {
+            top: 34%;
+          z-index: 4;
+        }
+        .lamp_image__wrapper img:nth-child(4) {
+          position: relative;
+            z-index: 2;
+        }
+
+        @keyframes lampFloating {
+            0%, 100% {margin-top: -50px;}
+            50% {margin-top: 50px;}
+        }
+
+        .lamp_image__wrapper svg:nth-child(5) {
+            bottom: -150px;
+            animation: lampShadowFloating 6s infinite;
+        }
+        @keyframes lampShadowFloating {
+            0%, 100% {bottom: -180px; transform: translate(-50%, 0%) scale(.7);}
+            50% {bottom: -120px; transform: translate(-50%, 0%) scale(1);};
+        }
+        .lamp_image__wrapper img:nth-child(6) {
+            position: absolute;
+            width: 50%;
+            height: auto;
+            border-radius: 0.6rem;
+            transform: rotateZ(-19deg);
+            left: 0;
+            top: -33%;
+            z-index: 4;
+        }
+        .lamp_image__wrapper svg:nth-child(7) {
+            width: 200px;
+            position: absolute;
+            top: -85%;
+            animation: lampFloating 3s infinite;
+            right: -45%;
+          z-index: 1;
+        }
+
+        @media screen and (max-width: 1000px) {
+            .product_image__aside {
+                order: 2;
+                float: bottom;
+                width: 100%;
+                bottom: 0;
+                padding-top: 0;
+                height: 40%;
+            }
+            .product_content__aside {
+                order: 1;
+                float: top;
+                width: 100%;
+                height: 50%;
+                padding: 50px;
+                top: 0;
+                z-index: 999;
+            }
+          .audioPlayerWrapper {
+            height: 80vh;
+          }
+          
+            .audioPlayerButton {
+                height: 35px;
+            }
+            .product_content__wrapper h1, .product_content__wrapper p {
+                text-align: center;
+            }
+            .playerWrapper {
+                margin-top: 32px;
+            }
+            .lamp_image__wrapper img:nth-child(6) {
+                width: 120px;
+                top: -24%;
+            }
+            .backgroundImage {
+                transform: rotateY(180deg);
+            }
+            .lamp_image__wrapper svg:nth-child(7) {
+                width: 30vw;
+            }
+          .audioPlayerWrapper {
+            padding: 1rem;
+          }
+        }
+        @media screen and (max-width: 700px) {
+          .lamp_image__wrapper svg:nth-child(7) {
+              top: -150%;
+          }
+          .audioPlayerWrapper {
+            padding: 0;
+          }
+          .lamp_image__wrapper {
+            width: 50%;
+            max-width: 500px;
+          }
+          
+        }
+  @media screen and (min-width: 1400px){
+    .lamp_image__wrapper {
+      width: 50%;
+    }
+  }
+
+    </style>
+<div class="audioPlayerWrapper">
+  {% if section.settings.backgroundSectionImage %}
+        <div class="backgroundImage">
+            <img src="{{ section.settings.backgroundSectionImage | image_url }}" loading="lazy" height="10%" width="auto" alt="mother"/>
+        </div>
+  {% endif %}
+  
+        <div class="product_content__aside">
+<div class="product_content__wrapper">
+    <h1>Sound On</h1>
+    <p>
+       {{ section.settings.bodyText }}
+    </p>
+    <div class="playerWrapper">
+      {% for block in section.blocks %}
+    <div class="player_audio_element">
+        <p>{{ block.settings.audio_name }}</p>
+        <div class="audioPlayerButton" onclick="toggleMusic({{ forloop.index0 }})">
+            <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="161" height="186" viewBox="0 0 161 186" fill="none">
+                <path d="M160.557 92.6363L0.177344 185.231L0.177352 0.0412909L160.557 92.6363Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
+{% endfor %}
+    </div>
+    
+</div>
+        </div>
+        <div class="product_image__aside">
+            <div class="lamp_image__wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="139" viewBox="0 0 1024 139" fill="none">
+                    <g filter="url(#filter0_f_721_134)">
+                    <path d="M76.0655 20.2285C20.3236 30.312 20.334 43.191 20.334 56.4288C20.334 90.7714 240.425 118.612 511.922 118.612C783.418 118.612 1003.51 90.7714 1003.51 56.4288C1003.51 45.9831 992.918 28.8706 956.942 20.2285" stroke="#FFFDC8" stroke-width="3.27944"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_f_721_134" x="0.329479" y="0.250378" width="1023.18" height="138.366" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="9.18243" result="effect1_foregroundBlur_721_134"/>
+                    </filter>
+                    </defs>
+                </svg>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="1093" height="150" viewBox="0 0 1093 150" fill="none">
+                        <g filter="url(#filter0_f_721_135)">
+                        <path d="M82.5713 22.6094C23.1852 33.3651 23.1963 47.1026 23.1963 61.223C23.1963 97.8552 257.677 127.551 546.923 127.551C836.169 127.551 1070.65 97.8552 1070.65 61.223C1070.65 50.081 1048.96 39.5806 1010.63 30.3624" stroke="#FFFDC8" stroke-width="7.87065"/>
+                        </g>
+                        <defs>
+                        <filter id="filter0_f_721_135" x="0.895885" y="0.371471" width="1092.05" height="149.48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                        <feGaussianBlur stdDeviation="9.18243" result="effect1_foregroundBlur_721_135"/>
+                        </filter>
+                        </defs>
+                </svg>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="1142" height="162" viewBox="0 0 1142 162" fill="none">
+                        <g filter="url(#filter0_f_721_126)">
+                        <path d="M87.9615 26.7432C26.1955 37.9022 26.207 52.1549 26.207 66.8048C26.207 104.811 270.084 135.621 570.922 135.621C871.759 135.621 1115.64 104.811 1115.64 66.8048C1115.64 55.2449 1093.07 44.3508 1053.21 34.7869" stroke="#FFFDC8" stroke-width="15.0854"/>
+                        </g>
+                        <defs>
+                        <filter id="filter0_f_721_126" x="0.299206" y="0.955456" width="1141.25" height="160.572" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                        <feGaussianBlur stdDeviation="9.18243" result="effect1_foregroundBlur_721_126"/>
+                        </filter>
+                        </defs>
+                        </svg>
+
+              <img src="{{ section.settings.mainSectionImage | image_url }}" loading="lazy" />
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="1049" height="188" viewBox="0 0 1049 188" fill="none">
+                    <g filter="url(#filter0_f_721_124)">
+                    <path d="M999.543 72.4071C999.543 90.7001 789.641 138.65 528.287 138.65C266.934 138.65 49.8174 105.458 49.8174 87.1647C49.8174 68.8718 266.934 49.4512 528.287 49.4512C789.641 49.4512 999.543 54.1141 999.543 72.4071Z" fill="#505050" fill-opacity="0.35"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_f_721_124" x="0.625805" y="0.259594" width="1048.11" height="187.582" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="24.5958" result="effect1_foregroundBlur_721_124"/>
+                    </filter>
+                    </defs>
+                    </svg>
+
+              <img src="{{ section.settings.additionalSectionImage | image_url }}" loading="lazy" />  
+                    
+                  
+                <svg width="580" height="782" viewBox="0 0 580 782" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g filter="url(#filter0_f_1_26)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M147.974 283.561C147.625 283.248 147.268 282.948 146.905 282.66L110.704 232.439C120.02 227.826 137.146 223.993 155.454 233.943C154.1 223.037 140.464 204.468 97.2157 213.727L93.2684 208.251C91.4902 205.847 88.1001 205.34 85.6965 207.119C83.2929 208.897 82.7859 212.287 84.5642 214.691L131.021 277.485C120.699 277.528 109.254 282.785 100.525 292.53C86.3958 308.302 84.7322 329.858 96.809 340.676C108.886 351.495 130.13 347.479 144.258 331.707C158.387 315.935 160.051 294.38 147.974 283.561Z" fill="#FFFDC8"/>
+                            </g>
+                            <g filter="url(#filter1_f_1_26)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M491.289 303.389C491.026 303.153 490.756 302.926 490.482 302.709L463.107 264.733C470.152 261.245 483.102 258.346 496.946 265.87C495.922 257.623 485.611 243.582 452.908 250.583L449.923 246.442C448.579 244.625 446.015 244.241 444.198 245.586C442.38 246.931 441.997 249.494 443.341 251.312L478.47 298.795C470.665 298.827 462.01 302.802 455.409 310.171C444.725 322.097 443.467 338.397 452.599 346.578C461.732 354.759 477.795 351.722 488.479 339.796C499.163 327.87 500.421 311.57 491.289 303.389Z" fill="#FFFDC8"/>
+                            </g>
+                            <g filter="url(#filter2_f_1_26)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M552.215 54.2007C552.032 54.037 551.846 53.8797 551.655 53.7289L532.659 27.3763C537.548 24.9561 546.534 22.9449 556.14 28.1659C555.43 22.4431 548.275 12.6995 525.582 17.5578L523.51 14.6837C522.577 13.4224 520.798 13.1564 519.537 14.0895C518.276 15.0226 518.01 16.8014 518.943 18.0627L543.32 51.0126C537.904 51.0351 531.898 53.7935 527.317 58.9069C519.903 67.183 519.03 78.494 525.367 84.1708C531.704 89.8477 542.851 87.7406 550.265 79.4646C557.679 71.1885 558.552 59.8775 552.215 54.2007Z" fill="#FFFDC8"/>
+                            </g>
+                            <g filter="url(#filter3_f_1_26)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M338.846 222.298C338.624 222.093 338.396 221.896 338.164 221.706L315.211 188.913C321.276 186.015 332.382 183.691 344.128 190.288C343.35 183.225 334.702 171.097 306.659 176.694L304.156 173.118C303.028 171.548 300.841 171.19 299.271 172.318C297.701 173.446 297.343 175.633 298.471 177.203L327.941 218.217C321.267 218.152 313.821 221.448 308.089 227.67C298.813 237.739 297.544 251.66 305.254 258.763C312.965 265.866 326.735 263.461 336.011 253.391C345.287 243.322 346.557 229.401 338.846 222.298Z" fill="#FFFDC8"/>
+                            </g>
+                            <g filter="url(#filter4_f_1_26)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M77.8032 520.069C77.5806 519.864 77.353 519.667 77.1206 519.478L54.168 486.684C60.2325 483.786 71.3387 481.462 83.0849 488.059C82.3073 480.996 73.659 468.869 45.6163 474.466L43.1131 470.89C41.9851 469.32 39.798 468.961 38.2281 470.089C36.6581 471.217 36.2999 473.405 37.4279 474.974L66.8977 515.989C60.2245 515.924 52.7776 519.22 47.0464 525.441C37.7702 535.511 36.501 549.432 44.2114 556.535C51.9218 563.637 65.6921 561.232 74.9682 551.163C84.2443 541.093 85.5136 527.172 77.8032 520.069Z" fill="#FFFDC8"/>
+                            </g>
+                            <g clip-path="url(#clip0_1_26)" filter="url(#filter5_f_1_26)">
+                            <path d="M260.211 408.22L217.668 435.808C212.481 439.033 209.587 446.233 211.201 451.881L225.257 501.056C225.257 501.056 221.227 499.743 214.008 502.959C203.409 507.686 196.874 518.727 199.416 527.623C201.959 536.519 212.476 539.409 223.076 534.682C233.686 529.961 239.439 519.424 236.896 510.524L224.895 468.538C223.767 464.594 228.026 461.547 228.026 461.547L265.551 436.846C265.551 436.846 269.675 434.011 270.881 438.232L280.521 471.956C280.521 471.956 275.63 470.74 268.367 473.805C257.702 478.302 251.116 489.166 253.658 498.058C256.202 506.958 266.77 510.029 277.435 505.528C288.109 501.029 294.695 490.168 292.151 481.268L272.526 412.607C270.912 406.959 265.394 404.996 260.211 408.22Z" fill="#FFFDC8"/>
+                            </g>
+                            <g clip-path="url(#clip1_1_26)" filter="url(#filter6_f_1_26)">
+                            <path d="M130.353 662.401L94.5762 685.601C90.2138 688.314 87.7799 694.369 89.1375 699.118L100.958 740.472C100.958 740.472 97.5692 739.368 91.4983 742.073C82.5842 746.048 77.0886 755.333 79.2269 762.815C81.3652 770.296 90.2093 772.726 99.1234 768.751C108.047 764.78 112.885 755.92 110.746 748.435L100.653 713.126C99.7052 709.809 103.286 707.247 103.286 707.247L134.844 686.474C134.844 686.474 138.312 684.09 139.326 687.64L147.433 716.001C147.433 716.001 143.319 714.978 137.212 717.555C128.243 721.337 122.705 730.474 124.842 737.951C126.981 745.436 135.869 748.018 144.837 744.233C153.814 740.45 159.353 731.316 157.214 723.832L140.71 666.09C139.352 661.34 134.712 659.689 130.353 662.401Z" fill="#FFFDC8"/>
+                            </g>
+                            <defs>
+                            <filter id="filter0_f_1_26" x="71.6963" y="194.251" width="96.1564" height="164.307" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="5.90299" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter1_f_1_26" x="431.388" y="233.633" width="77.1551" height="128.689" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="5.57505" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter2_f_1_26" x="510.515" y="5.66163" width="53.8068" height="89.5681" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="3.93533" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter3_f_1_26" x="288.631" y="162.478" width="64.6797" height="109.549" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="4.59121" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter4_f_1_26" x="21.6846" y="454.346" width="76.4857" height="121.355" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="7.54271" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter5_f_1_26" x="158.375" y="391.036" width="162.583" height="162.583" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="5.57505" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <filter id="filter6_f_1_26" x="42.9398" y="646.177" width="140.273" height="140.273" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="5.57505" result="effect1_foregroundBlur_1_26"/>
+                            </filter>
+                            <clipPath id="clip0_1_26">
+                            <rect width="113.469" height="113.469" fill="white" transform="translate(169.525 433.369) rotate(-15.9513)"/>
+                            </clipPath>
+                            <clipPath id="clip1_1_26">
+                            <rect width="95.4229" height="95.4229" fill="white" transform="translate(54.0898 683.551) rotate(-15.9513)"/>
+                            </clipPath>
+                            </defs>
+                </svg>
+                  
+                </div>
+        </div>
+    </div>
+    <div class="music__block">
+      {% for block in section.blocks %}
+        <audio src={{ block.settings.audio_url }}" preload="auto"></audio>
+        {% endfor %}
+    </div>
+    <script>
+        const player = document.querySelector(".playerWrapper");
+        let playerButtons = player.querySelectorAll(".audioPlayerButton");
+        let audioBlock = player.querySelectorAll(".player_audio_element");
+        const musicContainer = document.querySelector(".music__block");
+        let audios = musicContainer.getElementsByTagName("audio");
+
+        let buttonSVG = player.querySelectorAll(".button_svg");
+
+        function toggleMusic(index) {
+    for (let i = 0; i < audios.length; i++) {
+        if (i === index) {
+            if (audios[i].paused) {
+                audios[i].currentTime = 0;
+                audios[i].play();
+                audios[i].volume = 0.3;
+                playerButtons[i].classList.add("playing");
+                playerButtons[i].innerHTML = `
+                    <svg class="button_svg" width="309" height="392" viewBox="0 0 309 392" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="112" height="392" fill="white"/>
+                        <rect x="197" width="112" height="392" fill="white"/>
+                    </svg>`;
+                    playerButtons[i].style.paddingLeft = "0";
+                    audioBlock[i].style.background = "#00000060";
+            } else {
+                audios[i].pause();
+                playerButtons[i].classList.remove("playing");
+                playerButtons[i].innerHTML = `
+                    <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="161" height="186" viewBox="0 0 161 186" fill="none">
+                        <path d="M160.557 92.6363L0.177344 185.231L0.177352 0.0412909L160.557 92.6363Z" fill="white"/>
+                    </svg>`; 
+                    playerButtons[i].style.paddingLeft = "5px";
+                    audioBlock[i].style.background = "none";
+            }
+        } else {
+            audios[i].pause();
+            playerButtons[i].classList.remove("playing");
+            playerButtons[i].innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="161" height="186" viewBox="0 0 161 186" fill="none">
+                    <path d="M160.557 92.6363L0.177344 185.231L0.177352 0.0412909L160.557 92.6363Z" fill="white"/>
+                </svg>`;
+                playerButtons[i].style.paddingLeft = "none";
+                audioBlock[i].style.background = "none";
+        }
+    }
+}
+    </script>
+{% schema %}
+  {
+    "name": "Music Section for baby",
+    "settings": [
+      {
+        "type": "color_background",
+        "id": "backgroundColor",
+        "label": "Background Color",
+        "default": "linear-gradient(#3F53AF, #ffffff)"
+      },
+      {
+          "type": "text",
+          "id": "header",
+          "label": "Header",
+          "default": "Sound On"
+        },
+      {
+          "type": "text",
+          "id": "bodyText",
+          "label": "Body Text",
+          "default": "Place Body Text There"
+        },
+      {
+        "type": "image_picker",
+        "id": "mainSectionImage",
+        "label": "Main Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "additionalSectionImage",
+        "label": "Additional Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "backgroundSectionImage",
+        "label": "Background Image"
+      }
+      
+    ],
+    "blocks": [
+    {
+      "type": "tab",
+      "name": "Audio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "audio_name",
+          "label": "Audio Name",
+          "default": "Music - Relax Sound"
+        },
+        {
+          "type": "url",
+          "id": "audio_url",
+          "label": "Audio Link" 
+        }
+        
+      ]
+    }
+  ],
+    "presets": [
+      {
+        "name": "Music Player Section"
+      }
+    ]
+  }
+{% endschema %}
