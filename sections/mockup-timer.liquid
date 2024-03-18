@@ -1,6 +1,6 @@
 <style>
     #shopify-section-{{ section.id }} {
-      padding: 5rem;
+      padding: 9rem;
       display: flex;
       justify-content: center;
       align-items: start;
@@ -10,7 +10,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       color: #000;
-      gap: 7rem;
+      gap: 16rem;
     }
   
   #shopify-section-{{ section.id }} .mockup-slider-aside {
@@ -18,6 +18,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
+    padding-left: 4.5rem;
   }
   
   #shopify-section-{{ section.id }} .slider-buttons {
@@ -37,6 +38,7 @@
     font-size: 20px;
     line-height: normal;
     text-align: center;
+    font-family: 'Gotham-Ultra';
   }
   #shopify-section-{{ section.id }} .slider-button:hover .slider-number{
     background: #0EC3FF80;
@@ -63,13 +65,12 @@
   
   
   #shopify-section-{{ section.id }} .mockup-images-wrapper {
-    width: 20vw;
+    height: 60vh;
     aspect-ratio: 8 / 16;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: rotateZ(0.9deg);
   }
   
   #shopify-section-{{ section.id }} .mockup-images-wrapper img {
@@ -87,13 +88,16 @@
   }
  #shopify-section-{{ section.id }} .prose {
     max-width: 35vw;
-   font-size: 18px;
+   font-size: var(--text-base);
    color: {{section.settings.prose_color}};
   }
   
   #shopify-section-{{ section.id }} .prose p {
     margin-top: 35px;
     font-style: normal;
+  }
+  #shopify-section-{{ section.id }} #section-headerr {
+    color: {{section.settings.header-color}};
   }
   
   #shopify-section-{{ section.id }} .mockup-buttons-wrapper {
@@ -103,10 +107,11 @@
     justify-content: start;
     align-items: center;
     gap: 1rem;
-     margin-top: 35px;
+    margin-top: 35px;
   }
   #shopify-section-{{ section.id }} .last-word {
       color: {{ section.settings.header_span_color }}; 
+    font-family: 'Gotham-Ultra';
     }
   
   #shopify-section-{{ section.id }} a {
@@ -154,10 +159,10 @@
 #shopify-section-{{ section.id }} .mockup-link-button:hover svg {
     transform: translateX(30%) scale(.65);
   }
-  .mockup-timer {
+  #shopify-section-{{ section.id }} .mockup-timer {
     color: #F40;
     text-align: center;
-    font-family: Gotham;
+    font-family: 'Gotham-Ultra';
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
@@ -171,7 +176,7 @@
     justify-content: center;
     align-items: center;
   }
-  .timer-text {
+  #shopify-section-{{ section.id }} .timer-text {
     position: absolute;
   }
 
@@ -179,7 +184,6 @@
       stroke-dasharray: 700;
       stroke-dashoffset: 700;
       animation: draw 2s ease-in-out infinite;
-    position: absolute;
     }
 
     @keyframes draw {
@@ -187,7 +191,11 @@
         stroke-dashoffset: 0;
       }
     }
-
+@media screen and (max-width: 1300px) {
+  #shopify-section-{{ section.id }} .mockup-images-wrapper {
+        height: 75vh;
+      }
+}
   
   
     @media screen and (max-width: 990px) {
@@ -205,13 +213,19 @@
         text-align: center;
       }
       #shopify-section-{{ section.id }} .mockup-images-wrapper {
-        width: 35vw;
+        height: 55vh;
+      }
+      #shopify-section-{{ section.id }} .mockup-buttons-wrapper {
+        justify-content: center;
+      }
+      #shopify-section-{{ section.id }} .mockup-slider-aside {
+        padding-left: 0rem;
       }
     }
 
   @media screen and (max-width: 700px) {
       #shopify-section-{{ section.id }} .mockup-images-wrapper {
-        width: 45vw;
+        
       }
     }
 
@@ -230,6 +244,9 @@
         flex-direction: row;
         gap: .75rem;
       }
+       .mockup-timer svg {
+         transform: scale(.75);
+       }
        
        #shopify-section-{{ section.id }} .slider-button {
         max-width: 80px;
@@ -237,7 +254,7 @@
       }
        
        #shopify-section-{{ section.id }} .mockup-images-wrapper {
-        width: 80vw;
+        
       }
     }
   </style>
@@ -249,8 +266,8 @@
 <path id="penPath" d="M199.456 11.7294C195.806 10.7632 193.75 9.88611 189.567 9.50716C147.723 5.7164 103.075 4.34808 62.197 15.5072C54.2935 17.6647 39.0182 23.7376 31.3081 27.5812C21.4242 32.5086 8.78695 39.202 3.93773 49.8775C-2.68699 64.4618 2.64677 82.2064 12.4192 94.0998C24.4173 108.702 42.8021 113.668 60.5674 116.211C99.5858 121.796 140.947 115.904 178.567 105.063C192.735 100.98 210.264 94.4243 223.456 87.5812C237.337 80.381 253.599 70.4728 261.901 56.5812C274.781 35.0291 242.749 20.9928 227.53 15.5812C196.26 4.46168 162.952 1.50705 130.012 1.02568C104.21 0.64862 80.766 4.50853 55.4563 7.06272" stroke="#FF4400" stroke-linecap="round"/>
 </svg>
       </div>
-      {% if section.settings.mockup-image %}<img class="mockup-slide" src="{{ section.settings.mockup-image | image_url }}" alt="slide">{% endif %}
-      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case">{% endif %}
+      {% if section.settings.mockup-image %}<img class="mockup-slide" src="{{ section.settings.mockup-image | image_url }}" alt="slide" loading="lazy">{% endif %}
+      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case" loading="lazy">{% endif %}
     </div>
   </div>
   <div class="prose">
@@ -259,8 +276,8 @@
     </p>
     {{ section.settings.prose-text }}
     <div class="mockup-buttons-wrapper">
-    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}"></a>{% endif %}
-    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}"></a>{% endif %}
+    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}" loading="lazy"></a>{% endif %}
+    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}" loading="lazy"></a>{% endif %}
     </div>
     <div class="button-wrapper">
       <a href="{{ section.settings.cart-link }}"><div class="mockup-link-button">{{ section.settings.button-text }}<svg xmlns="http://www.w3.org/2000/svg" width="29" height="24" viewBox="0 0 29 24" fill="none">
@@ -268,8 +285,9 @@
 </svg></div></a>
     </div>
   </div>
+  {% render 'last-word-colorizer' %}
 <script>
-  colorLastWords("{{section.settings.header}}", 'section-headerr', 2);
+  //colorLastWords("{{section.settings.header}}", 'section-headerr', 2);
 
   function startTimer() {
       let timerElement = document.getElementById('timer');
@@ -325,8 +343,8 @@
       },
       {
         "type": "color",
-        "id": "header_span_color",
-        "label": "Header Span Color",
+        "id": "header-color",
+        "label": "Header Color",
         "default": "#5252FF"
       },
       {

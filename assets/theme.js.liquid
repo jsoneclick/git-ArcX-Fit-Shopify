@@ -45,7 +45,7 @@ var CountrySelector = class extends HTMLElement {
     this.countryElement = this.querySelector('[name="address[country]"]');
     this.provinceElement = this.querySelector('[name="address[province]"]');
     this.countryElement.addEventListener("change", this._onCountryChangedListener);
-    if (this.getAttribute("country") !== "") {
+    if (this.hasAttribute("country") && this.getAttribute("country") !== "") {
       this.countryElement.selectedIndex = Math.max(0, Array.from(this.countryElement.options).findIndex((option) => option.textContent === this.getAttribute("country")));
       this.countryElement.dispatchEvent(new Event("change"));
     } else {
@@ -117,6 +117,9 @@ function formatMoney(cents, format = "") {
       break;
     case "amount_no_decimals_with_apostrophe_separator":
       value = formatWithDelimiters(cents, 0, "'");
+      break;
+    default:
+      value = formatWithDelimiters(cents, 2);
       break;
   }
   if (formatString.indexOf("with_comma_separator") !== -1) {
@@ -303,9 +306,10 @@ var PageDots = class extends HTMLElement {
   }
   select(selectedIndex, dispatchEvent = true) {
     if (this.hasAttribute("align-selected")) {
-      this.scrollTo({
-        left: this.items[selectedIndex].offsetLeft - this.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
-        top: this.items[selectedIndex].offsetTop - this.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
+      const scrollElement = this.getAttribute("align-selected") !== "" ? this.closest(this.getAttribute("align-selected")) : this;
+      scrollElement.scrollTo({
+        left: this.items[selectedIndex].offsetLeft - scrollElement.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
+        top: this.items[selectedIndex].offsetTop - scrollElement.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
         behavior: window.matchMedia("(prefers-reduced-motion: no-preference)").matches ? "smooth" : "auto"
       });
     }
@@ -1013,7 +1017,7 @@ var BaseCarousel = class extends HTMLElement {
     this._abortController = new AbortController();
     this._reloaded = false;
     if (Shopify.designMode) {
-      this.closest(".shopify-section").addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
+      this.closest(".shopify-section")?.addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
     }
     if (this.items.length > 1) {
       if (Shopify.designMode) {
@@ -1030,6 +1034,7 @@ var BaseCarousel = class extends HTMLElement {
       this.addEventListener("control:select", (event) => this.select(event.detail.index), { signal: this._abortController.signal });
     }
     if (this.selectedIndex === 0) {
+      this.selectedSlide.classList.add("is-selected");
       this._dispatchEvent("carousel:select", 0);
     } else {
       this.select(this.selectedIndex, { animate: false, force: true });
@@ -1235,6 +1240,8 @@ var ScrollCarousel = class extends BaseCarousel {
    * On the scroll has settled we dispatch the event (which covers both programmatic scroll and swipe)
    */
   _onScrollSettled() {
+    this.items.forEach((item) => item.classList.remove("is-selected"));
+    this.selectedSlide.classList.add("is-selected");
     this._hasPendingProgrammaticScroll = false;
     this._dispatchEvent("carousel:settle", this.selectedIndex);
   }
@@ -1781,12 +1788,12 @@ var CartDrawer = class extends Drawer {
   async _onCartChanged(event) {
     const updatedDrawerContent = new DOMParser().parseFromString(event.detail.cart["sections"][extractSectionId(this)], "text/html");
     if (event.detail.cart["item_count"] > 0) {
-      const currentLineItemsElement = this.querySelector(".cart-drawer__line-items"), updatedLineItemsElement = updatedDrawerContent.querySelector(".cart-drawer__line-items");
-      if (!currentLineItemsElement) {
+      const currentInner = this.querySelector(".cart-drawer__inner"), updatedInner = updatedDrawerContent.querySelector(".cart-drawer__inner");
+      if (!currentInner) {
         this.replaceChildren(document.createRange().createContextualFragment(updatedDrawerContent.querySelector(".cart-drawer").innerHTML));
       } else {
         setTimeout(() => {
-          currentLineItemsElement.innerHTML = updatedLineItemsElement.innerHTML;
+          currentInner.innerHTML = updatedInner.innerHTML;
         }, event.detail.baseEvent === "variant:add" ? 0 : 1250);
         this.querySelector('[slot="footer"]').replaceChildren(...updatedDrawerContent.querySelector('[slot="footer"]').childNodes);
       }
@@ -2627,13 +2634,16 @@ function createMediaImg(media, widths = [], properties = {}) {
 }
 
 // js/common/product/gift-card-recipient.js
-var _recipientCheckbox, _recipientOtherProperties, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn;
+var _recipientCheckbox, _recipientOtherProperties, _recipientSendOnProperty, _offsetProperty, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn, _formatDate, formatDate_fn;
 var GiftCardRecipient = class extends HTMLElement {
   constructor() {
     super(...arguments);
     __privateAdd(this, _synchronizeProperties);
+    __privateAdd(this, _formatDate);
     __privateAdd(this, _recipientCheckbox, void 0);
     __privateAdd(this, _recipientOtherProperties, []);
+    __privateAdd(this, _recipientSendOnProperty, void 0);
+    __privateAdd(this, _offsetProperty, void 0);
     __privateAdd(this, _recipientFieldsContainer, void 0);
   }
   connectedCallback() {
@@ -2641,17 +2651,35 @@ var GiftCardRecipient = class extends HTMLElement {
     __privateSet(this, _recipientCheckbox, properties.find((input) => input.name === checkboxPropertyName));
     __privateSet(this, _recipientOtherProperties, properties.filter((input) => input.name !== checkboxPropertyName));
     __privateSet(this, _recipientFieldsContainer, this.querySelector(".gift-card-recipient__fields"));
+    __privateSet(this, _offsetProperty, this.querySelector('[name="properties[__shopify_offset]"]'));
+    if (__privateGet(this, _offsetProperty)) {
+      __privateGet(this, _offsetProperty).value = (/* @__PURE__ */ new Date()).getTimezoneOffset().toString();
+    }
+    __privateSet(this, _recipientSendOnProperty, this.querySelector('[name="properties[Send on]"]'));
+    const minDate = /* @__PURE__ */ new Date();
+    const maxDate = /* @__PURE__ */ new Date();
+    maxDate.setDate(minDate.getDate() + 90);
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("min", __privateMethod(this, _formatDate, formatDate_fn).call(this, minDate));
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("max", __privateMethod(this, _formatDate, formatDate_fn).call(this, maxDate));
     __privateGet(this, _recipientCheckbox)?.addEventListener("change", __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).bind(this));
     __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).call(this);
   }
 };
 _recipientCheckbox = new WeakMap();
 _recipientOtherProperties = new WeakMap();
+_recipientSendOnProperty = new WeakMap();
+_offsetProperty = new WeakMap();
 _recipientFieldsContainer = new WeakMap();
 _synchronizeProperties = new WeakSet();
 synchronizeProperties_fn = function() {
   __privateGet(this, _recipientOtherProperties).forEach((property) => property.disabled = !__privateGet(this, _recipientCheckbox).checked);
   __privateGet(this, _recipientFieldsContainer).classList.toggle("js:hidden", !__privateGet(this, _recipientCheckbox).checked);
+};
+_formatDate = new WeakSet();
+formatDate_fn = function(date) {
+  const offset = date.getTimezoneOffset();
+  const offsetDate = new Date(date.getTime() - offset * 60 * 1e3);
+  return offsetDate.toISOString().split("T")[0];
 };
 if (!window.customElements.get("gift-card-recipient")) {
   window.customElements.define("gift-card-recipient", GiftCardRecipient);
@@ -4164,7 +4192,7 @@ import { Delegate as Delegate4 } from "{{ 'vendor.min.js' | asset_url }}";
 (() => {
   const delegateDocument = new Delegate4(document.documentElement);
   if (window.themeVariables.settings.showPageTransition && "animate" in document.documentElement && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-    delegateDocument.on("click", "a", async (event, target) => {
+    delegateDocument.on("click", 'a:not([target="_blank"])', async (event, target) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey) {
         return;
       }

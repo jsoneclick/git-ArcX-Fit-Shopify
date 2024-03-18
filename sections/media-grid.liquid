@@ -34,6 +34,39 @@ CSS
       }
     {%- endif -%}
   {%- endfor -%}
+#shopify-section-{{ section.id }} .prose p {
+  margin-block-start: var(--spacing-2);
+}
+ #shopify-section-{{ section.id }} .tile-icon {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ #shopify-section-{{ section.id }} .tile-icon img{
+    height: 50px;
+    width: auto;
+   margin-block: 0;
+  }
+
+.content-over-media {
+  
+  
+}
+  @media screen and (max-width:990px){
+    #shopify-section-{{ section.id }} .prose {
+    text-align: center !important;
+  }
+    #shopify-section-{{ section.id }} .tile-icon img{
+    height: 45px;
+    width: auto;
+   margin-block: 0;
+  }
+    #shopify-section-{{ section.id }} {
+    --media-grid-row-height: 200px;
+}
+  }
+  
 </style>
 
 {%- comment -%}
@@ -46,14 +79,6 @@ LIQUID
   <media-grid class="media-grid">
     {%- for block in section.blocks -%}
       <a {% if block.settings.link_url != blank %}href="{{ block.settings.link_url }}"{% endif %} class="media-grid__item shadow group" reveal-js style="--media-grid-column-span: {{ block.settings.desktop_column_span }}; --media-grid-row-span: {{ block.settings.desktop_row_span }}" {{ block.shopify_attributes }}>
-        {%- capture style -%}
-          --content-over-media-overlay: {{ block.settings.overlay_color.rgb }} / {{ block.settings.overlay_opacity | divided_by: 100.0 }};
-
-          {%- if block.settings.heading_tag == 'h5' or block.settings.heading_tag == 'h6' -%}
-            --content-over-media-gap: 1.5rem;
-          {%- endif -%}
-        {%- endcapture -%}
-
         <div id="media-grid-{{ block.id }}" {% render 'surface', class: 'content-over-media rounded', background: block.settings.background, background_gradient: block.settings.background_gradient, text_color: block.settings.text_color %}>
           {%- case block.type -%}
             {%- when 'image' -%}
@@ -88,11 +113,27 @@ LIQUID
 
           {%- if block.settings.title != blank or block.settings.link_text != blank -%}
             <div class="{{ block.settings.mobile_text_position }} {{ block.settings.desktop_text_position }}">
-              <div class="prose">
+                    {% if block.settings.mobile-prose-color %}
+                      <style>
+                      @media (max-width: 990px)
+                      {
+                       #shopify-section-{{ section.id }} .media-grid__item:nth-child({{forloop.index}}) .prose {
+                        color: {{block.settings.mobile-prose-color}};
+                      }
+                      }
+                      
+                    </style>
+                      {% endif %}
+              <div class="prose" style="text-align: {{ block.settings.text-align }};">
+               {% if block.settings.tile-icon %} <div class="tile-icon">
+                  <img src="{{ block.settings.tile-icon | image_url }}" loading="lazy">
+                </div>
+                  {% endif %}
                 {%- if block.settings.title != blank -%}
                   <p class="{{ block.settings.heading_tag }}">
                     {% render 'styled-text', content: block.settings.title, gradient: block.settings.text_gradient %}
                   </p>
+                {{ block.settings.body-text }}
                 {%- endif -%}
 
                 {%- if block.settings.link_text != blank -%}
@@ -129,10 +170,47 @@ LIQUID
           "info": "1000 x 1500px .jpg recommended (portrait) or 1500 x 1500px .jpg recommended (square)"
         },
         {
+          "type": "image_picker",
+          "id": "tile-icon",
+          "label": "Tile Icon",
+          "info": "200 x 200px"
+        },
+        {
           "type": "text",
           "id": "title",
           "label": "Heading",
           "default": "Promote your products"
+        },
+        {
+          "type": "richtext",
+          "id": "body-text",
+          "label": "Body Text",
+          "default": "<p>This is a body text</p>"
+        },
+        {
+          "type": "color",
+          "id": "mobile-prose-color",
+          "label": "Mobile Text Color"
+        },
+        {
+          "type": "select",
+          "id": "text-align",
+          "label": "Tetx Align",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
         },
         {
           "type": "select",

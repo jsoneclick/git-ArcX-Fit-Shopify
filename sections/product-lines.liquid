@@ -1,6 +1,7 @@
 <style>
    #shopify-section-{{ section.id }} {
     padding: 2rem;
+     padding-bottom: 5rem;
     background-color: {{ section.settings.background_color }};
     background: {{ section.settings.background_gradient }};
     color: #000 !important;
@@ -11,14 +12,24 @@
    }
   #shopify-section-{{ section.id }} .last-word {
       color: {{ section.settings.header_span_color }};
+    font-family: 'Gotham-Ultra';
     }
   #shopify-section-{{ section.id }} .prose{
     text-align: center;
-    max-width: 50vw;
+    max-width: 70vw;
+    font-family: 'Gotham-Ultra';
+       margin-top: 2rem;
+    margin-bottom: 2rem;
   }
   #shopify-section-{{ section.id }} .prose .h1{
     font-size: var(--text-h1);
     font-weight: 900;
+    font-family: 'Gotham-Ultra' !important;
+    color: {{section.settings.header-color}};
+  }
+  #shopify-section-{{ section.id }} .prose .h1 p{
+    font-family: 'Gotham-Ultra';
+    
   }
   #shopify-section-{{ section.id }} .content-container{
     display: flex;
@@ -35,11 +46,10 @@
   }
   #shopify-section-{{ section.id }} .line-block{
     position: absolute;
-    aspect-ratio: 1 / 1;
-    height: 275px;
+    /* aspect-ratio: 1 / 1;
+    height: 275px; */
     text-align: center;
     line-height: normal;
-
     color: #000;
     text-align: center;
     font-size: 16px;
@@ -47,6 +57,17 @@
     font-weight: 300;
     line-height: normal;
     letter-spacing: 0.6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity .4s;
+    font-family: 'Brown-Regular';
+  }
+  
+  #shopify-section-{{ section.id }} .main-image {
+    opacity: 0;
+    transition: opacity 1s linear;
   }
   
   #shopify-section-{{ section.id }} .line-block b{
@@ -57,6 +78,58 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: 0.6px;
+    white-space: nowrap;
+    font-family: 'Gotham-Ultra';
+
+  }
+
+   #shopify-section-{{ section.id }} .line-block svg {
+     overflow: visible;
+   }
+  
+  @keyframes pulse {
+  0% {
+    r: 8.5;
+    transform: scale(1);
+  }
+  50% {
+    r: 12.5;
+    transform: scale(1);
+  }
+  100% {
+    r: 8.5;
+    transform: scale(1);
+  }
+}
+#shopify-section-{{ section.id }} .line-block:nth-child(2) svg {
+  transform: translateX(49%);
+}
+
+  #shopify-section-{{ section.id }} .line-block:nth-child(3) svg {
+  transform: translateX(60%);
+}
+
+  #shopify-section-{{ section.id }} .line-block:nth-child(7) svg {
+  transform: translateX(-10%);
+}
+#pulse-circle {
+  transform-origin: center;
+  animation: pulse 1s infinite;
+}
+
+  #shopify-section-{{ section.id }} #line-path {
+      stroke-dasharray: 700;
+      stroke-dashoffset: 700;
+      animation: drawLine 2s ease-in-out infinite;
+    fill: #00000000;
+    }
+  
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+        fill: #000;
+      }
+    }
   }
   
   #shopify-section-{{ section.id }} .line-block::after, #shopify-section-{{ section.id }} .line-block::before {
@@ -83,92 +156,133 @@
   }
   
   #shopify-section-{{ section.id }} .line-block:nth-child(2){
-    top: 40%;
-    left: -10%;
+    top: 35%;
+    left: -30%;
     transform: translate(-50%, -50%);
   }
+  
   #shopify-section-{{ section.id }} .line-block:nth-child(3){
-    top: 85%;
-    left: -10%;
+    top: 75%;
+    left: -30%;
     transform: translate(-50%, -50%);
     aspect-ratio: 1.5 / 1;
     height: 150px;
   }
   #shopify-section-{{ section.id }} .line-block:nth-child(4){
     top: 100%;
-    left: 50%;
+    left: 0%;
     transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    flex-direction: row;
   }
+  
   #shopify-section-{{ section.id }} .line-block:nth-child(5){
+    top: 105%;
+    left: 110%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    flex-direction: row-reverse;
+  }
+
+  
+  
+  #shopify-section-{{ section.id }} .line-block:nth-child(6){
     top: 70%;
-    left: 130%;
+    left: 128%;
     transform: translate(-50%, -50%);
     aspect-ratio: 2 / 1;
     height: 150px;
   }
-  #shopify-section-{{ section.id }} .line-block:nth-child(6){
-    top: 20%;
-    left: 135%;
+  
+  #shopify-section-{{ section.id }} .line-block:nth-child(7){
+    top: 15%;
+    left: 140%;
     transform: translate(-50%, -50%);
     aspect-ratio: 1.75 / 1;
     height: 200px;
   }
-/* sub-elements */
-
   
-  #shopify-section-{{ section.id }} .line-block:nth-child(2)::after{
-    height: 50%;
-    top:55%;
-    left:50%;
-  }
-  #shopify-section-{{ section.id }} .line-block:nth-child(2)::before{
-    width: 50%;
-    top:80%;
-    left:75%;
-  }
+  .desktop-svg-line {
+      display: block;
+    }
 
-  #shopify-section-{{ section.id }} .line-block:nth-child(3)::after{
-    height: 50%;
-    top:50%;
-    left:50%;
+    .mobile-svg-line {
+      
+      display: none;
+    }
+  
+  @media screen and (max-width:1150px){
+    #shopify-section-{{ section.id }} .content-container{
+    transform: scale(.75);
+    margin-block-start: 2rem;
+    margin-block-end: 2rem;
   }
-  #shopify-section-{{ section.id }} .line-block:nth-child(3)::before{
-    width: 50%;
-    top:75%;
-    left:75%;
+    #shopify-section-{{ section.id }} .prose{
+    text-align: center;
+    max-width: 100%;
   }
+     #shopify-section-{{ section.id }} .line-block:nth-child(2){
+    top: 25%;
+  }
+     #shopify-section-{{ section.id }} .line-block:nth-child(3){
+    left: -30%;
+  }
+     #shopify-section-{{ section.id }} .line-block:nth-child(4){
+    top: 105%;
+  }
+     #shopify-section-{{ section.id }} .line-block:nth-child(6){
 
-  #shopify-section-{{ section.id }} .line-block:nth-child(4)::after{
-    height: 50%;
-    top:50%;
-    left:50%;
+    left: 135%;
+
   }
-  #shopify-section-{{ section.id }} .line-block:nth-child(4)::before{
-    width: 50%;
-    top:75%;
-    left:75%;
+    #shopify-section-{{ section.id }} .line-block:nth-child(7){
+    top: 18%;
+    left: 125%;
   }
-  
-   #shopify-section-{{ section.id }} .line-block:nth-child(5)::after{
-    height: 50%;
-    top:55%;
-    left:50%;
+    #shopify-section-{{ section.id }} .line-block:nth-child(3) svg {
+  transform: translateX(120%);
+}
+
+    .desktop-svg-line {
+      display: none;
+    }
+
+    .mobile-svg-line {
+      display: block;
+    }
+    
   }
-  #shopify-section-{{ section.id }} .line-block:nth-child(5)::before{
-    width: 50%;
-    top:80%;
-    left:25%;
+   @media screen and (max-width:850px){
+    #shopify-section-{{ section.id }} .content-container{
+    transform: scale(.65);
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
   }
-  
-   #shopify-section-{{ section.id }} .line-block:nth-child(6)::after{
-    height: 50%;
-    top:55%;
-    left:50%;
+      #shopify-section-{{ section.id }} .prose{
+       margin-top: 0rem;
+    margin-bottom: 0rem;
   }
-  #shopify-section-{{ section.id }} .line-block:nth-child(6)::before{
-    width: 50%;
-    top:80%;
-    left:25%;
+     #shopify-section-{{ section.id }} {
+    padding: 1rem;
+     }
+  }
+  @media screen and (max-width:750px){
+    #shopify-section-{{ section.id }} .content-container{
+    transform: scale(.55);
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+  }
+  }
+  @media screen and (max-width:670px){
+    #shopify-section-{{ section.id }} .content-container{
+    transform: scale(.50) scaleX(.9);
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+  }
   }
 </style>
 <div class="prose">
@@ -182,7 +296,7 @@
 <div class="content-container">
   <div class="main-image">
     {% if section.settings.main-image %}
-      <img src="{{ section.settings.main-image | image_url}}" alt="case">
+      <img src="{{ section.settings.main-image | image_url}}" alt="case" loading="lazy">
       {% endif %}
   </div>
   <div class="lines-block">
@@ -193,13 +307,35 @@
       <br>
         {{ block.settings.line-text }}
       </div>
+      {{ block.settings.line-svg }}
     </div>
     {% endfor %}
 </div>
 </div>
+{% render 'last-word-colorizer' %}
 <script>
-  colorLastWords("{{ section.settings.header }}", 'lines-header', 3);
+  //colorLastWords("{{ section.settings.header }}", 'lines-header', 3);
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let lineBlocks = document.querySelectorAll('.line-block');
+      let mainImg = document.querySelector('.main-image');
+      window.addEventListener('scroll', function() {
+        lineBlocks.forEach(function(line, index) {
+          let boundingRect = line.getBoundingClientRect();
+          if (boundingRect.top < window.innerHeight && boundingRect.bottom >= 0) {
+            setTimeout(function() {
+              mainImg.style.opacity = '1';
+            }, 500);
+            setTimeout(function() {
+              line.style.opacity = '1';
+              line.style.animation = 'puk 2s ease-in-out infinite';
+            }, index * 650);
+          }
+        });
+      });
+    });
+  </script>
 {% schema %}
   {
     "name": "Product Lines",
@@ -217,8 +353,8 @@
       },
       {
         "type": "color",
-        "id": "header_span_color",
-        "label": "Header Span Color",
+        "id": "header-color",
+        "label": "Header Color",
         "default": "#5252FF"
       },
       {
@@ -259,7 +395,12 @@
             "label": "Line Text",
             "id": "line-text",
             "default": "line text"
-          }
+          },
+          {
+        "type": "html",
+        "id": "line-svg",
+        "label": "Line Svg"
+      }
         ]
     }
   ],

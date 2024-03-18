@@ -85,7 +85,7 @@ Supported variables
                 <facet-dialog id="filter-dialog-{{ filter.param_name }}" class="facet-dialog shadow">
                   {%- case filter.type -%}
                     {%- when 'list' or 'boolean' -%}
-                      {%- if section.settings.show_color_swatch and color_label_list contains downcase_label -%}
+                      {%- if filter.presentation == 'swatch' or section.settings.show_color_swatch and color_label_list contains downcase_label -%}
                         <div class="color-list h-stack wrap justify-center gap-4">
                           {%- for filter_value in filter.values -%}
                             {%- assign disabled = false -%}
@@ -98,7 +98,16 @@ Supported variables
                               {%- endif -%}
                             {%- endif -%}
 
-                            {% render 'swatch' with 'color', allow_multiple: true, selected: filter_value.active, value: filter_value.label, name: filter_value.param_name, disabled: disabled, show_tooltip: true %}
+                            {%- if filter.presentation == 'swatch' -%}
+                              {%- case filter_value.display.type -%}
+                                {%- when 'colors' -%}
+                                  {%- render 'swatch', type: 'colors', allow_multiple: true, colors: filter_value.display.value, selected: filter_value.active, value: filter_value.value, label: filter_value.label, name: filter_value.param_name, show_tooltip: true, context: id_prefix -%}
+                                {%- when 'image' -%}
+                                  {%- render 'swatch', type: 'colors', allow_multiple: true, image: filter_value.display.value, selected: filter_value.active, value: filter_value.value, label: filter_value.label, name: filter_value.param_name, show_tooltip: true, context: id_prefix -%}
+                              {%- endcase -%}
+                            {%- else -%}
+                              {% render 'swatch', type: 'colors', allow_multiple: true, selected: filter_value.active, value: filter_value.value, name: filter_value.param_name, label: filter_value.label, disabled: disabled, show_tooltip: true, context: context %}
+                            {%- endif -%}
                           {%- endfor -%}
                         </div>
                       {%- else -%}

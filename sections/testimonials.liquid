@@ -33,6 +33,12 @@
         --testimonial-list-carousel-item-width: calc(100% / 3 - (var(--grid-gutter) / 3 * 2));
       }
     }
+    #shopify-section-{{ section.id }} .testimonial {
+      box-shadow: 1px 1px 35px 0px rgba(0, 0, 0, 0.15);
+    }
+    #shopify-section-{{ section.id }} .scroll-area {
+      padding:2.5rem  1.5rem;
+    }
   </style>
 
   <div {% render 'section-properties' %}>

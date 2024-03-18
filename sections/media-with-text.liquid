@@ -68,7 +68,7 @@ LIQUID
             {%- endcapture -%}
 
             {%- if block.settings.video -%}
-              <video-media {% if block.settings.autoplay %}autoplay{% else %}show-play-button{% endif %}>
+              <video-media {% if block.settings.autoplay %}autoplay{% else %}show-play-button{% endif %} style="--aspect-ratio: {{ block.settings.video.aspect_ratio }}">
                 {%- unless block.settings.autoplay -%}
                   {{- poster -}}
                 {%- endunless -%}
@@ -109,7 +109,7 @@ LIQUID
             {%- endif -%}
 
             {%- if block.settings.subheading != blank -%}
-              <p class="bold">{{ block.settings.subheading | escape }}</p>
+              <p class="subheading">{{ block.settings.subheading | escape }}</p>
             {%- endif -%}
 
             {%- if block.settings.title != blank -%}
@@ -129,7 +129,6 @@ LIQUID
     {%- endfor -%}
   </media-with-text>
 </div>
-
 {% schema %}
 {
   "name": "Media with text",

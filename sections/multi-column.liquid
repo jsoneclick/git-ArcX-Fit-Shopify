@@ -6,45 +6,122 @@
       --multi-column-grid: {% if section.settings.stack_on_mobile %}none{% else %}auto / auto-flow 73vw{% endif %};
       --multi-column-list-gap: {% if section.settings.gap == 'small' %}var(--grid-gutter){% elsif section.settings.gap == 'medium' %}var(--spacing-12){% elsif section.settings.gap == 'large' %}var(--spacing-20){% else %}var(--spacing-28){% endif %};
     }
-
-    #shopify-section-{{ section.id }} .h2 {
-      color: {{section.settings.text_color}};
+    #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+      font-family: 'Gotham-Black';
     }
-    .multi-column__item {
-      border-radius: 26px;
-       padding: 48px 24px;
-    }
-     /* .multi-column__item {
-      border-radius: 26px;
-      box-sizing: border-box;
-      padding: 48px 24px;
-      color: #000;
-      text-align: center;
-       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      overflow: visible !important;
+    #shopify-section-{{ section.id }} .media-blob-wrapper {
       position: relative;
-      overfow: visible;
-      margin-top: 110px; 
     }
-    .multi-column__item img {
+    #shopify-section-{{ section.id }} .media-blob-wrapper img{
+      z-index: 999;
+      position: relative;
+    }
+    #shopify-section-{{ section.id }} .blob-block {
       position: absolute;
-      top: -30%;
-      width: 40%;
-    } */
-  </style>
+      height: 80%;
+      aspect-ratio: 1 / 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
 
+    #colored-header {
+      color: {{section.settings.header-color}};
+    }
+    
+   #shopify-section-{{ section.id }} .multi-column__item {
+     position: relative;
+   }
+    #shopify-section-{{ section.id }} .svg-arrows-wrapper {
+      position: absolute;
+      width: 60%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%;
+    }
+    #shopify-section-{{ section.id }} .svg-arrows-wrapper svg{
+      height: auto;
+      width: 50px;
+      fill: {{section.settings.arrow-color}};
+    }
+    #shopify-section-{{ section.id }} .multi-column__item .prose {
+      padding: 0 .75rem;
+    }
+
+    #shopify-section-{{ section.id }} button div {
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} button div, #shopify-section-{{ section.id }} a div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+ #shopify-section-{{ section.id }} button svg, #shopify-section-{{ section.id }} a svg{
+    margin-left: .5rem;
+    transition: transform .4s;
+    transform: translateX(0%) scale(.65);
+    fill: white;
+
+ }
+  
+  #shopify-section-{{ section.id }} button:hover svg {
+    transform: translateX(30%) scale(.65);
+  }
+  #shopify-section-{{ section.id }} a:hover svg {
+    transform: translateX(30%) scale(.65);
+  }
+
+  #shopify-section-{{ section.id }}  #penArrow {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 2s ease-in-out infinite;
+    }
+  @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    @media screen and (min-width: 2000px){
+      #shopify-section-{{ section.id }} .svg-arrows-wrapper {
+      width: 45%;
+      }
+    }
+    @media screen and (max-width: 1000px){
+      #shopify-section-{{ section.id }} .svg-arrows-wrapper {
+      display: none;
+      }
+    }
+    
+
+@media screen and (min-width: 1150px){
+.section-header {
+    grid-template-columns: 800px;
+    justify-content: space-between;
+    align-items: end;
+}
+  </style>
   <div {% render 'section-properties' %}>
     <div class="section-stack">
-      {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, content: section.settings.content, text_alignment: section.settings.text_alignment -%}
-
+     {% if section.settings.header %} <div class="h1" id="colored-header">
+             {{section.settings.header}}
+            </div>
+       {% endif %}
+      {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, content: section.settings.content -%}
       <div class="multi-column scroll-area bleed md:unbleed">
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'item' -%}
-              <div class="multi-column__item justify-{{ section.settings.text_alignment }} snap-start" style="--multi-column-item-column-count: span {{ 12.0 | divided_by: block.settings.column_size | round }}; background: {{ block.settings.cardBackground }}; color: {{ block.settings.cardTextColor }}; background-image: url('{{ block.settings.cardImageBackground | image_url}}'); background-size: 100%; background-position: center" {{ block.shopify_attributes }}>
+              <div class="multi-column__item justify-{{ section.settings.text_alignment }} snap-start" style="--multi-column-item-column-count: span {{ 12.0 | divided_by: block.settings.column_size | round }}" {{ block.shopify_attributes }}>
+
+                <div class="media-blob-wrapper">
+                  
                 {%- if block.settings.video != blank -%}
                   <video-media autoplay style="--aspect-ratio: {{ block.settings.video.aspect_ratio }}">
                     {{ block.settings.video | video_tag: playsinline: true, muted: true, loop: true, preload: 'metadata', class: 'rounded' }}
@@ -53,7 +130,26 @@
                   {%- capture sizes -%}(max-width: 699px) calc(73vw - 40px), (max-width: 999px) calc(38vw - 64px), calc(min({{ settings.page_width }}px, 100vw) / {{ block.settings.column_size }}){%- endcapture -%}
                   {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes, widths: '300,400,500,600,800,1000,1200,1400,1600,1800', class: 'rounded' -}}
                 {%- endif -%}
+            
+                  {% if section.settings.blobs %}
+                    <div class="blob-block">
 
+                          <svg viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="{{ block.settings.blob-color }}">
+                              <animate attributeName="d"
+                                dur="10000ms"
+                                repeatCount="indefinite"
+                                values="M220,402.5411951138327C263.8954279739712,408.21972525834116,312.3244812012819,398.6917881819729,343.99814027651234,367.77522914953437C374.66460795015826,337.8417864772894,376.3299108678433,290.73360369956777,378.3976219025121,247.92977442147102C380.19513659186293,210.71929839372885,374.63061519643566,173.7152967597566,354.8989876415048,142.1160331717693C335.7393860287825,111.43284193902463,303.4059833260362,95.174041586551,271.9062145472663,77.38884760201881C232.1661956826814,54.95109736265938,194.01076354914179,16.353723276785022,149.42768884897586,26.10416867383546C103.59091770749839,36.12880105277743,76.79206055687553,83.1908735617969,55.112616640908755,124.80222483165552C34.34917672382211,164.65540535185187,17.96003292021296,210.32806784820102,31.050215089020455,253.31694507886684C43.42448521981324,293.9547278546742,86.94859424265246,312.50639737863355,120.28584857505201,338.8346981931648C152.2017528501798,364.040479093564,179.66722805047087,397.3235478120956,220,402.5411951138327;
+                                M220,412.56250805066276C262.529022181677,408.12324215623516,290.50460212020147,370.54104321611635,322.8901383693722,342.6196920442147C354.66338276414183,315.22623134029516,394.14485523719486,293.10190439705445,405.4269177484799,252.69576854866634C417.34702329742515,210.004513855118,407.48284765963996,162.8774185096097,383.48179466310927,125.61374184365079C360.2671796974709,89.57107712684342,319.5199569770406,71.91628869553799,279.3468808362895,56.94578498723052C238.81631570226173,41.84206294431566,193.89466862828442,22.239403173680362,154.60249494834918,40.321831581919696C116.20148810182519,57.99414115590409,109.82096458022107,107.5805169070975,89.17071752259348,144.46567854378367C68.9452632223109,180.59208172721551,34.300744778023656,211.09989277709437,35.82834829325668,252.47443127754102C37.46761904890063,296.87343292667055,63.82394590667814,337.0142158110261,97.3560213123296,366.16140221107884C131.37046619338125,395.7278800758888,175.17515324139532,417.24141678711027,220,412.56250805066276;
+                                M220,421.7727322829887C265.2907190662909,419.17640898721925,303.5392453201455,389.7587465099766,335.1043224945755,357.1759898560329C363.6975101678864,327.6609384347512,378.8302652769808,289.72146568295574,386.9519541421314,249.4381339972601C395.29597398872204,208.05204735282837,405.08033661712614,161.784312889942,381.5677444086153,126.71881927332535C358.5557135894783,92.39983765539262,311.7522530198654,88.21775071492209,271.7939487319545,77.69729539456476C236.30973779061776,68.35480545563581,199.90180730849008,57.499243035888156,165.3264075733848,69.78553936740953C130.57400707684263,82.13473255110264,110.27469077945216,114.56512993871004,87.16192403425136,143.30590108254296C58.39133413348223,179.0821865063888,14.304418011751906,210.1597871250344,15.533833112147864,256.05290186436804C16.81127548391416,303.73883749463374,56.20336180675439,341.00322136617547,93.26260871691424,371.03974137763544C129.7132392887931,400.58297784050103,173.15727920238908,424.4580252028484,220,421.7727322829887;
+                                M220,412.1760813659057C268.68153131392853,417.58926224479126,322.3369456169389,418.1542247858529,360.31100837757265,387.2161483144886C398.5258672351142,356.0818914105195,413.2360903711542,303.4796034128616,413.91296375150915,254.19208741853362C414.5145756011509,210.38484883863046,383.78271871359874,175.96921784196684,363.7471634661649,137.00753647756457C342.1566768133267,95.02209354465634,335.23211100219487,40.4780459991965,293.07942554139186,19.215928498310515C249.26554845429814,-2.884105997983127,196.7989789713377,12.778634899363464,150.6755697385497,29.532693240108635C104.52170896154115,46.297812925991195,58.00240156640455,69.79601500622479,34.75714135219392,113.04998569423323C11.904073331313022,155.57417880702744,17.308844890560756,206.95863058022576,30.344010565526972,253.44146799025708C42.24526603674883,295.88083062194727,69.83757962561583,330.38576982407506,103.6377227609796,358.6751619420459C137.39306284525895,386.9270556661451,176.25154036127338,407.3114372430678,220,412.1760813659057;
+                              M220,402.5411951138327C263.8954279739712,408.21972525834116,312.3244812012819,398.6917881819729,343.99814027651234,367.77522914953437C374.66460795015826,337.8417864772894,376.3299108678433,290.73360369956777,378.3976219025121,247.92977442147102C380.19513659186293,210.71929839372885,374.63061519643566,173.7152967597566,354.8989876415048,142.1160331717693C335.7393860287825,111.43284193902463,303.4059833260362,95.174041586551,271.9062145472663,77.38884760201881C232.1661956826814,54.95109736265938,194.01076354914179,16.353723276785022,149.42768884897586,26.10416867383546C103.59091770749839,36.12880105277743,76.79206055687553,83.1908735617969,55.112616640908755,124.80222483165552C34.34917672382211,164.65540535185187,17.96003292021296,210.32806784820102,31.050215089020455,253.31694507886684C43.42448521981324,293.9547278546742,86.94859424265246,312.50639737863355,120.28584857505201,338.8346981931648C152.2017528501798,364.040479093564,179.66722805047087,397.3235478120956,220,402.5411951138327">
+                              </animate>
+                            </path>
+                          </svg>
+                  </div>
+                    {% endif %}
+                </div>
                 {%- if block.settings.title != blank or block.settings.content != blank or block.settings.link_text != blank -%}
                   <div class="v-stack gap-4 text-{{ section.settings.text_alignment }}">
                     {%- if block.settings.title != blank -%}
@@ -83,11 +179,26 @@
               <div class="multi-column__item hidden md:block" style="--multi-column-item-column-count: span {{ 12.0 | divided_by: block.settings.column_size | round }}" {{ block.shopify_attributes }}></div>
           {%- endcase -%}
         {%- endfor -%}
+  {% if section.settings.arrows-svg %}
+                <div class="svg-arrows-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512">
+      <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        
+      </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512">
+      <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        
+      </svg>
+                </div>
+    {% endif %}
       </div>
     </div>
   </div>
 {%- endif -%}
-
+{% render 'last-word-colorizer' %}
+ <script>
+   //colorLastWords("{{section.settings.header}}", 'colored-header', 1);
+ </script>
 {% schema %}
 {
   "name": "Multi-column",
@@ -110,6 +221,24 @@
       "label": "Stack on mobile",
       "default": false
     },
+    {
+      "type": "checkbox",
+      "id": "blobs",
+      "label": "Enable Blobs",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows-svg",
+      "label": "Enable Arrows",
+      "default": false
+    },
+    {
+        "type": "color",
+        "id": "arrow-color",
+        "label": "Arrows Color",
+        "default": "#5252FF"
+      },
     {
       "type": "select",
       "id": "gap",
@@ -162,10 +291,16 @@
     },
     {
       "type": "text",
-      "id": "title",
+      "id": "header",
       "label": "Heading",
       "default": "Featured content"
     },
+    {
+        "type": "color",
+        "id": "header-color",
+        "label": "Header Color",
+        "default": "#5252FF"
+      },
     {
       "type": "richtext",
       "id": "content",
@@ -203,23 +338,6 @@
           "id": "image",
           "label": "Image",
           "info": "1400 x 1400px .jpg recommended"
-        },
-        {
-          "type": "color",
-          "id": "cardBackground",
-          "label": "Card Background",
-          "default": "#ffffff"
-        },
-        {
-          "type": "color",
-          "id": "cardTextColor",
-          "label": "Card Text Color",
-          "default": "#000000"
-        },
-        {
-          "type": "image_picker",
-          "id": "cardImageBackground",
-          "label": "Card Image background"
         },
         {
           "type": "video",
@@ -295,6 +413,12 @@
           "label": "Content",
           "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
         },
+        {
+        "type": "color",
+        "id": "blob-color",
+        "label": "Blob Color",
+        "default": "#0EC3ff"
+      },
         {
           "type": "url",
           "id": "link_url",

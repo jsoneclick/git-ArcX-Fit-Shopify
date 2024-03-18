@@ -105,7 +105,10 @@
         <div class="product-info__variant-picker" {{ block.shopify_attributes }}>
           {%- render 'variant-picker', product: product, form_id: product_form_id, update_url: update_url, hide_sold_out_variants: block.settings.hide_sold_out_variants, block: block -%}
         </div>
-
+      {% when 'variant_links_images' %}
+      <div class="variant-links-images">
+       <a href="{{ block.settings.link-to-product }}"><img src="{{ block.settings.image-link | image_url }}"></a>
+      </div>
       {%- when 'product_variations' -%}
         {%- assign contains_product = false -%}
 
@@ -138,6 +141,7 @@
                 {%- endif -%}
 
                 <div class="variant-picker__option-values wrap gap-2">
+          
                   {%- for product_variation in block.settings.products -%}
                     {%- assign value = product_variation.metafields[metafield_namespace][metafield_key].value -%}
 
@@ -149,22 +153,24 @@
 
                     {%- case block.settings.color_mode -%}
                       {%- when 'color' -%}
-                        {%- render 'swatch' with 'color', href: product_variation.url, value: value, selected: selected -%}
+                        {%- render 'swatch', type: 'colors', href: product_variation.url, value: value, selected: selected -%}
 
                       {%- when 'variant' -%}
-                        {%- render 'swatch' with 'media', href: product_variation.url, value: value, media: product_variation.featured_media, selected: selected, bordered: true -%}
+                        {%- render 'swatch', type: 'thumbnail', href: product_variation.url, value: value, image: product_variation.featured_media, selected: selected, bordered: true -%}
 
                       {%- when 'block' -%}
-                        {%- render 'swatch' with 'block', href: product_variation.url, value: value, selected: selected -%}
+                        {%- render 'swatch', type: 'block', href: product_variation.url, value: value, selected: selected -%}
 
                       {%- when 'block_swatch' -%}
-                        {%- render 'swatch' with 'block', href: product_variation.url, value: value, selected: selected, show_color: true -%}
+                        {%- render 'swatch', type: 'block', href: product_variation.url, value: value, selected: selected, show_colors: true -%}
                     {%- endcase -%}
                   {%- endfor -%}
                 </div>
+          
               </fieldset>
             </div>
           </div>
+        
         {%- endif -%}
 
       {%- when 'line_item_property' -%}
@@ -183,7 +189,7 @@
             {%- endif -%}
           </div>
         {%- endif -%}
-
+      
       {%- when 'quantity_selector' -%}
         {%- if product.available -%}
           <div class="product-info__quantity-selector {{ block.shopify_attributes }}">
@@ -198,7 +204,6 @@
             </div>
           </div>
         {%- endif -%}
-
       {%- when 'inventory' -%}
         <div class="product-info__inventory {{ block.shopify_attributes }}">
           {%- render 'inventory', product: product, low_threshold: block.settings.low_inventory_threshold, form_id: product_form_id -%}

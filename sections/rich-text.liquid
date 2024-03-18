@@ -5,6 +5,26 @@
     #shopify-section-{{ section.id }} {
       --rich-text-max-width: {% if section.settings.content_width == 'small' %}650px{% elsif section.settings.content_width == 'medium' %}780px{% else %}100%{% endif %}
     }
+  #shopify-section-{{ section.id }} button div, #shopify-section-{{ section.id }} a div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+ #shopify-section-{{ section.id }} button svg, #shopify-section-{{ section.id }} a svg{
+    margin-left: .5rem;
+    transition: transform .4s;
+    transform: translateX(0%) scale(.65);
+    fill: white;
+
+ }
+  
+  #shopify-section-{{ section.id }} button:hover svg {
+    transform: translateX(30%) scale(.65);
+  }
+  #shopify-section-{{ section.id }} a:hover svg {
+    transform: translateX(30%) scale(.65);
+  }
   </style>
 
   <div {% render 'section-properties' %}>

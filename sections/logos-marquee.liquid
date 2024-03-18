@@ -1,0 +1,157 @@
+<style>
+  body {
+    overflow-x: hidden !important;
+  }
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    height: 20vh;
+    background-color: {{section.settings.background_color}};
+    background: {{section.settings.background_gradient}};
+    overflow: hidden;
+    width: 100%;
+    z-index: 999;
+  }
+
+  #shopify-section-{{ section.id }} .logo-marquee {
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: {{section.settings.line_bg}};
+    height: 115px;
+    align-items: center;
+   }
+  #shopify-section-{{ section.id }} .marquee-text-cross {
+    transform: translate(-50%, -50%) rotateZ(-9deg);
+   }
+  
+  #shopify-section-{{ section.id }} span {
+    width: 20vw;
+    white-space: nowrap;
+    margin: 0;
+    color: {{section.settings.line_color}};
+    margin: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+  
+  #shopify-section-{{ section.id }} span img {
+    height: 80px;
+    width: auto;
+  }
+  
+   @keyframes move-logos {
+    0%{
+      transform: translateX(-32px);
+    }
+    100%{
+      transform: translateX(100%);
+    }
+   }
+  
+
+  @media screen and (max-width:990px) {
+ #shopify-section-{{ section.id }} span {
+    padding: 1rem;
+    width: 55vw;
+  }
+    #shopify-section-{{ section.id }} span img {
+    height: 60px;
+  }
+     #shopify-section-{{ section.id }} {
+      height: 10vh;
+     }
+  }
+  </style>
+  {{ section.settings.header }}
+  
+<div class="logo-marquee">
+  <span class="logo-span">
+      <img src="" style="opacity: 0;">
+    </span>
+    {% for block in section.blocks %}
+    <span class="logo-span" id="block{{ forloop.index }}">
+      <img src="{{ block.settings.logo | image_url }}" loading="lazy">
+    </span>
+    {% endfor %}
+  </div>
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+  let order = [
+    {% for block in section.blocks %}
+    {{forloop.index}},
+    {% endfor %}
+  ];
+  let currentIndex = 0;
+  let marqueeLogo = document.querySelectorAll(".logo-span");
+
+  for (let i = 0; i < marqueeLogo.length; i++) {
+    marqueeLogo[i].style.animation = 'move-logos calc(31s - {{section.settings.animation_speed}}s) linear infinite';
+    marqueeLogo[i].addEventListener('animationiteration', shiftBlocks);
+  }
+
+  function shiftBlocks() {
+    // Shift the order of the blocks
+    order.unshift(order.pop());
+
+    // Update the order of the elements in the DOM
+    for (let i = 0; i < order.length; i++) {
+      document.getElementById(`block${order[i]}`).style.order = i + 1;
+    }
+  }
+
+  // Initial call to shiftBlocks function
+  shiftBlocks();
+});
+</script>
+{% schema %}
+  {
+    "name": "Logo Marquee",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+        {
+            "type": "range",
+            "label": "Logo Scroll Speed",
+            "id": "animation_speed",
+            "min": 1,
+            "max": 30,
+            "default": 6,
+            "step": 1
+          }
+    ],
+    "blocks": [
+    {
+        "type": "tab",
+        "name": "Logo",
+        "settings": [
+          {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+        ]
+    }
+],
+    "presets": [
+      {
+        "name": "Logo Marquee"
+      }
+    ]
+  }
+{% endschema %}

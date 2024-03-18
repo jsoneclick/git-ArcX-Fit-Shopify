@@ -22,7 +22,7 @@
         {%- if section.settings.subheading != blank or section.settings.title != blank -%}
           <div class="prose text-center">
             {%- if section.settings.subheading != blank -%}
-              <p class="bold">{{ section.settings.subheading | escape }}</p>
+              <p class="subheading">{{ section.settings.subheading | escape }}</p>
             {%- endif -%}
 
             {%- if section.settings.title != blank -%}

@@ -67,7 +67,7 @@ LIQUID
 
                     <div class="collection-card__content prose">
                       {%- if block.settings.subheading != blank -%}
-                        <p class="bold">{{ block.settings.subheading | escape }}</p>
+                        <p class="subheading">{{ block.settings.subheading | escape }}</p>
                       {%- endif -%}
 
                       <p class="{{ block.settings.heading_tag }}">{{ block.settings.title | default: collection.title | escape }}</p>

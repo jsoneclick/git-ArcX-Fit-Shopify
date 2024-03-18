@@ -22,6 +22,40 @@ Supported variables
 * text_alignment: can be "center". If nothing is set, the theme uses the default product card setting
 {%- endcomment -%}
 
+<style>
+  .shopify-product-form span {
+    
+  }
+  .product-card button {
+    margin-bottom: 2rem;
+  }
+
+  .product-card__aside {
+    display: none;
+  }
+
+  .product-card__mobile-quick-buy-button{
+    width: auto;
+    padding: 1.5rem 1.5rem;
+    background: black;
+    color: white;
+  }
+  #pointer-fine-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (min-width:990px){
+    #pointer-fine-button-wrapper{
+      display: none;
+    }
+  }
+  @media screen and (max-width:990px){
+    #pointer-fine-button-desktop{
+      display: none;
+    }
+  }
+</style>
 {%- assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true -%}
 {%- assign show_vendor = show_vendor | default: settings.show_vendor, allow_false: true -%}
 {%- assign show_quick_buy = show_quick_buy | default: settings.show_quick_buy, allow_false: true -%}
@@ -68,9 +102,9 @@ Supported variables
       <a href="{{ product.url }}" data-instant>
         {%- capture sizes -%}
           {%- if stacked -%}
-            (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 1200px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop }} - 64px), calc(min(100vw - 96px, {{ settings.page_width }}px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
+            (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 1200px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop }} - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
           {%- else -%}
-            (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc(min(100vw - 96px, {{ settings.page_width }}px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
+            (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
           {%- endif -%}
         {%- endcapture -%}
 
@@ -84,7 +118,7 @@ Supported variables
       </a>
 
       {%- if show_quick_buy and product.available -%}
-        <div class="product-card__quick-buy">
+        <!-- <div class="product-card__quick-buy">
           {%- assign quick_add_label = 'product.general.quick_add' | t -%}
 
           {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
@@ -118,7 +152,7 @@ Supported variables
               {%- comment -%}Quick buy content is filled on demand for performance reasons {%- endcomment -%}
             </quick-buy-drawer>
           {%- endif -%}
-        </div>
+        </div> -->
       {%- endif -%}
     </div>
   {%- endif -%}
@@ -158,6 +192,37 @@ Supported variables
       {%- endif -%}
 
       {%- render 'price-list', product: product, text_alignment: text_alignment -%}
+
+
+
+
+
+      
+      {%- form 'product', product, is: 'product-form' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+{% if product.available %}
+               <div class="pointer-fine:hidden" id="pointer-fine-button-wrapper">
+                <button type="submit" is="custom-button" class="product-card__mobile-quick-buy-button" aria-label="{{ quick_add_label | escape }}">
+                  Add to cart
+                </button>
+              </div> 
+  {% endif %}
+              <div class="pointer-coarse:hidden" id="pointer-fine-button-desktop">
+                {% if product.available %}
+                  {%- render 'button', type: 'submit', content: "Add to cart" -%}
+                  {% else %}
+                  <span style="padding-block-start: var(--spacing-2-5);
+                    padding-block-end: var(--spacing-2-5);
+                    padding-inline-start: var(--spacing-5);
+                    padding-inline-end: var(--spacing-5);
+                    transform: translateY(300%);">Sold out</span>
+                    {% endif %}
+              </div>
+            {%- endform -%}
+
+
+
+      
     </div>
 
     {%- if show_rating and mobile_reduced or text_alignment == 'center' -%}
@@ -187,7 +252,7 @@ Supported variables
                       {% assign selected = false %}
                     {%- endif -%}
 
-                    {%- render 'swatch' with 'color', value: option_value, name: name, size: 'sm', selected: selected -%}
+                    {%- render 'swatch', type: 'colors', value: option_value, name: name, size: 'sm', selected: selected -%}
                   {%- endfor -%}
 
                   {% if product_option.values.size > 4 %}
@@ -207,11 +272,11 @@ Supported variables
                       {% assign selected = false %}
                     {%- endif -%}
 
-                    {%- render 'swatch' with 'media', media: variant_for_value.featured_media, value: option_value, name: name, size: 'sm', selected: selected -%}
+                    {%- render 'swatch', type: 'thumbnail', image: variant_for_value.featured_media, value: option_value, name: name, size: 'sm', selected: selected -%}
                   {%- endfor -%}
 
                   {%- if product_option.values.size > 4 -%}
-                    <a href="{{ product.url }}" data-instant class="media-swatch__view-more text-xs text-subdued">+{{ product_option.values.size | minus: 4 }}</a>
+                    <a href="{{ product.url }}" data-instant class="thumbnail-swatch__view-more text-xs text-subdued">+{{ product_option.values.size | minus: 4 }}</a>
                   {%- endif -%}
                 </fieldset>
               {%- endcase -%}

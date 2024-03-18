@@ -1,6 +1,6 @@
 .country-flags {
-  background: -webkit-image-set(url("//arcx.fit/cdn/shop/t/5/assets/country-flags.png?v=37230036826556269641702628153") 1x, url("//arcx.fit/cdn/shop/t/5/assets/country-flags-2x.png?v=119388446682176363021702628153") 2x) no-repeat top left;
-  background: image-set(url("//arcx.fit/cdn/shop/t/5/assets/country-flags.png?v=37230036826556269641702628153") 1x, url("//arcx.fit/cdn/shop/t/5/assets/country-flags-2x.png?v=119388446682176363021702628153") 2x) no-repeat top left;
+  background: -webkit-image-set(url("//arcx.fit/cdn/shop/t/4/assets/country-flags.png?v=50542320617270684181705508446") 1x, url("//arcx.fit/cdn/shop/t/4/assets/country-flags-2x.png?v=27699549689552782741705508444") 2x) no-repeat top left;
+  background: image-set(url("//arcx.fit/cdn/shop/t/4/assets/country-flags.png?v=50542320617270684181705508446") 1x, url("//arcx.fit/cdn/shop/t/4/assets/country-flags-2x.png?v=27699549689552782741705508444") 2x) no-repeat top left;
   width: 20px;
   height: 20px;
   flex-shrink: 0;

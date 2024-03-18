@@ -1,0 +1,118 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    position: absolute;
+    background-color: {{section.settings.background_color}};
+    background: {{section.settings.background_gradient}};
+    overflow: visible;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transform: translateY({{section.settings.section-y-m}}vh);
+    z-index: 999;
+  }  
+  #shopify-section-{{ section.id }} img{
+    heigth: auto;
+    width: 15%;
+  }
+  #shopify-section-{{ section.id }} .icon-fade {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+  }
+
+  @media screen and (min-width: 990px){
+     #shopify-section-{{ section.id }} {
+       width: 40vw;
+       right: 0;
+       transform: translateY({{section.settings.section-y}}vh) translateX(-5vw);
+     }
+  }
+  </style>
+  {% for block in section.blocks %}
+    <img class="icon-fade" src="{{ block.settings.icon | image_url }}" style="margin-top:{{ block.settings.icon-y }}vh;"  loading="lazy">
+    {% endfor %}
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeIcons = document.querySelectorAll('.icon-fade');
+
+            function getRandomTime(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function fadeIcon(icon) {
+                icon.style.opacity = 1;
+                setTimeout(() => {
+                    icon.style.opacity = 0;
+                    setTimeout(() => {
+                        fadeIcon(icon);
+                    }, getRandomTime(1000, 5000)); // Change the range as needed
+                }, 1000); // Change the duration as needed
+            }
+
+            fadeIcons.forEach(icon => {
+                fadeIcon(icon);
+            });
+        });
+    </script>
+{% schema %}
+  {
+    "name": "Icons Row",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background Gradient"
+      },
+      {
+            "type": "range",
+            "label": "Section Desktop Vertical Position",
+            "id": "section-y",
+            "min": -50,
+            "max": 50,
+            "default": 5,
+            "step": 1
+          },
+      {
+            "type": "range",
+            "label": "Section Mobile Vertical Position",
+            "id": "section-y-m",
+            "min": -50,
+            "max": 50,
+            "default": -5,
+            "step": 1
+          }
+    ],
+    "blocks": [
+    {
+        "type": "icon",
+        "name": "Icon",
+        "settings": [
+          {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+          {
+            "type": "range",
+            "label": "Icon Vertical Position",
+            "id": "icon-y",
+            "min": -15,
+            "max": 15,
+            "default": 0,
+            "step": 1
+          }
+        ]
+    }
+],
+    "presets": [
+      {
+        "name": "Icons Row"
+      }
+    ]
+  }
+{% endschema %}

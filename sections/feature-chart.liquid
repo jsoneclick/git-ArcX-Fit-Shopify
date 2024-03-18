@@ -53,7 +53,7 @@ LIQUID
       <div class="section-stack__intro">
         <div class="prose {% if text_position == 'center' %}text-center{% endif %}">
           {%- if section.settings.subheading != blank -%}
-            <p class="bold">{{ section.settings.subheading | escape }}</p>
+            <p class="subheading">{{ section.settings.subheading | escape }}</p>
           {%- endif -%}
 
           {%- if section.settings.title != blank -%}
@@ -137,7 +137,7 @@ LIQUID
                                 {%- assign product_option_name = 'option' | append: product_option.position -%}
                                 {%- assign first_variant = chart_product.variants | where: product_option_name, color_name | first -%}
 
-                                {%- render 'swatch' with 'color', value: color_name, href: first_variant.url, size: 'sm' -%}
+                                {%- render 'swatch', type: 'colors', value: color_name, href: first_variant.url, size: 'sm' -%}
                               {%- endfor -%}
                             </div>
 

@@ -2,12 +2,12 @@
     #shopify-section-{{ section.id }} {
       padding: 2rem;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       align-items: start;
       background-color: {{section.settings.background_color}};
       background: {{section.settings.background_gradient}};
       color: #000;
-      gap: 7rem;
+      gap: 16rem;
     }
   
   #shopify-section-{{ section.id }} .mockup-slider-aside {
@@ -15,6 +15,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
+    margin-left: 16vw;
   }
   
   #shopify-section-{{ section.id }} .slider-buttons {
@@ -88,6 +89,11 @@
    font-size: 18px;
   }
   
+  #shopify-section-{{ section.id }} .prose #section-header{
+    white-space: nowrap;
+    color: {{section.settings.header-color}};
+  }
+  
   #shopify-section-{{ section.id }} .prose p {
     margin-top: 35px;
     font-style: normal;
@@ -104,6 +110,7 @@
   }
   #shopify-section-{{ section.id }} .last-word {
       color: {{ section.settings.header_span_color }}; 
+    font-family: 'Gotham-Ultra';
     }
   
   #shopify-section-{{ section.id }} .mockup-buttons-wrapper a {
@@ -117,12 +124,12 @@
   #shopify-section-{{ section.id }} .mockup-buttons-wrapper img{
     margin-block: 0;
   }
-
+  
     @media screen and (max-width: 990px) {
       #shopify-section-{{ section.id }} {
         flex-direction: column-reverse;
         align-items: center;
-         gap: 3rem;
+         gap: 2.5rem;
         padding: 2rem 1rem;
       }
       #shopify-section-{{ section.id }} .prose {
@@ -131,6 +138,15 @@
       }
       #shopify-section-{{ section.id }} .mockup-images-wrapper {
         width: 35vw;
+      }
+      #shopify-section-{{ section.id }} .mockup-buttons-wrapper {
+        justify-content: center;
+      }
+      #shopify-section-{{ section.id }} .prose #section-header{
+    white-space: normal;
+  }
+      #shopify-section-{{ section.id }} .mockup-slider-aside {
+        margin-left: 0;
       }
     }
 
@@ -145,7 +161,7 @@
         display: flex;
         justify-content: start;
         align-items: center;
-        gap: 0rem;
+        gap: 1rem;
         flex-direction: column;
       }
       #shopify-section-{{ section.id }} .slider-buttons {
@@ -178,9 +194,9 @@
   </div>
     <div class="mockup-images-wrapper">
       {% for block in section.blocks %}
-      {% if block.settings.slide-image %}<img class="mockup-slide" id="slide-{{ forloop.index }}" src="{{ block.settings.slide-image | image_url }}" alt="slide">{% endif %}
+      {% if block.settings.slide-image %}<img class="mockup-slide" id="slide-{{ forloop.index }}" src="{{ block.settings.slide-image | image_url }}" alt="slide" loading="lazy">{% endif %}
         {% endfor %}
-      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case">{% endif %}
+      {% if section.settings.mockup-case %}<img src="{{ section.settings.mockup-case | image_url }}" alt="iphone 13 pro case" loading="lazy">{% endif %}
     </div>
   </div>
   <div class="prose">
@@ -189,8 +205,8 @@
     </p>
     {{ section.settings.prose-text }}
     <div class="mockup-buttons-wrapper">
-    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}"></a>{% endif %}
-    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}"></a>{% endif %}
+    {% if section.settings.image-button-gp %}<a href="{{ section.settings.google-play-link }}"><img class="gp-img" src="{{ section.settings.image-button-gp | image_url}}" loading="lazy"></a>{% endif %}
+    {% if section.settings.image-button-as %}<a href="{{ section.settings.app-store-link }}"><img class="as-img" src="{{ section.settings.image-button-as | image_url}}" loading="lazy"></a>{% endif %}
     </div>
   </div>
 <script>
@@ -237,7 +253,7 @@
   activateSliderNumber(1);
 
   // Function to color the last word in the header
-  colorLastWords("{{section.settings.header}}", 'section-header', 2);
+  //colorLastWords("{{section.settings.header}}", 'section-header', 2);
 </script>
   {% schema %}
   {
@@ -256,8 +272,8 @@
       },
       {
         "type": "color",
-        "id": "header_span_color",
-        "label": "Header Span Color",
+        "id": "header-color",
+        "label": "Header Color",
         "default": "#5252FF"
       },
       {

@@ -27,6 +27,13 @@
         --logo-list-items-per-row: {{ section.settings.items_per_row | at_most: section.blocks.size }};
       }
     }
+    .logo-list__item {
+      box-shadow: 1px 1px 27px 1px rgba(0, 0, 0, 0.12);
+      border-radius: 2rem;
+    }
+    .logo-list {
+      padding: 1.5rem;
+    }
   </style>
 
   <div {% render 'section-properties' %}>

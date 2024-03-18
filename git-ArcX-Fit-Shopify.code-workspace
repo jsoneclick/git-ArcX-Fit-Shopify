@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"name": "git-ArcX-Fit-Shopify",
+			"path": "."
+		},
+		{
+			"name": "snippets",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/snippets"
+		},
+		{
+			"name": "templates",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/templates"
+		},
+		{
+			"name": "sections",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/sections"
+		},
+		{
+			"name": "assets",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/assets"
+		},
+		{
+			"name": "config",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/config"
+		},
+		{
+			"name": "layout",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/layout"
+		},
+		{
+			"name": "locales",
+			"path": "../../Downloads/New folder (2)/theme_export__arcx-fit-dev-copy__01JAN2024-0510pm/locales"
+		}
+	],
+	"settings": {}
+}

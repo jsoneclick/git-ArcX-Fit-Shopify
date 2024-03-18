@@ -33,6 +33,14 @@ CSS
       --image-link-blocks-items-per-row: {% if block_size == 'small' %}7{% elsif block_size == 'medium' %}6{% else %}5{% endif %};
     }
   }
+  {% if section.settings.center-blocks %}
+  .image-link-blocks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: ;
+  }
+  {% endif %}
 </style>
 
 {%- comment -%}
@@ -197,6 +205,12 @@ LIQUID
       "label": "Full width",
       "default": false
     },
+    {
+          "type": "checkbox",
+          "id": "center-blocks",
+          "label": "Center Blocks",
+          "default": false
+        },
     {
       "type": "select",
       "id": "block_size",

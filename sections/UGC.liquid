@@ -1,0 +1,295 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <style>
+    #shopify-section-{{ section.id }} {
+      background-color: {{section.settings.background-color}};
+       background: {{section.settings.background-gradient}};
+      padding: 3rem;
+      position: relative;
+    }
+    
+   #shopify-section-{{ section.id }} .testimonial-videos {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      scroll-behavior: smooth;
+     padding: 0rem 0;
+     box-sizing: border-box;
+     width: 100%;
+     border-radius: 10px;
+     margin-block-start: 2rem;
+     margin-block-end: 2rem;
+    }
+    
+    
+  #shopify-section-{{ section.id }}  .testimonial-video {
+      position: relative;
+      flex-shrink: 0;
+      width: 260px;
+      height: 420px;
+      margin-right: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+   #shopify-section-{{ section.id }} .testimonial-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+   #shopify-section-{{ section.id }} .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    /*  background-color: rgba(0, 0, 0, 0.7); */
+      background-color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+      opacity: 0.8;
+    }
+   #shopify-section-{{ section.id }} .play-button:hover {
+      opacity: 1;
+    }
+   #shopify-section-{{ section.id }} .play-button svg {
+      fill: black;
+      width: 24px;
+      height: 24px;
+    }
+   #shopify-section-{{ section.id }} .testimonial-videos   ::-webkit-scrollbar {
+    height: 2px;
+    border-radius: 50px;
+}
+
+ #shopify-section-{{ section.id }} .testimonial-videos ::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 50px;
+  height: 2px;
+}
+
+ #shopify-section-{{ section.id }} .testimonial-videos  ::-webkit-scrollbar-track {
+  background-color: #00000050;
+   border-radius: 50px;
+  height: 2px;
+}
+    #shopify-section-{{ section.id }} .testimonial-videos  ::-webkit-scrollbar-thumb:hover {
+      background-color: ;
+    }
+   #shopify-section-{{ section.id }} .arrow {
+      height: 60px;
+      aspect-ratio: 1 / 1;
+      position: absolute;
+      z-index: 999;
+      border-radius: 100%;
+      border: 1px solid #00000040;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      font-size: 24px;
+      transition: .4s;
+      top: 40%;
+      transform: translateY(-50%, -50%);
+      transform: translateX(-50%, -50%);
+}
+    #shopify-section-{{ section.id }} .arrow i{
+      transition: .4s;
+    }
+    
+#shopify-section-{{ section.id }} .arrow:hover {
+  background: #0000008b;
+}
+#shopify-section-{{ section.id }} .arrow:hover i{
+  color: #fff;
+}
+#shopify-section-{{ section.id }} #arrow-l {
+  
+  left: -3%;
+  
+}
+    #shopify-section-{{ section.id }} #arrow-l i{
+      transform: translateX(-5%);
+    }
+
+#shopify-section-{{ section.id }} #arrow-r {
+ 
+  right: -3%;
+  
+}
+    #shopify-section-{{ section.id }} #arrow-r i{
+      transform: translateX(5%);
+    }
+   #shopify-section-{{ section.id }} .prose {
+      color: {{section.settings.header_color}};
+      margin-block-end: var(--spacing-6);
+    }
+
+
+         @media screen and (max-width:990px) {
+            #shopify-section-{{ section.id }} .testimonial-videos {
+              display: flex;
+              overflow-x: scroll;
+              scroll-behavior: smooth;
+              padding: 2rem 0;
+            }
+           #shopify-section-{{ section.id }} .arrow {
+             display: none;
+           }
+           
+           ::-webkit-scrollbar {
+                display: none;
+            }
+
+          #shopify-section-{{ section.id }} {
+            padding: 1rem;
+          }
+    }
+    
+   #shopify-section-{{ section.id }} .arrows-videos {
+      position: relative;
+      display: block;
+      height: auto;
+    }
+
+   #shopify-section-{{ section.id }} .scrollbar {
+    display: block !important;
+}
+  </style>
+  {%- assign scroll_area_id = 'scrollable-videos' -%}
+  <div class="prose">
+    {{ section.settings.header }}
+    {{ section.settings.body_text }}
+  </div>
+  <div class="arrows-videos">
+  <div class="testimonial-videos" id="scrollable-videos">
+    {% for block in section.blocks %}    
+<div class="testimonial-video">
+  <video poster="{% if block.settings.poster_img %}{{ block.settings.poster_img | image_url }}{% endif %}{% if block.settings.poster_url %}{{ block.settings.poster_url }}{% endif %}" preload="none" playsinline="" webkit-playsinline="true" x5-playsinline="true" src="{% if block.settings.video_url %}{{ block.settings.video_url }}{% endif %}" style='width: 100% !important; height: 100% !important; border-radius: 10px; background-color: rgba(0, 0, 0, 0);'></video>
+ <div class="play-button" onclick="toggleVideoPlayback(this.previousElementSibling)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+      <path d="M8 5v14l11-7z"></path>
+    </svg>
+  </div>
+</div>
+      {% endfor %}
+  </div>
+    <div class="arrow" id="arrow-l"><i class="bi bi-chevron-left"></i></div>
+    <div class="arrow" id="arrow-r"><i class="bi bi-chevron-right"></i></div>
+  </div>
+  {%- assign default_progress = 3.0 | divided_by: section.blocks.size -%}
+{%- render 'scrollbar', observes: scroll_area_id, default_progress: default_progress, show_buttons: false -%}
+<script>
+  // scroll to left
+  function scrollLeft() {
+    const testimonialVideos = document.querySelector('.testimonial-videos');
+    testimonialVideos.scrollLeft -= 300;
+  }
+
+  // scroll to right
+  function scrollRight() {
+    const testimonialVideos = document.querySelector('.testimonial-videos');
+    testimonialVideos.scrollLeft += 300;
+  }
+
+  document.getElementById('arrow-l').addEventListener('click', scrollLeft);
+  document.getElementById('arrow-r').addEventListener('click', scrollRight);
+
+  const testimonialVideo = document.querySelector(".testimonial-video");
+
+ 
+  var videos = document.querySelectorAll('.testimonial-video video');
+    videos.forEach(function (video) {
+      video.addEventListener('click', function () {
+        toggleVideoPlayback(this);
+      });
+    });
+    function toggleVideoPlayback(video) {
+      if (video.paused) {
+        video.play();
+        video.nextElementSibling.style.display = 'none';
+      } else {
+        video.pause();
+        video.nextElementSibling.style.display = 'flex';
+      }
+    }
+</script>
+{% schema %}
+  {
+  "name": "UGC",
+  "settings": [
+    {
+          "type": "checkbox",
+          "id": "allowScroll",
+          "label": "Allow Scroll",
+          "default": false
+        },
+    {
+        "type": "richtext",
+        "label": "Header",
+        "id": "header"
+      },
+     {
+        "type": "color",
+        "id": "header_color",
+        "label": "Header Color",
+        "default": "#151a2e"
+      },
+    {
+        "type": "richtext",
+        "label": "Body Text",
+        "id": "body_text"
+      },
+    {
+        "type": "color",
+        "id": "bodytext_color",
+        "label": "Body Text Color",
+        "default": "#151a2e"
+      },
+    
+     {
+        "type": "color",
+        "id": "background-color",
+        "label": "Background Color",
+        "default": "#151a2e"
+      },
+      {
+        "type": "color_background",
+        "id": "background-gradient",
+        "label": "Background Gradient"
+      }
+  ],
+    "blocks": [
+    {
+        "type": "tab",
+        "name": "Media Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "poster_img",
+            "label": "Poster Image"
+          },
+          {
+            "type": "url",
+            "id": "poster_url",
+            "label": "Poster Link"
+          },
+          {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video Link"
+          }
+        ]
+    }
+],
+  "presets": [
+    {
+      "name": "UGC"
+    }
+  ]
+}
+{% endschema %}

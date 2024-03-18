@@ -34,74 +34,6 @@ CSS
       --slideshow-slide-controls-background: {{ controls_background.rgb }};
       --slideshow-slide-controls-color: {{ controls_color.rgb }};
     }
-    .parallax-item {
-      z-index: 999;
-      width: 100vw;
-      aspect-ratio: 2 / 1;
-      position: absolute;
-      top: 30% !important;
-      right: 0% !important;
-      transform: translateY(0); /* Початкова позиція квадрата */
-      transition: transform 0.2s linear;
-      animation: cloudFlow 4s infinite;
-      transition: .5s;
-    z-index: -1 !important;
-  }
-    @keyframes cloudFlow {
-      0% {}
-      50% {
-        margin-top: 50px;
-      }
-      100% {}
-    }
-  @media only screen and (max-width: 1000px){
-    .parallax-item {
-      width: 100vw !important;
-      right: 0% !important;
-      top: 40% !important; 
-    }
-    #shopify-section-{{ section.id }}, #block-{{ block.id }}, .slideshow__carousel{
-      height: 100vh;
-      background-size: cover;
-    }
-}
-     .button--xl {
-    box-sizing: border-box;
-    border: 5px solid transparent;
-    transition: .4s;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-  }
-    .button--xl:hover{  
-      color: #fff;
-    background: none !important;
-      border: 5px solid transparent;
-      border-image: linear-gradient(155deg, #BDF69B, #BD80ED); 
-      border-image-slice: 1;
-  }
-
-  .button--xl::after{
-    content: '';
-    background-image: url('https://cdn.shopify.com/s/files/1/0630/0083/8377/files/giphy.gif?v=1695122704');
-    background-size: 120px 80px;
-    display: inline-block;
-    width: 120px; 
-    height: 80px;
-    position: absolute;
-    margin-top: -60px;
-    transition: 1s;  
-    opacity: 0;
-}
-   .button--xl:hover::after {
-     opacity: 1 !important;
-   }
-  
-  
-    @media only screen and (max-width: 600px){
-    .place-self-end-center {
-     margin-top: 50vh !important;
-    }  
-   } 
   {%- endfor -%}
 </style>
 
@@ -156,7 +88,7 @@ LIQUID
           <div {% render 'surface', class: content_class, text_color: block.settings.text_color %}>
             <div class="prose">
               {%- if block.settings.subheading != blank -%}
-                <p class="bold" data-sequence="subheading">{{ block.settings.subheading | escape }}</p>
+                <p class="subheading" data-sequence="subheading">{{ block.settings.subheading | escape }}</p>
               {%- endif -%}
 
               {%- if block.settings.title != blank -%}
@@ -180,11 +112,6 @@ LIQUID
       {%- else -%}
         <div id="block-{{ block.id }}" class="slideshow__slide {% if forloop.first %}is-selected{% endif %}" role="group" {{ block.shopify_attributes }}>
           {{- slide -}}
-        {% if block.settings.cloudDisplay %}
-        <div class="parallax-item">
-          <img src="https://cdn.shopify.com/s/files/1/0630/0083/8377/files/image_53.png?v=1695122873" alt="cloud" loading="eager" width="100%" height="auto">
-        </div>
-          {% endif %}
         </div>
       {%- endif -%}
     {%- endfor -%}
@@ -231,21 +158,6 @@ LIQUID
       </div>
     {%- endif -%}
   </slideshow-carousel>
-  <script>
-    window.addEventListener('scroll', function () {
-      const parallaxItem = document.querySelector('.parallax-item');
-      let speed;
-      if (window.innerWidth < 960) {
-        speed = 0.2; //0.2
-      }else{
-        speed = 0.4; //0.5
-      }
-      const scrollY = window.scrollY;
-      const translateY = scrollY * speed;
-      parallaxItem.style.transform = `translateY(${translateY}px)`;
-    });
-  </script>
-    
 </x-slideshow>
 
 {% schema %}
@@ -393,12 +305,6 @@ LIQUID
           "id": "mobile_image",
           "label": "Mobile image",
           "info": "1200 x 1600px .jpg recommended"
-        },
-        {
-          "type": "checkbox",
-          "id": "cloudDisplay",
-          "label": "Show cloud",
-          "default": false
         },
         {
           "type": "header",

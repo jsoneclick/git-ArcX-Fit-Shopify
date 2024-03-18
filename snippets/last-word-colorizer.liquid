@@ -1,0 +1,9 @@
+<script>
+        function colorLastWords(sentence, parentElementId, numberOfWords) {
+          let parentElement = document.getElementById(parentElementId);
+          let words = sentence.split(' ');
+          let lastWords = words.slice(-numberOfWords).join(' ');
+          let modifiedText = sentence.replace(lastWords, '<span class="last-word">' + lastWords + '</span>');
+          parentElement.innerHTML = modifiedText;
+        }
+  </script>

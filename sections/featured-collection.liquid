@@ -1,6 +1,13 @@
 {%- render 'section-spacing-collapsing' -%}
 
 <style>
+  #shopify-section-{{ section.id }} {
+    background-image: url('{{ section.settings.background-image | image_url}}');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  }
+ 
   {%- assign section_background = section.settings.background | default: settings.background -%}
   {%- assign card_background = section.settings.product_card_background | default: settings.product_card_background -%}
   {%- assign card_blends = false -%}
@@ -10,10 +17,12 @@
   {%- endunless -%}
 
   #shopify-section-{{ section.id }} .product-list {
+    overflow: visible !important;
     --product-list-gap: {% if section.settings.stack_products and section.settings.products_per_row_mobile == '2' %}{% if card_blends %}var(--product-list-row-gap){% endif %} var(--spacing-2){% else %}var(--product-list-row-gap) var(--product-list-column-gap){% endif %};
     --product-list-items-per-row: {{ section.settings.products_per_row_mobile | times: 1 }};
     --product-list-carousel-item-width: 74vw;
     --product-list-grid: {% if section.settings.stack_products %}auto / repeat(var(--product-list-items-per-row), minmax(0, 1fr)){% else %}auto / auto-flow var(--product-list-carousel-item-width){% endif %};
+      
   }
 
   @media screen and (min-width: 700px) {
@@ -30,13 +39,99 @@
       --product-list-carousel-item-width: calc(var(--container-inner-width) / {{ section.settings.products_per_row_desktop }} - (var(--product-list-column-gap) / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}));
     }
   }
+#shopify-section-{{ section.id }} .circle-button {
+  background: black !important;
+}
+ #shopify-section-{{ section.id }} .animated-arrow::before {
+    border-color: white !important;
+  }
+ #shopify-section-{{ section.id }} .animated-arrow::after {
+    border-color: white !important;
+   background: white !important;
+  }
+  #shopify-section-{{ section.id }} .product-card {
+    background: none !important;
+  }
+  .scroll-area {
+    padding: 1rem 0 !important;
+    overflow-y: visible !important;
+  }
+  
+{% if section.settings.shadow-hover %}
+  
+  #shopify-section-{{ section.id }} .product-card::before {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100px;
+    width: 100px;
+    background: {{section.settings.shadow-hover-color}};
+    border-radius: 50%;
+    filter: blur(75px);
+    transition: .5s;
+    opacity: 0;
+  }
+  #shopify-section-{{ section.id }} .product-card:hover::before {
+    opacity: 1;
+  }
+  {% endif %}
+  
+ #shopify-section-{{ section.id }} .v-stack {
+    text-align: center !important;
+  }
+ #shopify-section-{{ section.id }} .price-list {
+    text-align: center !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+    }
+  #shopify-section-{{ section.id }} .prose span, #shopify-section-{{ section.id }} .prose #featured-collection-header {
+    font-family: 'Gotham-Black' !important;
+    font-size: var(--text-h1);
+  }
+  #shopify-section-{{ section.id }} .prose #featured-collection-header {
+    color: {{section.settings.header-color}};
+  }
+  #shopify-section-{{ section.id }} button {
+    border: 1px solid #fff;
+  }
+{% if section.settings.anable-drop-shadow %}
+ #shopify-section-{{ section.id }} .scroll-area{
+    overflow-y: visible;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+  }
+ #shopify-section-{{ section.id }} .product-card {
+    box-shadow: 1px 1px 35px 0px rgba(0, 0, 0, 0.15);
+  }
+  {% endif %}
+
+ #shopify-section-{{ section.id }} .section-stack {
+    gap: 0;
+  }
+  #shopify-section-{{ section.id }}{
+    padding-top: 2rem;
+  }
 </style>
 
 <div {% render 'section-properties' %}>
   <div class="section-stack">
     {%- assign link_url = section.settings.link_url | default: section.settings.collection.url -%}
-    {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, heading_color: section.settings.heading_color, heading_gradient: section.settings.heading_gradient, content: section.settings.content, link_text: section.settings.link_text, link_url: link_url -%}
-
+    <!-- {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, heading_color: section.settings.heading_color, heading_gradient: section.settings.heading_gradient, content: section.settings.content, link_text: section.settings.link_text, link_url: link_url -%} -->
+      <div class="prose">
+        <div id="featured-collection-header">
+          {{ section.settings.title }}
+        </div>
+        <div class="feaured-collection">
+          {{ section.settings.content }}
+        </div>
+      </div>
     <div class="{% if section.settings.show_progress_bar %}scrollable-with-controls{% else %}floating-controls-container{% endif %}">
       {%- assign scroll_area_id = 'scroll-area-' | append: section.id -%}
 
@@ -60,9 +155,13 @@
       {%- if section.settings.stack_products == false -%}
         {%- if section.settings.show_progress_bar -%}
           {%- assign default_progress = section.settings.products_per_row_desktop | times: 1.0 | divided_by: section.settings.products_count -%}
-          {%- render 'scrollbar', observes: scroll_area_id, default_progress: default_progress, show_buttons: true -%}
+          {%- render 'scrollbar', observes: scroll_area_id, default_progress: default_progress, show_buttons: false -%}
         {%- else -%}
-          <button is="prev-button" class="circle-button circle-button--lg circle-button--fill border group" aria-controls="{{ scroll_area_id }}" disabled>
+          
+        {%- endif -%}
+         {%- assign default_progress = section.settings.products_per_row_desktop | times: 1.0 | divided_by: section.settings.products_count -%}
+          {%- render 'scrollbar', observes: scroll_area_id, default_progress: default_progress, show_buttons: false -%}
+        <button is="prev-button" class="circle-button circle-button--lg circle-button--fill border group" aria-controls="{{ scroll_area_id }}" disabled>
             <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
             <span class="animated-arrow animated-arrow--reverse"></span>
           </button>
@@ -71,12 +170,16 @@
             <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
             <span class="animated-arrow"></span>
           </button>
-        {%- endif -%}
+       
+      
       {%- endif -%}
     </div>
   </div>
 </div>
-
+ {% render 'last-word-colorizer' %}
+ <script>
+   //colorLastWords("{{section.settings.title}}", 'featured-collection-header', 2);
+ </script>
 {% schema %}
 {
   "name": "Featured collection",
@@ -109,6 +212,24 @@
       "id": "stack_products",
       "label": "Stack products",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "anable-drop-shadow",
+      "label": "Anable Drop Shadow",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "shadow-hover",
+      "label": "Anable Shadow Hover",
+      "default": false
+    },
+    {
+        "type": "color",
+        "id": "shadow-hover-color",
+        "label": "Shadow Hover Color",
+        "default": "#FFFFFF"
     },
     {
       "type": "checkbox",
@@ -160,6 +281,12 @@
       "default": "Featured collection"
     },
     {
+        "type": "color",
+        "id": "header-color",
+        "label": "Header Color",
+        "default": "#5252FF"
+      },
+    {
       "type": "richtext",
       "id": "content",
       "label": "Content"
@@ -191,6 +318,11 @@
       "id": "background_gradient",
       "label": "Background gradient"
     },
+    {
+          "type": "image_picker",
+          "id": "background-image",
+          "label": "Background Image"
+        },
     {
       "type": "color",
       "id": "text_color",

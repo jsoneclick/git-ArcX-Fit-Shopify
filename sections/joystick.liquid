@@ -29,13 +29,22 @@
     font-size: var(--text-h6);
   }
   #shopify-section-{{ section.id }} .last-word {
-      color: {{ section.settings.header_span_color }}; 
+      color: {{ section.settings.header_span_color }};
+    font-family: 'Gotham-Ultra';
     }
     #shopify-section-{{ section.id }} #joystick-header {
       text-align: start;
       width: 100%;
       line-height: normal;
+      color: {{section.settings.header-color}};
     }
+
+  #shopify-section-{{ section.id }} .joystick-body-text {
+    
+    margin-block-start: var(--spacing-12);
+    margin-block-end: var(--spacing-6);
+  }
+  
   #shopify-section-{{ section.id }} .content-wrapper {
     display: flex;
     justify-content: space-evenly;
@@ -68,12 +77,22 @@
     position: absolute;
     transform: translate(-50%, -50%);
     color: #030303;
-    font-size: 20px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    line-height: 130%; /* 26px */
     letter-spacing: 0.6px;
   } 
+
+   #shopify-section-{{ section.id }} .sides-span span {
+     background: black;
+     white-space: nowrap;
+     color: {{section.settings.direction-color}};
+     padding: .65rem 1.55rem;
+     border-radius: 100px;
+     width: 150px;
+     text-align: center;
+     transition: 1s;
+   }
   #shopify-section-{{ section.id }} .svg-arrows svg {
     fill: black;
     transition: .4s;
@@ -100,19 +119,19 @@
   }
   
   #shopify-section-{{ section.id }} .sides-span span:nth-child(1) {
-    top: 5%;
+    top: 10%;
     left: 50%;
   }
   #shopify-section-{{ section.id }} .sides-span span:nth-child(2) {
     top: 50%;
-    left: 5%;
+    left: -3%;
   }
   #shopify-section-{{ section.id }} .sides-span span:nth-child(3) {
     top: 50%;
-    left: 95%;
+    left: 103%;
   }
   #shopify-section-{{ section.id }} .sides-span span:nth-child(4) {
-    top: 95%;
+    top: 90%;
     left: 50%;
   }
 
@@ -133,34 +152,14 @@
     left: 50%;
   }
 
-    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(1) > .sides-span span:nth-child(1){
-      font-size: 38px;
-      color: red;
-    }
-    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(2) > .sides-span span:nth-child(2){
-        font-size: 38px;
-        color: red;
-    }
-    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(3) > .sides-span span:nth-child(3){
-        font-size: 38px;
-        color: red;
-    }
-    #shopify-section-{{ section.id }} .svg-arrows svg:hover:nth-child(4) > .sides-span span:nth-child(4){
-        font-size: 38px;
-        color: red;
-    }
-
   #mouse-hover-circle {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
   .j-prose {
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
+    margin-top: 2rem;
+    position: relative;
     text-align: center;
     color: #030303;
     font-size: 20px;
@@ -168,11 +167,12 @@
     font-weight: 700;
     line-height: 130%; /* 26px */
     letter-spacing: 0.6px;
+    width: 40vw;
   }
 
   @media screen and (max-width:990px){
     #shopify-section-{{ section.id }} {
-      padding: 2rem 1rem 5rem 1rem;
+      padding: 2rem 1rem 1rem 1rem;
     }
     #shopify-section-{{ section.id }} .content-wrapper {
     display: flex;
@@ -185,19 +185,44 @@
       text-align: center;
       width: 100%;
     }
+    #shopify-section-{{ section.id }} .sides-span span {
+     padding: .25rem .55rem;
+     width: 90px;
+      font-size: 10px;
+   }
     
     .header h1,  .header h2,.header h3,.header h4,.header h5,.header h6,{
       text-align: center;
     }
+    #shopify-section-{{ section.id }} .joystick-body-text {
+      max-width: 100%;
+      margin-block-start: var(--spacing-4);
+    }
     #shopify-section-{{ section.id }} .svg-arrows svg {
-    transform: translate(-50%, -50%) scale(.75);
+    transform: translate(-50%, -50%) scale(.65);
   }
     #shopify-section-{{ section.id }} .svg-arrows svg:hover {
     fill: #0EC3FF;
-    transform: translate(-50%, -50%) scale(.85);
+    transform: translate(-50%, -50%) scale(.75);
   }
      #shopify-section-{{ section.id }} .main-image-wrapper {
     height: 300px;
+  }
+     #shopify-section-{{ section.id }} .sides-span span:nth-child(1) {
+    top: 15%;
+    left: 50%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(2) {
+    top: 50%;
+    left: 4%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(3) {
+    top: 50%;
+    left: 96%;
+  }
+  #shopify-section-{{ section.id }} .sides-span span:nth-child(4) {
+    top: 85%;
+    left: 50%;
   }
   #shopify-section-{{ section.id }} .joystick {
     aspect-ratio: 1 / 1;
@@ -205,24 +230,39 @@
     position: relative;
     cursor: none;
   }
+    .j-prose {
+      width: 100%
+    }
   }
     
+
+  .joystick-content-wapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  flex-direction: column;
+ 
+  }
+  
   
   </style>
   <div id="joystick-header">
     {{ section.settings.header }}
   </div>
+  <div class="joystick-body-text">
+    {{ section.settings.body-text }}
+    </div>
   <div class="content-wrapper">
     <div class="main-image-wrapper">
-      {% if section.settings.main-image %}<img src="{{ section.settings.main-image | image_url }}" alt="ring">{% endif %}
+      {% if section.settings.main-image %}<img src="{{ section.settings.main-image | image_url }}" alt="ring" loading="lazy">{% endif %}
     </div>
+    <div class="joystick-content-wapper">
   <div class="joystick">
     <div class="joystick-area">
       <div class="sides-span">
-        <span>Top</span>
-        <span>Left</span>
-        <span>Right</span>
-        <span>Bottom</span>
+        {% for block in section.blocks %}
+          <span>{{ block.settings.direction-text }}</span>
+          {% endfor %}
       </div>
       <div class="svg-arrows">
             <svg xmlns="http://www.w3.org/2000/svg" width="141" height="141" viewBox="0 0 141 141" fill="none">
@@ -249,9 +289,12 @@
               <circle cx="19.2952" cy="19.1742" r="18.2452" fill="#0EC3FF" stroke="black" stroke-width="1.30323"/>
             </svg>
       </div>
-                 <div class="j-prose">just a simple move by your finger</div>
+                 
     </div>
+                
   </div>
+                <div class="j-prose">{{ section.settings.prose-text }}</div>
+              </div>
   </div>
 <script>
  function handleMouseHover(event) {
@@ -281,8 +324,30 @@ joystickArea.addEventListener('mousemove', handleMouseHover);
 joystickArea.addEventListener('mouseout', handleMouseOut);
 
   
-  colorLastWords("{{ section.settings.header }}", 'joystick-header', 1);
+  //colorLastWords("{{ section.settings.header }}", 'joystick-header', 1);
 </script>
+                <script>
+                  const svgArrows = document.querySelectorAll('#shopify-section-{{ section.id }} .svg-arrows svg');
+const sidesSpan = document.querySelectorAll('#shopify-section-{{ section.id }} .sides-span span');
+
+// Add hover event listeners to each svg element
+svgArrows.forEach((svg, index) => {
+  svg.addEventListener('mouseover', () => {
+    // Reset styles for all span elements
+    sidesSpan.forEach(span => {
+      span.style.background = '{{section.settings.direction-bg}}';
+      span.style.transform = 'translate(-50%, -50%) scale(1)';
+      span.style.color = '{{section.settings.direction-color}}';
+      console.log(span);
+    });
+
+    // Apply styles for the corresponding span element
+    sidesSpan[index].style.background = '{{section.settings.direction-hover-bg}}';
+    sidesSpan[index].style.transform = 'translate(-50%, -50%) scale(1.15)';
+    sidesSpan[index].style.color = '{{section.settings.direction-hover-color}}';
+  });
+});
+                </script>
   {% schema %}
   {
     "name": "Joystick",
@@ -300,8 +365,8 @@ joystickArea.addEventListener('mouseout', handleMouseOut);
       },
       {
         "type": "color",
-        "id": "header_span_color",
-        "label": "Header Span Color",
+        "id": "header-color",
+        "label": "Header Color",
         "default": "#5252FF"
       },
       {
@@ -317,6 +382,12 @@ joystickArea.addEventListener('mouseout', handleMouseOut);
       {
         "type": "richtext",
         "label": "Body Text",
+        "id": "body-text"
+      },
+      
+      {
+        "type": "richtext",
+        "label": "Body Text",
         "id": "prose-text"
       },
       {
@@ -324,8 +395,45 @@ joystickArea.addEventListener('mouseout', handleMouseOut);
         "id": "prose_color",
         "label": "Text Color",
         "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "direction-bg",
+        "label": "Direction Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "direction-color",
+        "label": "Direction Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "direction-hover-bg",
+        "label": "Direction Hover Background",
+        "default": "#a6a6a6"
+      },
+      {
+        "type": "color",
+        "id": "direction-hover-color",
+        "label": "Direction Hover Color",
+        "default": "#000000"
       }
     ],
+    "blocks": [
+    {
+        "type": "tab",
+        "name": "Joystick Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "direction-text",
+            "label": "Direction"
+          }
+        ]
+    }
+],
     "presets": [
       {
         "name": "Joystick"

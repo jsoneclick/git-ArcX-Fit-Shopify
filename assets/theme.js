@@ -45,7 +45,7 @@ var CountrySelector = class extends HTMLElement {
     this.countryElement = this.querySelector('[name="address[country]"]');
     this.provinceElement = this.querySelector('[name="address[province]"]');
     this.countryElement.addEventListener("change", this._onCountryChangedListener);
-    if (this.getAttribute("country") !== "") {
+    if (this.hasAttribute("country") && this.getAttribute("country") !== "") {
       this.countryElement.selectedIndex = Math.max(0, Array.from(this.countryElement.options).findIndex((option) => option.textContent === this.getAttribute("country")));
       this.countryElement.dispatchEvent(new Event("change"));
     } else {
@@ -117,6 +117,9 @@ function formatMoney(cents, format = "") {
       break;
     case "amount_no_decimals_with_apostrophe_separator":
       value = formatWithDelimiters(cents, 0, "'");
+      break;
+    default:
+      value = formatWithDelimiters(cents, 2);
       break;
   }
   if (formatString.indexOf("with_comma_separator") !== -1) {
@@ -303,9 +306,10 @@ var PageDots = class extends HTMLElement {
   }
   select(selectedIndex, dispatchEvent = true) {
     if (this.hasAttribute("align-selected")) {
-      this.scrollTo({
-        left: this.items[selectedIndex].offsetLeft - this.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
-        top: this.items[selectedIndex].offsetTop - this.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
+      const scrollElement = this.getAttribute("align-selected") !== "" ? this.closest(this.getAttribute("align-selected")) : this;
+      scrollElement.scrollTo({
+        left: this.items[selectedIndex].offsetLeft - scrollElement.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
+        top: this.items[selectedIndex].offsetTop - scrollElement.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
         behavior: window.matchMedia("(prefers-reduced-motion: no-preference)").matches ? "smooth" : "auto"
       });
     }
@@ -367,7 +371,7 @@ if (!window.customElements.get("next-button")) {
 }
 
 // js/common/actions/copy-button.js
-import { timeline } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { timeline } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var CopyButton = class extends HTMLButtonElement {
   constructor() {
     super();
@@ -410,7 +414,7 @@ if (!window.customElements.get("copy-button")) {
 }
 
 // js/common/actions/custom-button.js
-import { animate, timeline as timeline2, stagger } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate, timeline as timeline2, stagger } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var CustomButton = class extends HTMLButtonElement {
   static get observedAttributes() {
     return ["aria-busy"];
@@ -479,7 +483,7 @@ if (!window.customElements.get("share-button")) {
 }
 
 // js/common/animation/heading.js
-import { stagger as stagger2 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { stagger as stagger2 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 function getHeadingKeyframe(element, options = {}) {
   if (!element) {
     return [];
@@ -504,7 +508,7 @@ function getHeadingKeyframe(element, options = {}) {
 }
 
 // js/common/animation/reveal-items.js
-import { animate as animate2, stagger as stagger3, inView } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate2, stagger as stagger3, inView } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var _reveal, reveal_fn;
 var RevealItems = class extends HTMLElement {
   constructor() {
@@ -685,7 +689,7 @@ if (!window.customElements.get("height-observer")) {
 }
 
 // js/common/behavior/safe-sticky.js
-import { inView as inView2 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { inView as inView2 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var _resizeObserver, _checkPositionListener, _initialTop, _lastKnownY, _currentTop, _position, _recalculateStyles, recalculateStyles_fn, _checkPosition, checkPosition_fn;
 var SafeSticky = class extends HTMLElement {
   constructor() {
@@ -989,7 +993,7 @@ if (!window.customElements.get("split-lines")) {
 }
 
 // js/common/behavior/visibility-progress.js
-import { scroll } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { scroll } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var VisibilityProgress = class extends HTMLElement {
   connectedCallback() {
     scroll((info) => {
@@ -1005,7 +1009,7 @@ if (!window.customElements.get("visibility-progress")) {
 }
 
 // js/common/carousel/effect-carousel.js
-import { timeline as timeline3, inView as inView3 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { timeline as timeline3, inView as inView3 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 
 // js/common/carousel/base-carousel.js
 var BaseCarousel = class extends HTMLElement {
@@ -1013,7 +1017,7 @@ var BaseCarousel = class extends HTMLElement {
     this._abortController = new AbortController();
     this._reloaded = false;
     if (Shopify.designMode) {
-      this.closest(".shopify-section").addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
+      this.closest(".shopify-section")?.addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
     }
     if (this.items.length > 1) {
       if (Shopify.designMode) {
@@ -1030,6 +1034,7 @@ var BaseCarousel = class extends HTMLElement {
       this.addEventListener("control:select", (event) => this.select(event.detail.index), { signal: this._abortController.signal });
     }
     if (this.selectedIndex === 0) {
+      this.selectedSlide.classList.add("is-selected");
       this._dispatchEvent("carousel:select", 0);
     } else {
       this.select(this.selectedIndex, { animate: false, force: true });
@@ -1235,6 +1240,8 @@ var ScrollCarousel = class extends BaseCarousel {
    * On the scroll has settled we dispatch the event (which covers both programmatic scroll and swipe)
    */
   _onScrollSettled() {
+    this.items.forEach((item) => item.classList.remove("is-selected"));
+    this.selectedSlide.classList.add("is-selected");
     this._hasPendingProgrammaticScroll = false;
     this._dispatchEvent("carousel:settle", this.selectedIndex);
   }
@@ -1253,7 +1260,7 @@ if (!window.customElements.get("scroll-carousel")) {
 }
 
 // js/common/cart/cart-count.js
-import { animate as animate3 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate3 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 
 // js/common/cart/fetch-cart.js
 var createCartPromise = () => {
@@ -1316,10 +1323,10 @@ if (!window.customElements.get("cart-count")) {
 }
 
 // js/common/cart/cart-drawer.js
-import { animate as animate4 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate4 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 
 // js/common/overlay/dialog-element.js
-import { FocusTrap, Delegate } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { FocusTrap, Delegate } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var _lockLayerCount, _isLocked;
 var _DialogElement = class _DialogElement extends HTMLElement {
   constructor() {
@@ -1523,7 +1530,7 @@ if (!window.customElements.get("close-button")) {
 }
 
 // js/common/overlay/drawer.js
-import { animate as motionAnimate, timeline as motionTimeline } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as motionAnimate, timeline as motionTimeline } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var reduceDrawerAnimation = window.matchMedia("(prefers-reduced-motion: reduce)").matches || JSON.parse("false");
 var Drawer = class extends DialogElement {
   constructor() {
@@ -1612,7 +1619,7 @@ if (!window.customElements.get("x-drawer")) {
 }
 
 // js/common/overlay/popover.js
-import { animate as motionAnimate2, timeline as motionTimeline2 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as motionAnimate2, timeline as motionTimeline2 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var Popover = class extends DialogElement {
   constructor() {
     super();
@@ -1696,7 +1703,7 @@ if (!window.customElements.get("x-popover")) {
 }
 
 // js/common/overlay/privacy-bar.js
-import { Delegate as Delegate2 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { Delegate as Delegate2 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var PrivacyBar = class extends HTMLElement {
   constructor() {
     super();
@@ -1781,12 +1788,12 @@ var CartDrawer = class extends Drawer {
   async _onCartChanged(event) {
     const updatedDrawerContent = new DOMParser().parseFromString(event.detail.cart["sections"][extractSectionId(this)], "text/html");
     if (event.detail.cart["item_count"] > 0) {
-      const currentLineItemsElement = this.querySelector(".cart-drawer__line-items"), updatedLineItemsElement = updatedDrawerContent.querySelector(".cart-drawer__line-items");
-      if (!currentLineItemsElement) {
+      const currentInner = this.querySelector(".cart-drawer__inner"), updatedInner = updatedDrawerContent.querySelector(".cart-drawer__inner");
+      if (!currentInner) {
         this.replaceChildren(document.createRange().createContextualFragment(updatedDrawerContent.querySelector(".cart-drawer").innerHTML));
       } else {
         setTimeout(() => {
-          currentLineItemsElement.innerHTML = updatedLineItemsElement.innerHTML;
+          currentInner.innerHTML = updatedInner.innerHTML;
         }, event.detail.baseEvent === "variant:add" ? 0 : 1250);
         this.querySelector('[slot="footer"]').replaceChildren(...updatedDrawerContent.querySelector('[slot="footer"]').childNodes);
       }
@@ -2164,7 +2171,7 @@ if (!window.customElements.get("facet-drawer")) {
 }
 
 // js/common/facets/facet-floating-filter.js
-import { animate as animate5 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate5 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var FacetFloatingFilter = class extends HTMLElement {
   connectedCallback() {
     new IntersectionObserver(this._onFooterVisibilityChanged.bind(this), { rootMargin: "50px 0px" }).observe(document.querySelector(".shopify-section--footer"));
@@ -2315,7 +2322,7 @@ if (!window.customElements.get("facet-sort-by")) {
 }
 
 // js/common/feedback/pill-loader.js
-import { animate as animate6, timeline as timeline4, stagger as stagger4 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate6, timeline as timeline4, stagger as stagger4 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var PillLoader = class extends HTMLElement {
   static get observedAttributes() {
     return ["aria-busy"];
@@ -2627,13 +2634,16 @@ function createMediaImg(media, widths = [], properties = {}) {
 }
 
 // js/common/product/gift-card-recipient.js
-var _recipientCheckbox, _recipientOtherProperties, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn;
+var _recipientCheckbox, _recipientOtherProperties, _recipientSendOnProperty, _offsetProperty, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn, _formatDate, formatDate_fn;
 var GiftCardRecipient = class extends HTMLElement {
   constructor() {
     super(...arguments);
     __privateAdd(this, _synchronizeProperties);
+    __privateAdd(this, _formatDate);
     __privateAdd(this, _recipientCheckbox, void 0);
     __privateAdd(this, _recipientOtherProperties, []);
+    __privateAdd(this, _recipientSendOnProperty, void 0);
+    __privateAdd(this, _offsetProperty, void 0);
     __privateAdd(this, _recipientFieldsContainer, void 0);
   }
   connectedCallback() {
@@ -2641,17 +2651,35 @@ var GiftCardRecipient = class extends HTMLElement {
     __privateSet(this, _recipientCheckbox, properties.find((input) => input.name === checkboxPropertyName));
     __privateSet(this, _recipientOtherProperties, properties.filter((input) => input.name !== checkboxPropertyName));
     __privateSet(this, _recipientFieldsContainer, this.querySelector(".gift-card-recipient__fields"));
+    __privateSet(this, _offsetProperty, this.querySelector('[name="properties[__shopify_offset]"]'));
+    if (__privateGet(this, _offsetProperty)) {
+      __privateGet(this, _offsetProperty).value = (/* @__PURE__ */ new Date()).getTimezoneOffset().toString();
+    }
+    __privateSet(this, _recipientSendOnProperty, this.querySelector('[name="properties[Send on]"]'));
+    const minDate = /* @__PURE__ */ new Date();
+    const maxDate = /* @__PURE__ */ new Date();
+    maxDate.setDate(minDate.getDate() + 90);
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("min", __privateMethod(this, _formatDate, formatDate_fn).call(this, minDate));
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("max", __privateMethod(this, _formatDate, formatDate_fn).call(this, maxDate));
     __privateGet(this, _recipientCheckbox)?.addEventListener("change", __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).bind(this));
     __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).call(this);
   }
 };
 _recipientCheckbox = new WeakMap();
 _recipientOtherProperties = new WeakMap();
+_recipientSendOnProperty = new WeakMap();
+_offsetProperty = new WeakMap();
 _recipientFieldsContainer = new WeakMap();
 _synchronizeProperties = new WeakSet();
 synchronizeProperties_fn = function() {
   __privateGet(this, _recipientOtherProperties).forEach((property) => property.disabled = !__privateGet(this, _recipientCheckbox).checked);
   __privateGet(this, _recipientFieldsContainer).classList.toggle("js:hidden", !__privateGet(this, _recipientCheckbox).checked);
+};
+_formatDate = new WeakSet();
+formatDate_fn = function(date) {
+  const offset = date.getTimezoneOffset();
+  const offsetDate = new Date(date.getTime() - offset * 60 * 1e3);
+  return offsetDate.toISOString().split("T")[0];
 };
 if (!window.customElements.get("gift-card-recipient")) {
   window.customElements.define("gift-card-recipient", GiftCardRecipient);
@@ -2685,7 +2713,7 @@ var ProductLoader = class {
 __publicField(ProductLoader, "loadedProducts", {});
 
 // js/common/product/product-card.js
-import { Delegate as Delegate3 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { Delegate as Delegate3 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var ProductCard = class extends HTMLElement {
   constructor() {
     super();
@@ -3109,7 +3137,7 @@ if (!window.customElements.get("variant-sku")) {
 }
 
 // js/common/product/product-gallery.js
-import { PhotoSwipeLightbox } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { PhotoSwipeLightbox } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var ProductGallery = class extends HTMLElement {
   constructor() {
     super();
@@ -3137,7 +3165,7 @@ var ProductGallery = class extends HTMLElement {
       return this._photoswipe;
     }
     const photoswipe = new PhotoSwipeLightbox({
-      pswpModule: () => import("//arcx.fit/cdn/shop/t/5/assets/photoswipe.min.js?v=96595610301167188461702628153"),
+      pswpModule: () => import("//arcx.fit/cdn/shop/t/4/assets/photoswipe.min.js?v=23923577218600574321702545962"),
       bgOpacity: 1,
       maxZoomLevel: parseInt(this.getAttribute("allow-zoom")) || 3,
       closeTitle: window.themeVariables.strings.closeGallery,
@@ -3367,7 +3395,7 @@ if (!window.customElements.get("product-quick-add")) {
 }
 
 // js/common/product/quick-buy-drawer.js
-import { animate as animate7, timeline as timeline5 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate7, timeline as timeline5 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var QuickBuyDrawer = class extends Drawer {
   constructor() {
     super();
@@ -3616,7 +3644,7 @@ if (!window.customElements.get("variant-option-value")) {
 }
 
 // js/common/media/base-media.js
-import { inView as inView4 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { inView as inView4 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var BaseMedia = class extends HTMLElement {
   static get observedAttributes() {
     return ["playing"];
@@ -3731,8 +3759,8 @@ var VideoMedia = class extends BaseMedia {
         
         <svg part="play-button" fill="none" width="48" height="48" viewBox="0 0 48 48">
           <path d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24s10.745 24 24 24 24-10.745 24-24Z" fill="#ffffff"/>
-          <path d="M18.578 32.629a.375.375 0 0 1-.578-.316V15.687c0-.297.328-.476.578-.316l12.931 8.314c.23.147.23.483 0 .63L18.578 32.63Z" fill="#fff"/>
-          <path d="M24 .5C36.979.5 47.5 11.021 47.5 24S36.979 47.5 24 47.5.5 36.979.5 24 11.021.5 24 .5Z" stroke="#fff" stroke-opacity=".12"/>
+          <path d="M18.578 32.629a.375.375 0 0 1-.578-.316V15.687c0-.297.328-.476.578-.316l12.931 8.314c.23.147.23.483 0 .63L18.578 32.63Z" fill="#1a1a1a"/>
+          <path d="M24 .5C36.979.5 47.5 11.021 47.5 24S36.979 47.5 24 47.5.5 36.979.5 24 11.021.5 24 .5Z" stroke="#1a1a1a" stroke-opacity=".12"/>
         </svg>
       `));
     }
@@ -3839,7 +3867,7 @@ if (!window.customElements.get("video-media")) {
 }
 
 // js/common/navigation/accordion-disclosure.js
-import { timeline as timeline6 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { timeline as timeline6 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 
 // js/common/navigation/animated-details.js
 var AnimatedDetails = class extends HTMLDetailsElement {
@@ -3920,7 +3948,7 @@ if (!window.customElements.get("accordion-disclosure")) {
 }
 
 // js/common/navigation/tabs.js
-import { animate as animate8 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate8 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var Tabs = class extends HTMLElement {
   static get observedAttributes() {
     return ["selected-index"];
@@ -4008,7 +4036,7 @@ if (!window.customElements.get("x-tabs")) {
 }
 
 // js/common/search/predictive-search.js
-import { animate as animate9 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate9 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var PredictiveSearch = class extends HTMLElement {
   constructor() {
     super();
@@ -4120,7 +4148,7 @@ if (!window.customElements.get("search-drawer")) {
 }
 
 // js/common/text/section-header.js
-import { animate as animate10, inView as inView5 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { animate as animate10, inView as inView5 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 var _reveal2, reveal_fn2;
 var SectionHeader = class extends HTMLElement {
   constructor() {
@@ -4160,11 +4188,11 @@ if (!window.customElements.get("marquee-text")) {
 }
 
 // js/theme.js
-import { Delegate as Delegate4 } from "//arcx.fit/cdn/shop/t/5/assets/vendor.min.js?v=20880576495916334881702628153";
+import { Delegate as Delegate4 } from "//arcx.fit/cdn/shop/t/4/assets/vendor.min.js?v=110209841862038618801702545962";
 (() => {
   const delegateDocument = new Delegate4(document.documentElement);
   if (window.themeVariables.settings.showPageTransition && "animate" in document.documentElement && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-    delegateDocument.on("click", "a", async (event, target) => {
+    delegateDocument.on("click", 'a:not([target="_blank"])', async (event, target) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey) {
         return;
       }

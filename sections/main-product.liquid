@@ -37,6 +37,19 @@
       --product-gallery-media-list-gap: var(--grid-gutter);
     }
   }
+
+  .variant-links-images a {
+    height: 80px;
+    width: 80px;
+    display: block;
+    padding: .5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .variant-links-images a img{
+    height: 100%;
+    width: 100%;
+  }
 </style>
 
 <div {% render 'section-properties', tight: true %}>
@@ -111,7 +124,6 @@ quick buy information in a template, that will be extracted in JS, but ensure it
       {%- render 'price-list', product: product, variant: product.selected_or_first_available_variant, form_id: product_form_id -%}
     </div>
   </div>
-
   <div class="quick-buy-drawer__info">
     {%- comment -%}We only show a limited set of information in the quick buy{%- endcomment -%}
 
@@ -122,13 +134,16 @@ quick buy information in a template, that will be extracted in JS, but ensure it
 
         {%- when 'variant_picker' -%}
           {%- render 'variant-picker', product: product, form_id: product_form_id, update_url: false, hide_sold_out_variants: block.settings.hide_sold_out_variants, hide_size_chart: true, force_dropdown_as_block: true, block: block -%}
-
         {%- when 'buy_buttons' -%}
           {%- render 'buy-buttons', product: product, form_id: product_form_id, show_payment_button: block.settings.show_payment_button, button_size: 'lg' -%}
       {%- endcase -%}
+
+   
     {%- endfor -%}
   </div>
+  
 </template>
+
 
 {% schema %}
 {
@@ -327,6 +342,33 @@ quick buy information in a template, that will be extracted in JS, but ensure it
         }
       ]
     },
+
+
+
+
+    
+    {
+      "type": "variant_links_images",
+      "name": "Variant Links Images",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image-link",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link-to-product",
+          "label": "Link"
+        }
+      ]
+    },
+
+
+
+
+    
     {
       "type": "product_variations",
       "name": "Product variations",

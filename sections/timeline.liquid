@@ -37,7 +37,7 @@
 
             <div class="prose">
               {%- if block.settings.subheading != blank -%}
-                <p class="bold text-base">{{- block.settings.subheading -}}</p>
+                <p class="subheading text-base">{{- block.settings.subheading -}}</p>
               {%- endif -%}
 
               {%- if block.settings.title != blank -%}
@@ -56,7 +56,7 @@
         <div class="timeline__controls scroll-area bleed md:unbleed">
           <div class="relative w-full">
             <span class="timeline__nav-bar"></span>
-            <page-dots class="timeline__nav" aria-controls="timeline-carousel-{{ section.id }}">
+            <page-dots align-selected=".timeline__controls" class="timeline__nav" aria-controls="timeline-carousel-{{ section.id }}">
               {%- for block in section.blocks -%}
                 {%- if block.settings.navigation_label != blank -%}
                   <button class="timeline__nav-item" type="button" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">

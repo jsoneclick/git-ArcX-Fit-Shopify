@@ -1,4 +1,7 @@
 <style>
+  body{
+    overflow-x: hidden;
+  }
     #shopify-section-{{ section.id }} {
       padding: 2rem;
       display: flex;
@@ -6,14 +9,21 @@
       align-items: end;
       background-color: {{section.settings.background_color}};
       background: {{section.settings.background_gradient}};
+      flex-direction: row-reverse;
+      gap: 5rem;
     }
   
    #shopify-section-{{ section.id }}  .main-image-wrapper {
      position: relative;
-     width: 40%;
+     width: 20%;
+  }
+  .desktop-main-image {
+  /* transform: scale(1.35) translateY(-20%); */
+  
   }
   .mobile-main-image {
     display: none;
+    
   }
   
  #shopify-section-{{ section.id }}  .right-image-wrapper {
@@ -23,6 +33,7 @@
    flex-direction: column;
    align-items: end;
    width: 60%;
+   height: ;
   }
   
   #shopify-section-{{ section.id }} .ring-sizes {
@@ -30,7 +41,10 @@
     color: {{section.settings.ring-size-color}};
     display: flex;
     justify-content: space-around;
-    padding: 0 5rem 0 0;
+    padding: 0 4rem 0 0;
+    position: absolute;
+    bottom: {{section.settings.sizes-bottom}}vh;
+   
   }
   
    #shopify-section-{{ section.id }} .ring-size {
@@ -40,15 +54,40 @@
     align-items:center;
     border-top: 1px solid #000;
     opacity: 0;
+     width: 40px;
     transform: translateY(100%);
     transition: opacity 2.5s, transform 1s;
      font-weight: 900;
      font-size: 1.5rem;
+     height: 40px;
+     box-sizing: border-box;
   }
   
    #shopify-section-{{ section.id }} .ring-size:nth-child(1){
     width: 30%;
     border: none;
+  }
+
+  #shopify-section-{{ section.id }} .ring-size:nth-child(2){
+    margin-top: -4%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(3){
+    margin-top: -3%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(4){
+    margin-top: -2%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(5){
+    margin-top: -1%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(6){
+    margin-top: 0%;
+  }
+   #shopify-section-{{ section.id }} .ring-size:nth-child(7){
+    margin-top: 1%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(8){
+    margin-top: 2%;
   }
   
    #shopify-section-{{ section.id }}  .right-image-wrapper .additional-image{
@@ -57,14 +96,18 @@
   
    #shopify-section-{{ section.id }} .text-arrow {
      width: 100%;
-     positipn: relative;
+     position: relative;
      display: flex;
      justify-content: center;
      align-items: center;
      flex-direction: column;
+     opacity: 0;
+     transform: translateY(60%) ;
+     transition: opacity 2.5s, transform 1s;
    }
   
   #shopify-section-{{ section.id }} .arrow {
+    position: absolute;
     margin-block-start: var(--spacing-4);
     width: 100%;
     display: flex;
@@ -78,18 +121,22 @@
       justify-content: center;
     {% endif %}
     align-items: center;
+    transform: translateY(90%);
   }
   
   #shopify-section-{{ section.id }} .arrow svg {
-    width: 45%;
-    animation: arrowFlex 2s infinite linear;
+    width: 7vw;
+    height: 7vw;
+    animation: arrowFlex 2s infinite ease-in-out;
+    margin-left: 30%;
+    transform-origin: left;
   }
   @keyframes arrowFlex {
     0%, 100%{
-      transform: rotateZ(0) translate(0, 0);
+      transform: rotateZ(-15deg);
     }
     50% {
-      transform: rotateZ(25deg) translate(3%, -3%)
+      transform: rotateZ(15deg);
     }
   }
   
@@ -114,7 +161,30 @@
      opacity: 0;
      transform: translateY(30%);
      transition: opacity 2.5s, transform 1s;
+    position: relative;
    }
+
+ #shopify-section-{{ section.id }} .addition-text, #shopify-section-{{ section.id }} .addition-text-2 {
+    position: absolute;
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  #shopify-section-{{ section.id }} .addition-text {
+    left: 10%;
+
+  }
+  #shopify-section-{{ section.id }} .addition-text-2 {
+    left: 25%;
+    margin-top: -5%;
+  }
+  #shopify-section-{{ section.id }} .addition-text svg, #shopify-section-{{ section.id }} .addition-text-2 svg{
+    position: absolute;
+    transform: translateY(-100%);
+    height: auto;
+    width: 4vw;
+    left: 0%;
+  }
+
   
   @media screen and (max-width:990px) {
     #shopify-section-{{ section.id }} {
@@ -133,26 +203,82 @@
     #shopify-section-{{ section.id }} .ring-size {
      font-weight: 500;
      font-size: .75rem;
+      height: 30px;
+      font-weight: 900;
+      width: 20px;
   }
+    
     #shopify-section-{{ section.id }} .ring-sizes {
     width: 100%;
     color: #000;
     display: flex;
     justify-content: space-around;
-    padding: 0;
+    padding-right: 1rem;
+    bottom: -4vw;
+  }
+     #shopify-section-{{ section.id }} .ring-size:nth-child(2){
+    margin-top: -10%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(3){
+    margin-top: -9%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(4){
+    margin-top: -8%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(5){
+    margin-top: -7%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(6){
+    margin-top: -6%;
+  }
+   #shopify-section-{{ section.id }} .ring-size:nth-child(7){
+    margin-top: -5%;
+  }
+  #shopify-section-{{ section.id }} .ring-size:nth-child(8){
+    margin-top: -4%;
+  }
+    #shopify-section-{{ section.id }} .addition-text, #shopify-section-{{ section.id }} .addition-text-2 {
+      font-size: .75rem;
+    }
+    #shopify-section-{{ section.id }} .addition-text{
+      margin-top: 5%;
+    }
+    #shopify-section-{{ section.id }} .addition-text-2 {
+      margin-top: -3%;
+      margin-left: -3%;
+    }
+     #shopify-section-{{ section.id }} .ring-size:nth-child(1){
+    transform: translateY(30%);
+  }
+    #shopify-section-{{ section.id }} .arrow svg {
+    width: 12vw;
+    height: 12vw;
+    }
+
+    #shopify-section-{{ section.id }} .addition-text svg, #shopify-section-{{ section.id }} .addition-text-2 svg{
+    position: absolute;
+    transform: translateY(-100%);
+    height: auto;
+    width: 9vw;
+    left: 0%;
   }
     
     #shopify-section-{{ section.id }}  .right-image-wrapper,  #shopify-section-{{ section.id }}  .main-image-wrapper {
        width: 100%;
     }
+     #shopify-section-{{ section.id }}  .right-image-wrapper{
+       height: ;
+       transform: translateY(-15%);
+     }
+    
   }
   </style>
   <div class="main-image-wrapper">
     <div class="desktop-main-image">
-   {% if section.settings.main-image %}<img src="{{ section.settings.main-image | image_url}}" alt="desktop image" height="auto" width="100%">{% endif %}
+   {% if section.settings.main-image %}<img src="{{ section.settings.main-image | image_url}}" alt="desktop image" height="auto" width="100%" loading="lazy">{% endif %}
     </div>
     <div class="mobile-main-image">
-   {% if section.settings.main-image-mobile %}<img src="{{ section.settings.main-image-mobile | image_url}}" alt="mobile image" height="auto" width="100%">{% endif %}
+   {% if section.settings.main-image-mobile %}<img src="{{ section.settings.main-image-mobile | image_url}}" alt="mobile image" height="auto" width="100%" loading="lazy">{% endif %}
     </div>
   </div>
     <div class="right-image-wrapper">
@@ -163,55 +289,63 @@
         <div class="arrow">
          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="42" viewBox="0 0 22 42" fill="none">
             <path d="M0.333333 3C0.333333 4.47276 1.52724 5.66667 3 5.66667C4.47276 5.66667 5.66667 4.47276 5.66667 3C5.66667 1.52724 4.47276 0.333333 3 0.333333C1.52724 0.333333 0.333333 1.52724 0.333333 3ZM3.23798 41.4397C8.9328 38.3578 13.4177 35.5263 16.5282 32.727C19.6373 29.9289 21.434 27.1079 21.623 24.044C21.812 20.9806 20.3857 17.8117 17.3698 14.3367C14.3523 10.8597 9.69183 7.01608 3.28423 2.58865L2.71577 3.41135C9.10058 7.82304 13.6796 11.6103 16.6146 14.9922C19.5514 18.3761 20.7908 21.2942 20.6249 23.9824C20.4591 26.67 18.8802 29.265 15.8593 31.9837C12.8397 34.7012 8.44008 37.4874 2.76202 40.5603L3.23798 41.4397Z" fill="black"/>
-          </svg>
+            </path>
+            </svg>
         </div>
       </div>
       <div class="additional-image">
-        <img src="{{ section.settings.add-image | image_url}}" alt="add image" height="auto" width="100%">
-      </div>
-              <div class="ring-sizes">
+        <img src="{{ section.settings.add-image | image_url}}" alt="add image" height="auto" width="100%" loading="lazy">
+        <div class="ring-sizes">
                 {% for block in section.blocks %}
                 <div class="ring-size">
                   {{ block.settings.ring-size }}
                 </div>
                   {% endfor %}
               </div>
+        <div class="addition-text">
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="98" viewBox="0 0 45 98" fill="none">
+<circle cx="9" cy="9" r="9" transform="matrix(-1 0 0 1 18 0)" fill="#D9D9D9" fill-opacity="0.55"/>
+<path d="M9 97V97.5H8.5V97H9ZM11.6667 9C11.6667 10.4728 10.4728 11.6667 9 11.6667C7.52724 11.6667 6.33333 10.4728 6.33333 9C6.33333 7.52724 7.52724 6.33333 9 6.33333C10.4728 6.33333 11.6667 7.52724 11.6667 9ZM45 97.5H9V96.5H45V97.5ZM8.5 97V9H9.5V97H8.5Z" fill="black"/>
+</svg>
+                    {{ section.settings.add-text-1 }}
+                  </div>
+                  <div class="addition-text-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="63" viewBox="0 0 45 63" fill="none">
+<circle cx="9" cy="9" r="9" transform="matrix(-1 0 0 1 18 0)" fill="#D9D9D9" fill-opacity="0.55"/>
+<path d="M9 62V62.5H8.5V62H9ZM11.6667 9C11.6667 10.4728 10.4728 11.6667 9 11.6667C7.52724 11.6667 6.33333 10.4728 6.33333 9C6.33333 7.52724 7.52724 6.33333 9 6.33333C10.4728 6.33333 11.6667 7.52724 11.6667 9ZM45 62.5H9V61.5H45V62.5ZM8.5 62V9H9.5V62H8.5Z" fill="black"/>
+</svg>
+                    {{ section.settings.add-text-2 }}
+                  </div>
+      </div>
     </div>
+    {% render 'last-word-colorizer' %}
   <script>
+    //colorLastWords("{{section.settings.body_text}}", 'body-text', 2);
     document.addEventListener('DOMContentLoaded', function() {
-      var ringSizes = document.querySelector('.ring-sizes');
-      var ringSizeBlocks = document.querySelectorAll('.ring-size');
+      let ringSizes = document.querySelector('.ring-sizes');
+      let ringSizeBlocks = document.querySelectorAll('.ring-size');
       let rightImage = document.querySelector('.additional-image');
       let mainImage = document.querySelector('.main-image-wrapper');
+      let proseText = document.querySelector('.text-arrow');
       window.addEventListener('scroll', function() {
         ringSizeBlocks.forEach(function(block, index) {
-          var boundingRect = block.getBoundingClientRect();
+          let boundingRect = block.getBoundingClientRect();
 
-          if (boundingRect.top < window.innerHeight && boundingRect.bottom >= 0) {
+          if (boundingRect.top < (window.innerHeight / 0.75) && boundingRect.bottom >= 0) {
             rightImage.style.opacity = '1';
             rightImage.style.transform = 'translateY(0)';
             mainImage.style.opacity = '1';
             mainImage.style.transform = 'translateX(0)';
+            proseText.style.opacity = '1';
+            proseText.style.transform = 'translateY(30)';
             setTimeout(function() {
               block.style.opacity = '1';
               block.style.transform = 'translateY(0)';
-            }, index * 700); // Adjust the delay (200 milliseconds in this example)
+            }, index * 700);
           }
         });
       });
     });
-  </script>
-      
-  <script>
-        function colorLastWords(sentence, parentElementId, numberOfWords) {
-          let parentElement = document.getElementById(parentElementId);
-          let words = sentence.split(' ');
-          let lastWords = words.slice(-numberOfWords).join(' ');
-          let modifiedText = sentence.replace(lastWords, '<span class="last-word">' + lastWords + '</span>');
-          parentElement.innerHTML = modifiedText;
-        }
-
-        colorLastWords("{{section.settings.body_text}}", 'body-text', 2);
   </script>
   {% schema %}
   {
@@ -228,10 +362,19 @@
         "id": "background_gradient",
         "label": "Background Gradient"
       },
+       {
+            "type": "range",
+            "label": "Ring Sizes bottom position",
+            "id": "sizes-bottom",
+            "min": -10,
+            "max": 10,
+            "default": 2,
+            "step": 1
+          },
       {
         "type": "color",
-        "id": "header_span_color",
-        "label": "Header Span Color",
+        "id": "header-color",
+        "label": "Header Color",
         "default": "#5252FF"
       },
       {
@@ -239,6 +382,18 @@
         "label": "Body Text",
         "id": "body_text",
         "default": "Different size for different uses"
+      },
+      {
+        "type": "text",
+        "label": "Additional Text 1",
+        "id": "add-text-1",
+        "default": "watch strap"
+      },
+      {
+        "type": "text",
+        "label": "Additional Text 2",
+        "id": "add-text-2",
+        "default": "verlock strap"
       },
       {
         "type": "select",

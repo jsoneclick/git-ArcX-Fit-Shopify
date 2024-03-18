@@ -1,0 +1,211 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 0rem;
+    background-color: {{section.settings.backgroundColor}};;
+    background: {{section.settings.background}};
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #shopify-section-{{ section.id }} .prose {
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .prose p {
+    font-size: var(--text-base);
+    max-width: 50vw;
+  }
+
+   #shopify-section-{{ section.id }} .animation-bluetooth-wrapper {
+     position: relative;
+     padding: 7rem;
+   }
+  #shopify-section-{{ section.id }} #bluetooth-header {
+    color: {{section.settings.header-color}};
+  }
+  
+  #shopify-section-{{ section.id }} .circle-1 {
+    position: absolute;
+    border: 8px solid #1b82f7;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+  }
+
+  #shopify-section-{{ section.id }} .circle-2 {
+    position: absolute;
+    border: 6px solid #1b82f7;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 240px;
+  }
+
+  #shopify-section-{{ section.id }} .circle-3 {
+    position: absolute;
+    border: 4px solid #1b82f7;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 280px;
+  }
+
+  #shopify-section-{{ section.id }} .circle-4 {
+    position: absolute;
+    border: 2px solid #1b82f7;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 320px;
+  }
+
+   #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-1,
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-2,
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-3,
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-4 {
+    animation: spreadAnimation 4s linear infinite;
+  }
+   #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-1{animation-delay: 0s;}
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-2{animation-delay: -1.3s;}
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-3{animation-delay: -2.6s;}
+  #shopify-section-{{ section.id }} .animation-bluetooth-wrapper .circle-4{animation-delay: -4s;}
+
+  @keyframes spreadAnimation {
+    0% {
+      height: 100px;
+      border-width: 8px;
+      opacity: 1;
+    }
+    25% {
+      height: 200px;
+      border-width: 6px;
+      opacity: 1;
+    }
+    50% {
+      height: 240px;
+      border-width: 4px;
+      opacity: 1;
+    }
+    75% {
+      height: 280px;
+      border-width: 2px;
+      opacity: 1;
+    }
+    100% {
+      height: 320px;
+      border-width: 0;
+      opacity: 0;
+    }
+  }
+
+  
+  #shopify-section-{{ section.id }} .center-logo-wrapper {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      
+  }
+  #shopify-section-{{ section.id }} .center-logo-wrapper img {
+    width: 150px;
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .last-word {
+      color: {{ section.settings.header_span_color }}; 
+    font-family: 'Gotham-Black';
+    }
+
+  @media screen and (max-width: 990px) {
+    #shopify-section-{{ section.id }} {
+      padding: 3rem 1rem;
+      flex-direction: column;
+      justify-content: start;
+  }
+    #shopify-section-{{ section.id }} .prose p {
+    font-size: var(--text-base);
+    max-width: 100%;
+  }
+    #shopify-section-{{ section.id }} .animation-bluetooth-wrapper {
+     padding: 5rem;
+      margin-block-end: 0rem;
+      margin-block-start: 0rem;
+      transform: scale(.85);
+   }
+  }
+  
+</style>
+
+ <div class="prose">
+    <div id="bluetooth-header">
+    {{ section.settings.prose-header }}
+    </div>
+    {{ section.settings.prose-text }}
+ </div>
+ <div class="animation-bluetooth-wrapper">
+   <div class="circle-1"></div>
+   <div class="circle-2"></div>
+   <div class="circle-3"></div>
+   <div class="circle-4"></div>
+   <div class="center-logo-wrapper">
+      {% if section.settings.center-logo %}<img src="{{ section.settings.center-logo | image_url}}" loading="lazy">{% endif %}
+   </div>
+ </div>
+ {% render 'last-word-colorizer' %}
+  <script>
+    //colorLastWords("{{section.settings.prose-header }}", 'bluetooth-header', 1);
+</script>
+
+{% schema %}
+{
+  "name": "Bluetooth Animation",
+  "settings": [ 
+    {
+        "type": "richtext",
+        "id": "prose-header",
+        "label": "Header",
+        "default": "<h1>Bluetooth connection</h1>"
+      },
+    {
+        "type": "color",
+        "id": "header-color",
+        "label": "Header Color",
+        "default": "#5252FF"
+      },
+    {
+        "type": "richtext",
+        "id": "prose-text",
+        "label": "Body Text",
+        "default": "<p>Place Body Text There</p>"
+      },
+     {
+      "type": "color",
+      "id": "backgroundColor",
+      "label": "Background Color"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background Gradient"
+    },
+    {
+          "type": "image_picker",
+          "id": "center-logo",
+          "label": "Logo Center"
+        }
+  ],
+  "presets": [
+    {
+      "name": "Bluetooth animation"
+    }
+  ]
+}
+{% endschema %}

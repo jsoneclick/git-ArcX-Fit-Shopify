@@ -22,11 +22,10 @@ Supported variables
 {% if subheading != blank or heading != blank or content != blank or link_text != blank %}
   <section-header class="section-header {% if text_alignment != blank %}justify-{{ text_alignment | escape }} justify-items-{{ text_alignment | escape }} text-{{ text_alignment | escape }}{% endif %}">
     {%- if subheading != blank or heading != blank or content != blank -%}
-      <div class="prose">
+      <div class="prose" >
         {%- if subheading != blank -%}
-          <p class="bold">{{- subheading | escape -}}</p>
+          <p class="subheading">{{- subheading | escape -}}</p>
         {%- endif -%}
-
         {%- if heading != blank -%}
           <h2 class="h2" {% if settings.heading_apparition != 'none' %}reveal-on-scroll="true"{% endif %}>
             {%- render 'styled-text', content: heading, text_color: heading_color, gradient: heading_gradient, apparition_effect: true -%}
